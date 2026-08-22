@@ -1,0 +1,30 @@
+{
+  "id": "hf_support_radiator_s",
+  "name": "外置矩阵散热片",
+  "faction": "HeavyFoundry",
+  "category": "Power",
+  "width": 1,
+  "height": 1,
+  "mass": 1.5,
+  "baseHp": 100.0,
+  "armorResistance": 5.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/power/hf_support_radiator_s_base.png",
+  "spriteOverlay": "",
+  "tags": ["Cooling", "Radiator", "Support"],
+  "pins": [
+	{
+	  "pinId": "heat_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "Thermal"
+	}
+  ],
+  "properties": {
+	"coolingRate": 12.0,
+	"requireExternal": true
+  }
+}

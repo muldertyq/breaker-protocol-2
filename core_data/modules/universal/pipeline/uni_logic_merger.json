@@ -1,0 +1,43 @@
+{
+  "id": "uni_logic_merger",
+  "name": "脉冲合流芯片",
+  "faction": "Universal",
+  "category": "Pipeline",
+  "width": 1,
+  "height": 1,
+  "mass": 0.3,
+  "baseHp": 50.0,
+  "armorResistance": 5.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/universal/pipeline/uni_logic_merger_line.png",
+  "spriteOverlay": "",
+  "tags": ["Logic", "Merger", "Pipeline"],
+  "pins": [
+	{
+	  "pinId": "in_port_1",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "in_port_2",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "out_port",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"ports": 3
+  }
+}

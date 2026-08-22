@@ -1,0 +1,19 @@
+{
+  "id": "hf_armor_plate_s",
+  "name": "标准平面装甲板",
+  "faction": "HeavyFoundry",
+  "category": "Armor",
+  "width": 1,
+  "height": 1,
+  "mass": 3.0,
+  "baseHp": 350.0,
+  "armorResistance": 40.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/armor/hf_armor_plate_s_armor.png",
+  "spriteOverlay": "",
+  "tags": ["Armor", "Plating"],
+  "pins": [],
+  "properties": {}
+}

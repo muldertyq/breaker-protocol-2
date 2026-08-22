@@ -1,0 +1,34 @@
+{
+  "id": "hf_wep_rocket_pod_s",
+  "name": "蜂巢小型火箭巢",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 1,
+  "height": 2,
+  "mass": 5.0,
+  "baseHp": 180.0,
+  "armorResistance": 15.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_rocket_pod_s_base.png",
+  "spriteOverlay": "",
+  "tags": ["Weapon", "Missile", "Rocket", "Salvo", "Fixed"],
+  "pins": [
+	{
+	  "pinId": "power_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 45.0,
+	"fireRate": 8.0,
+	"range": 80.0,
+	"ammoMax": 20,
+	"reloadTime": 10.0,
+	"pulseCost": 1.0
+  }
+}

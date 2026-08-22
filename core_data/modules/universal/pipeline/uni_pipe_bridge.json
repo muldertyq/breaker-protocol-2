@@ -1,0 +1,36 @@
+{
+  "id": "uni_pipe_bridge",
+  "name": "通用脉冲直桥",
+  "faction": "Universal",
+  "category": "Pipeline",
+  "width": 1,
+  "height": 1,
+  "mass": 0.2,
+  "baseHp": 50.0,
+  "armorResistance": 5.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/universal/pipeline/uni_pipe_bridge_line.png",
+  "spriteOverlay": "",
+  "tags": ["Pipeline", "Conduit"],
+  "pins": [
+	{
+	  "pinId": "in_port",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "out_port",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"lossRate": 0.0
+  }
+}

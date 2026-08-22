@@ -1,0 +1,19 @@
+{
+  "id": "hf_armor_heavy_wedge",
+  "name": "重型楔形主装甲",
+  "faction": "HeavyFoundry",
+  "category": "Armor",
+  "width": 2,
+  "height": 2,
+  "mass": 18.0,
+  "baseHp": 1800.0,
+  "armorResistance": 85.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/armor/hf_armor_heavy_wedge_armor.png",
+  "spriteOverlay": "",
+  "tags": ["Armor", "HeavyArmor", "Wedge"],
+  "pins": [],
+  "properties": {}
+}

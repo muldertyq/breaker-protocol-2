@@ -1,0 +1,32 @@
+{
+  "id": "hf_wep_pd_laser",
+  "name": "点防御激光塔",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 1,
+  "height": 1,
+  "mass": 2.0,
+  "baseHp": 150.0,
+  "armorResistance": 10.0,
+  "mountType": "Turret",
+  "rotationArc": 360.0,
+  "turnRate": 180.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_pd_laser_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_pd_laser_turret.png",
+  "tags": ["Weapon", "Energy", "PointDefense", "Turret"],
+  "pins": [
+	{
+	  "pinId": "power_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 15.0,
+	"fireRate": 10.0,
+	"range": 45.0,
+	"pulseCost": 0.5
+  }
+}

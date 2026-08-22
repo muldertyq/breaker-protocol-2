@@ -1,0 +1,19 @@
+{
+  "id": "hf_armor_wedge_corner",
+  "name": "三角斜角装甲",
+  "faction": "HeavyFoundry",
+  "category": "Armor",
+  "width": 1,
+  "height": 1,
+  "mass": 2.5,
+  "baseHp": 300.0,
+  "armorResistance": 45.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/armor/hf_armor_wedge_corner_armor.png",
+  "spriteOverlay": "",
+  "tags": ["Armor", "Wedge", "Corner"],
+  "pins": [],
+  "properties": {}
+}

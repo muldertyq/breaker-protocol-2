@@ -1,0 +1,39 @@
+{
+  "id": "hf_shield_emitter_front",
+  "name": "正面偏导护盾发生器",
+  "faction": "HeavyFoundry",
+  "category": "Armor",
+  "width": 2,
+  "height": 2,
+  "mass": 14.0,
+  "baseHp": 400.0,
+  "armorResistance": 20.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/armor/hf_shield_emitter_front_base.png",
+  "spriteOverlay": "modules/heavy_foundry/armor/hf_shield_emitter_front_glow.png",
+  "tags": ["Defense", "Shield", "Directional"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"shieldCapacity": 600.0,
+	"rechargeRate": 25.0,
+	"pulseCost": 8.0,
+	"shieldArc": 180.0
+  }
+}

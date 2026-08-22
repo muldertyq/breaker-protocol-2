@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://581xbkxn2qhu"]
+
+[ext_resource type="Script" uid="uid://n4r4irctvpro" path="res://Scripts/Test/Test_Mod_Loader.cs" id="1_eixvo"]
+
+[node name="TestModLoader" type="Node2D" unique_id=1481290256]
+script = ExtResource("1_eixvo")

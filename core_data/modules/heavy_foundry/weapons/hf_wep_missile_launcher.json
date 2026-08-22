@@ -1,0 +1,41 @@
+{
+  "id": "hf_wep_missile_launcher",
+  "name": "“标枪”中型导弹发射器",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 2,
+  "height": 2,
+  "mass": 10.0,
+  "baseHp": 280.0,
+  "armorResistance": 22.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_missile_launcher_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_missile_launcher_bays.png",
+  "tags": ["Weapon", "Missile", "Guided", "Fixed"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 220.0,
+	"fireRate": 0.8,
+	"range": 160.0,
+	"ammoMax": 8,
+	"trackingStrength": 4.5,
+	"pulseCost": 4.0
+  }
+}

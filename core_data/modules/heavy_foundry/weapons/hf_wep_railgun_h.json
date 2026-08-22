@@ -1,0 +1,36 @@
+{
+  "id": "hf_wep_railgun_h",
+  "name": "“破城者”重型磁轨主炮",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 3,
+  "height": 1,
+  "mass": 22.0,
+  "baseHp": 500.0,
+  "armorResistance": 50.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_railgun_h_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_railgun_h_glow.png",
+  "tags": ["Weapon", "Kinetic", "Railgun", "Heavy", "Fixed"],
+  "pins": [
+	{
+	  "pinId": "power_in_core",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "HeavyPulse"
+	}
+  ],
+  "properties": {
+	"damage": 380.0,
+	"fireRate": 1.0,
+	"range": 150.0,
+	"speed": 350.0,
+	"pierce": 3,
+	"pulseCost": 12.0,
+	"recoil": 3200.0,
+	"heatPerShot": 45.0
+  }
+}

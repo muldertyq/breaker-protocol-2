@@ -1,0 +1,41 @@
+{
+  "id": "hf_wep_torpedo_launcher",
+  "name": "攻城鱼雷发射巢",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 2,
+  "height": 3,
+  "mass": 16.0,
+  "baseHp": 350.0,
+  "armorResistance": 35.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_torpedo.png",
+  "tags": ["Weapon", "Torpedo", "Heavy", "Fixed"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 650.0,
+	"fireRate": 0.33,
+	"range": 200.0,
+	"speed": 90.0,
+	"ammoMax": 4,
+	"pulseCost": 6.0
+  }
+}

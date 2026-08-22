@@ -1,0 +1,2333 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+core_data/
+  modules/
+    heavy_foundry/
+      armor/
+        hf_armor_heavy_wedge_armor.png
+        hf_armor_heavy_wedge_armor.png.import
+        hf_armor_plate_s_armor.png
+        hf_armor_plate_s_armor.png.import
+        hf_armor_plate_sloped_armor.png
+        hf_armor_plate_sloped_armor.png.import
+        hf_armor_wedge_corner_armor.png
+        hf_armor_wedge_corner_armor.png.import
+        hf_shield_emitter_front_base.png
+        hf_shield_emitter_front_base.png.import
+        hf_shield_emitter_front_glow.png
+        hf_shield_emitter_front_glow.png.import
+      power/
+        hf_core_battery_bank_base.png
+        hf_core_battery_bank_base.png.import
+        hf_core_reactor_medium_base.png
+        hf_core_reactor_medium_base.png.import
+        hf_core_reactor_medium_glow.png
+        hf_core_reactor_medium_glow.png.import
+        hf_core_reactor_small_base.png
+        hf_core_reactor_small_base.png.import
+        hf_core_reactor_small_glow.png
+        hf_core_reactor_small_glow.png.import
+        hf_support_radiator_s_base.png
+        hf_support_radiator_s_base.png.import
+      propulsion/
+        hf_thruster_afterburner_base.png
+        hf_thruster_afterburner_base.png.import
+        hf_thruster_main_heavy_base.png
+        hf_thruster_main_heavy_base.png.import
+        hf_thruster_micro_base.png
+        hf_thruster_micro_base.png.import
+      structural/
+        hf_truss_standard_base.png
+        hf_truss_standard_base.png.import
+      weapons/
+        hf_hangar_bay_drone_base.png
+        hf_hangar_bay_drone_base.png.import
+        hf_hangar_bay_drone_drone.png
+        hf_hangar_bay_drone_drone.png.import
+        hf_wep_autocannon_s_base.png
+        hf_wep_autocannon_s_base.png.import
+        hf_wep_autocannon_s_turret.png
+        hf_wep_autocannon_s_turret.png.import
+        hf_wep_heavy_mg_m_base.png
+        hf_wep_heavy_mg_m_base.png.import
+        hf_wep_heavy_mg_m_turret.png
+        hf_wep_heavy_mg_m_turret.png.import
+        hf_wep_missile_launcher_base.png
+        hf_wep_missile_launcher_base.png.import
+        hf_wep_missile_launcher_bays.png
+        hf_wep_missile_launcher_bays.png.import
+        hf_wep_missile_launcher_missile.png
+        hf_wep_missile_launcher_missile.png.import
+        hf_wep_pd_laser_base.png
+        hf_wep_pd_laser_base.png.import
+        hf_wep_pd_laser_turret.png
+        hf_wep_pd_laser_turret.png.import
+        hf_wep_pulse_laser_m_base.png
+        hf_wep_pulse_laser_m_base.png.import
+        hf_wep_pulse_laser_m_turret.png
+        hf_wep_pulse_laser_m_turret.png.import
+        hf_wep_railgun_h_base.png
+        hf_wep_railgun_h_base.png.import
+        hf_wep_railgun_h_glow.png
+        hf_wep_railgun_h_glow.png.import
+        hf_wep_railgun_h.png
+        hf_wep_railgun_h.png.import
+        hf_wep_rocket_pod_s_base.png
+        hf_wep_rocket_pod_s_base.png.import
+        hf_wep_torpedo_launcher_base.png
+        hf_wep_torpedo_launcher_base.png.import
+        hf_wep_torpedo_launcher_torpedo.png
+        hf_wep_torpedo_launcher_torpedo.png.import
+    universal/
+      pipeline/
+        uni_logic_crosser_line.png
+        uni_logic_crosser_line.png.import
+        uni_logic_merger_line.png
+        uni_logic_merger_line.png.import
+        uni_logic_splitter_line.png
+        uni_logic_splitter_line.png.import
+        uni_pipe_bridge_line.png
+        uni_pipe_bridge_line.png.import
+Scripts/
+  Camera/
+    CombatCameraController.cs
+    CombatCameraController.cs.uid
+  Core/
+    GlobalMetrics.cs
+    GlobalMetrics.cs.uid
+  Utils/
+    MathUtils.cs
+    MathUtils.cs.uid
+.editorconfig
+.gitattributes
+.gitignore
+breaker protocol 2.csproj
+breaker protocol 2.sln
+icon.svg
+icon.svg.import
+project.godot
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="core_data/modules/heavy_foundry/armor/hf_armor_heavy_wedge_armor.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bhl8468300xxg"
+path="res://.godot/imported/hf_armor_heavy_wedge_armor.png-89a67f3dd8eaf0371a3f4c1d6ef143f2.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_armor_heavy_wedge_armor.png"
+dest_files=["res://.godot/imported/hf_armor_heavy_wedge_armor.png-89a67f3dd8eaf0371a3f4c1d6ef143f2.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/armor/hf_armor_plate_s_armor.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://ddg0xtk3y5npe"
+path="res://.godot/imported/hf_armor_plate_s_armor.png-dab0510f111c1d6000bb1240f166fe47.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_armor_plate_s_armor.png"
+dest_files=["res://.godot/imported/hf_armor_plate_s_armor.png-dab0510f111c1d6000bb1240f166fe47.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/armor/hf_armor_plate_sloped_armor.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cjw37rnn0w7m2"
+path="res://.godot/imported/hf_armor_plate_sloped_armor.png-b978228f688911f47a75ecb9c00c7147.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_armor_plate_sloped_armor.png"
+dest_files=["res://.godot/imported/hf_armor_plate_sloped_armor.png-b978228f688911f47a75ecb9c00c7147.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/armor/hf_armor_wedge_corner_armor.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cj4ou3i4fnhip"
+path="res://.godot/imported/hf_armor_wedge_corner_armor.png-899648229251261f37c6c05d7e06635a.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_armor_wedge_corner_armor.png"
+dest_files=["res://.godot/imported/hf_armor_wedge_corner_armor.png-899648229251261f37c6c05d7e06635a.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/armor/hf_shield_emitter_front_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dti1ju58mkx60"
+path="res://.godot/imported/hf_shield_emitter_front_base.png-f599d805eddd492e77d26cd2bb80e21e.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_shield_emitter_front_base.png"
+dest_files=["res://.godot/imported/hf_shield_emitter_front_base.png-f599d805eddd492e77d26cd2bb80e21e.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/armor/hf_shield_emitter_front_glow.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bggl525aa5i7p"
+path="res://.godot/imported/hf_shield_emitter_front_glow.png-25207b388671f45e1d896df8962fa86b.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/armor/hf_shield_emitter_front_glow.png"
+dest_files=["res://.godot/imported/hf_shield_emitter_front_glow.png-25207b388671f45e1d896df8962fa86b.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_core_battery_bank_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b03v8k0yqq64l"
+path="res://.godot/imported/hf_core_battery_bank_base.png-c449e8c6dbb5135944d61febd018552d.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_core_battery_bank_base.png"
+dest_files=["res://.godot/imported/hf_core_battery_bank_base.png-c449e8c6dbb5135944d61febd018552d.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_core_reactor_medium_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bp07pedpk36ue"
+path="res://.godot/imported/hf_core_reactor_medium_base.png-22265671ebeea44b61fb72c72511e491.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_core_reactor_medium_base.png"
+dest_files=["res://.godot/imported/hf_core_reactor_medium_base.png-22265671ebeea44b61fb72c72511e491.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_core_reactor_medium_glow.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://shtkkaisbduq"
+path="res://.godot/imported/hf_core_reactor_medium_glow.png-97268fbb1408fe2655248773fa4d41a0.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_core_reactor_medium_glow.png"
+dest_files=["res://.godot/imported/hf_core_reactor_medium_glow.png-97268fbb1408fe2655248773fa4d41a0.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_core_reactor_small_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://jsg8kfmku2jl"
+path="res://.godot/imported/hf_core_reactor_small_base.png-14e9d25da4fc1439934d0c11cf5f256f.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_core_reactor_small_base.png"
+dest_files=["res://.godot/imported/hf_core_reactor_small_base.png-14e9d25da4fc1439934d0c11cf5f256f.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_core_reactor_small_glow.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c83loxxnor5r6"
+path="res://.godot/imported/hf_core_reactor_small_glow.png-7147a875b4739ce3f35b650138921541.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_core_reactor_small_glow.png"
+dest_files=["res://.godot/imported/hf_core_reactor_small_glow.png-7147a875b4739ce3f35b650138921541.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/power/hf_support_radiator_s_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://ckmkwnc2qfo5c"
+path="res://.godot/imported/hf_support_radiator_s_base.png-38e690a7f234b593f656da6160863380.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/power/hf_support_radiator_s_base.png"
+dest_files=["res://.godot/imported/hf_support_radiator_s_base.png-38e690a7f234b593f656da6160863380.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/propulsion/hf_thruster_afterburner_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cfsubm2hx04vu"
+path="res://.godot/imported/hf_thruster_afterburner_base.png-01e061538ff2e3f20eba9435a4005eea.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/propulsion/hf_thruster_afterburner_base.png"
+dest_files=["res://.godot/imported/hf_thruster_afterburner_base.png-01e061538ff2e3f20eba9435a4005eea.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/propulsion/hf_thruster_main_heavy_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://o7sm2eqj4xow"
+path="res://.godot/imported/hf_thruster_main_heavy_base.png-5ce9a958bb1ea73f7c2707665429bd49.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/propulsion/hf_thruster_main_heavy_base.png"
+dest_files=["res://.godot/imported/hf_thruster_main_heavy_base.png-5ce9a958bb1ea73f7c2707665429bd49.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/propulsion/hf_thruster_micro_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c53jphl01f05v"
+path="res://.godot/imported/hf_thruster_micro_base.png-3ed6ea756a6ae47aeeadf3dade6ab5a0.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/propulsion/hf_thruster_micro_base.png"
+dest_files=["res://.godot/imported/hf_thruster_micro_base.png-3ed6ea756a6ae47aeeadf3dade6ab5a0.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/structural/hf_truss_standard_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://r4cmft4gvo81"
+path="res://.godot/imported/hf_truss_standard_base.png-ce9f2802c28fb58651fa1e3771f2a952.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/structural/hf_truss_standard_base.png"
+dest_files=["res://.godot/imported/hf_truss_standard_base.png-ce9f2802c28fb58651fa1e3771f2a952.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_hangar_bay_drone_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dbdb5cuuyh5oy"
+path="res://.godot/imported/hf_hangar_bay_drone_base.png-432306e3e600f9d0f7e6ae45c1b06afc.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_hangar_bay_drone_base.png"
+dest_files=["res://.godot/imported/hf_hangar_bay_drone_base.png-432306e3e600f9d0f7e6ae45c1b06afc.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bmuoho4i3qreb"
+path="res://.godot/imported/hf_hangar_bay_drone_drone.png-630ed2c6d4019fec9a2a7192b8b6b357.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png"
+dest_files=["res://.godot/imported/hf_hangar_bay_drone_drone.png-630ed2c6d4019fec9a2a7192b8b6b357.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_autocannon_s_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://drfbpfeqvqd3a"
+path="res://.godot/imported/hf_wep_autocannon_s_base.png-ac5c9ae4e8d2fd77af0184651b089590.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_autocannon_s_base.png"
+dest_files=["res://.godot/imported/hf_wep_autocannon_s_base.png-ac5c9ae4e8d2fd77af0184651b089590.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_autocannon_s_turret.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bmvh0iinagh4a"
+path="res://.godot/imported/hf_wep_autocannon_s_turret.png-4e646801b8431c5d963faccff670e8f6.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_autocannon_s_turret.png"
+dest_files=["res://.godot/imported/hf_wep_autocannon_s_turret.png-4e646801b8431c5d963faccff670e8f6.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c5vtalqxk6s01"
+path="res://.godot/imported/hf_wep_heavy_mg_m_base.png-d0151067e7a126ee15986f317a0ab531.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_base.png"
+dest_files=["res://.godot/imported/hf_wep_heavy_mg_m_base.png-d0151067e7a126ee15986f317a0ab531.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_turret.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://7ag7huyii5y4"
+path="res://.godot/imported/hf_wep_heavy_mg_m_turret.png-869a6f7d6d71dd0f3e55cf916979e9e0.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_turret.png"
+dest_files=["res://.godot/imported/hf_wep_heavy_mg_m_turret.png-869a6f7d6d71dd0f3e55cf916979e9e0.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://db7n0iugyywab"
+path="res://.godot/imported/hf_wep_missile_launcher_base.png-519b1fe3e00b9f404dd1b043e3e5ae58.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_base.png"
+dest_files=["res://.godot/imported/hf_wep_missile_launcher_base.png-519b1fe3e00b9f404dd1b043e3e5ae58.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_bays.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bdq6tfhhhfmdg"
+path="res://.godot/imported/hf_wep_missile_launcher_bays.png-25a5a3fbcf2b01912dc993b2a10f3c21.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_bays.png"
+dest_files=["res://.godot/imported/hf_wep_missile_launcher_bays.png-25a5a3fbcf2b01912dc993b2a10f3c21.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_missile.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cklb5nbrlmni4"
+path="res://.godot/imported/hf_wep_missile_launcher_missile.png-67e1d931b5c6ec44f2b2b8af020961c6.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_missile_launcher_missile.png"
+dest_files=["res://.godot/imported/hf_wep_missile_launcher_missile.png-67e1d931b5c6ec44f2b2b8af020961c6.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_pd_laser_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b6xrptmj72s7b"
+path="res://.godot/imported/hf_wep_pd_laser_base.png-147dcfb1999525ea039faf1c9e009e45.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_pd_laser_base.png"
+dest_files=["res://.godot/imported/hf_wep_pd_laser_base.png-147dcfb1999525ea039faf1c9e009e45.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_pd_laser_turret.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://12m8tox41q87"
+path="res://.godot/imported/hf_wep_pd_laser_turret.png-9dc8b95a4758997b30784ebcca70b498.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_pd_laser_turret.png"
+dest_files=["res://.godot/imported/hf_wep_pd_laser_turret.png-9dc8b95a4758997b30784ebcca70b498.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://kd4b67a21hc"
+path="res://.godot/imported/hf_wep_pulse_laser_m_base.png-3ae48b0047af2424c5f99dcf158b6fd4.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_base.png"
+dest_files=["res://.godot/imported/hf_wep_pulse_laser_m_base.png-3ae48b0047af2424c5f99dcf158b6fd4.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_turret.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b45hjuime77a"
+path="res://.godot/imported/hf_wep_pulse_laser_m_turret.png-d94f05f66b0681482fe7ea15845dbc10.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_turret.png"
+dest_files=["res://.godot/imported/hf_wep_pulse_laser_m_turret.png-d94f05f66b0681482fe7ea15845dbc10.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dj3e351ve1fdh"
+path="res://.godot/imported/hf_wep_railgun_h_base.png-e2fa6f5d9e932d29e386367487574176.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h_base.png"
+dest_files=["res://.godot/imported/hf_wep_railgun_h_base.png-e2fa6f5d9e932d29e386367487574176.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h_glow.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://i2eoqhtgwcx5"
+path="res://.godot/imported/hf_wep_railgun_h_glow.png-5921226884aa5002dfc0ad85c9aaba19.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h_glow.png"
+dest_files=["res://.godot/imported/hf_wep_railgun_h_glow.png-5921226884aa5002dfc0ad85c9aaba19.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://druhp10twkbrf"
+path="res://.godot/imported/hf_wep_railgun_h.png-8e43175657d1887a86eaef5721f25435.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_railgun_h.png"
+dest_files=["res://.godot/imported/hf_wep_railgun_h.png-8e43175657d1887a86eaef5721f25435.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_rocket_pod_s_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://884vy07lrdv5"
+path="res://.godot/imported/hf_wep_rocket_pod_s_base.png-50e25a231d68c6f93b440b5ed0810c2f.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_rocket_pod_s_base.png"
+dest_files=["res://.godot/imported/hf_wep_rocket_pod_s_base.png-50e25a231d68c6f93b440b5ed0810c2f.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_base.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://k7akwsuv5e54"
+path="res://.godot/imported/hf_wep_torpedo_launcher_base.png-81ce3d37f4f8306998fe973286e51f4b.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_base.png"
+dest_files=["res://.godot/imported/hf_wep_torpedo_launcher_base.png-81ce3d37f4f8306998fe973286e51f4b.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_torpedo.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cb3eq6v0xqlb4"
+path="res://.godot/imported/hf_wep_torpedo_launcher_torpedo.png-441e723dcfbb25e7bd1175c1224e499a.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/heavy_foundry/weapons/hf_wep_torpedo_launcher_torpedo.png"
+dest_files=["res://.godot/imported/hf_wep_torpedo_launcher_torpedo.png-441e723dcfbb25e7bd1175c1224e499a.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/universal/pipeline/uni_logic_crosser_line.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cngsvoxdv2ro1"
+path="res://.godot/imported/uni_logic_crosser_line.png-e5b31089649320a3f5828770d853358c.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/universal/pipeline/uni_logic_crosser_line.png"
+dest_files=["res://.godot/imported/uni_logic_crosser_line.png-e5b31089649320a3f5828770d853358c.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/universal/pipeline/uni_logic_merger_line.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://brrj474up12v"
+path="res://.godot/imported/uni_logic_merger_line.png-ad1ef89f1abcd91ca0ae88384454f5f1.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/universal/pipeline/uni_logic_merger_line.png"
+dest_files=["res://.godot/imported/uni_logic_merger_line.png-ad1ef89f1abcd91ca0ae88384454f5f1.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/universal/pipeline/uni_logic_splitter_line.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://uiod1nes724g"
+path="res://.godot/imported/uni_logic_splitter_line.png-6f3086b02fe5a01169cab7addb579b80.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/universal/pipeline/uni_logic_splitter_line.png"
+dest_files=["res://.godot/imported/uni_logic_splitter_line.png-6f3086b02fe5a01169cab7addb579b80.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="core_data/modules/universal/pipeline/uni_pipe_bridge_line.png.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bcl33gho0wmu6"
+path="res://.godot/imported/uni_pipe_bridge_line.png-3aca884c510f59312645e74abf888750.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://core_data/modules/universal/pipeline/uni_pipe_bridge_line.png"
+dest_files=["res://.godot/imported/uni_pipe_bridge_line.png-3aca884c510f59312645e74abf888750.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+</file>
+
+<file path="Scripts/Camera/CombatCameraController.cs">
+using Godot;
+using BreakerProtocol.Core;
+using BreakerProtocol.Utils;
+
+namespace BreakerProtocol.Camera
+{
+	public enum CameraZoomTier
+	{
+		WiringMode,   // 1.5x: Tab 键走线微观视图
+		Standard,     // 1.0x: 常规交火视口
+		Tactical,     // 0.7x: 高速战术拉远
+		CapitalBoss   // 0.5x: 巨舰决战
+	}
+
+	/// <summary>
+	/// 物理同步版：动态战斗摄像机控制器 (消除物理抖动与重影，完美平滑追踪)
+	/// </summary>
+	[GlobalClass]
+	public partial class CombatCameraController : Camera2D
+	{
+		[ExportGroup("追踪目标与权重 (Lookahead)")]
+		[Export] public Node2D? TargetShip { get; set; }
+
+		[Export] public float VelocityLookaheadTime { get; set; } = 0.40f; // 航速前瞻时间 (秒)
+		[Export] public float CursorLookaheadWeight { get; set; } = 0.20f; // 准星前瞻权重
+
+		[ExportGroup("平滑阻尼时间 (Damping)")]
+		[Export] public float PositionSmoothTime { get; set; } = 0.08f;    // 摄像机平滑延迟
+		[Export] public float ZoomSmoothTime { get; set; } = 0.18f;        // 缩放平滑过渡
+
+		[ExportGroup("自适应缩放阈值 (px/s)")]
+		[Export] public float SpeedZoomOutThreshold { get; set; } = 300.0f; // 超 37.5m/s 开始拉远
+		[Export] public float SpeedZoomInThreshold { get; set; } = 180.0f;  // 低于 22.5m/s 恢复
+
+		private CameraZoomTier _currentZoomTier = CameraZoomTier.Standard;
+		private Vector2 _currentVelocity = Vector2.Zero;
+		private float _currentZoomVelocity = 0.0f;
+
+		private Label? _debugLabel;
+
+		public override void _Ready()
+		{
+			// 确保摄像机属性正确
+			Enabled = true;
+			PositionSmoothingEnabled = false; // 由 MathUtils 手动精确解算
+			MakeCurrent();
+
+			FindAndBindTarget();
+			CreateDebugHUD();
+		}
+
+		// 关键改动：将逻辑全部放在 _PhysicsProcess 中执行，与 RigidBody2D 物理步长完全对齐！
+		public override void _PhysicsProcess(double delta)
+		{
+			if (TargetShip == null || !IsInstanceValid(TargetShip))
+			{
+				FindAndBindTarget();
+				if (TargetShip == null) return;
+			}
+
+			float dt = (float)delta;
+
+			// 1. 读取飞船物理线速度
+			Vector2 shipPos = TargetShip.GlobalPosition;
+			Vector2 shipVelocity = Vector2.Zero;
+			if (TargetShip is RigidBody2D rb)
+			{
+				shipVelocity = rb.LinearVelocity;
+			}
+
+			// 2. 状态机裁决 (Tab 优先，其次速度)
+			bool isTabPressed = Input.IsKeyPressed(Key.Tab);
+			float currentSpeed = shipVelocity.Length();
+
+			if (isTabPressed)
+			{
+				_currentZoomTier = CameraZoomTier.WiringMode;
+			}
+			else
+			{
+				if (_currentZoomTier == CameraZoomTier.Standard && currentSpeed > SpeedZoomOutThreshold)
+				{
+					_currentZoomTier = CameraZoomTier.Tactical;
+				}
+				else if (_currentZoomTier == CameraZoomTier.Tactical && currentSpeed < SpeedZoomInThreshold)
+				{
+					_currentZoomTier = CameraZoomTier.Standard;
+				}
+				else if (_currentZoomTier == CameraZoomTier.WiringMode)
+				{
+					_currentZoomTier = CameraZoomTier.Standard;
+				}
+			}
+
+			// 3. 计算前瞻中心目标点
+			Vector2 mouseWorldPos = GetGlobalMousePosition();
+			Vector2 velocityOffset = shipVelocity * VelocityLookaheadTime;
+			Vector2 cursorOffset = (mouseWorldPos - shipPos) * CursorLookaheadWeight;
+
+			Vector2 targetPos = shipPos + velocityOffset + cursorOffset;
+
+			// 4. 临界阻尼平滑计算位置与缩放
+			GlobalPosition = MathUtils.SmoothDampVec2(
+				GlobalPosition,
+				targetPos,
+				ref _currentVelocity,
+				PositionSmoothTime,
+				dt
+			);
+
+			float targetZoomVal = GetTargetZoomScale(_currentZoomTier);
+			float newZoom = MathUtils.SmoothDamp(
+				Zoom.X,
+				targetZoomVal,
+				ref _currentZoomVelocity,
+				ZoomSmoothTime,
+				dt
+			);
+			Zoom = new Vector2(newZoom, newZoom);
+
+			// 5. 刷新调试面板
+			UpdateDebugHUD(currentSpeed, velocityOffset.Length(), cursorOffset.Length());
+		}
+
+		private void FindAndBindTarget()
+		{
+			if (TargetShip != null && IsInstanceValid(TargetShip)) return;
+
+			var playerNode = GetTree().GetFirstNodeInGroup("Player") as Node2D;
+			if (playerNode != null)
+			{
+				TargetShip = playerNode;
+				GD.PrintRich("[color=green][CombatCamera] 成功绑定 Player 节点！[/color]");
+			}
+		}
+
+		private float GetTargetZoomScale(CameraZoomTier tier)
+		{
+			return tier switch
+			{
+				CameraZoomTier.WiringMode => 1.5f,
+				CameraZoomTier.Standard => 1.0f,
+				CameraZoomTier.Tactical => 0.7f,
+				CameraZoomTier.CapitalBoss => 0.5f,
+				_ => 1.0f
+			};
+		}
+
+		private void CreateDebugHUD()
+		{
+			var canvasLayer = new CanvasLayer();
+			AddChild(canvasLayer);
+
+			_debugLabel = new Label { Position = new Vector2(20, 20) };
+			_debugLabel.AddThemeColorOverride("font_color", new Color(0.2f, 1.0f, 0.4f, 1.0f));
+			_debugLabel.AddThemeFontSizeOverride("font_size", 16);
+			canvasLayer.AddChild(_debugLabel);
+		}
+
+		private void UpdateDebugHUD(float speedPx, float velOffset, float curOffset)
+		{
+			if (_debugLabel == null) return;
+			float speedMeters = GlobalMetrics.PixelsToMeters(speedPx);
+			_debugLabel.Text = $"【《断路协议》TASK-01 摄像机战术遥测】\n" +
+							   $"----------------------------------------\n" +
+							   $"跟随目标: {(TargetShip != null ? TargetShip.Name : "正在搜寻...")}\n" +
+							   $"当前航速: {speedMeters:F1} m/s ({speedPx:F0} px/s)\n" +
+							   $"视口缩放: {Zoom.X:F2}x (当前模式: {_currentZoomTier})\n" +
+							   $"前瞻偏移: 速度[{velOffset:F0}px] | 准星[{curOffset:F0}px]\n" +
+							   $"----------------------------------------\n" +
+							   $"[操作] WASD:移动 | Shift:加力冲刺 | Tab:1.5x走线 | Space:漂移";
+		}
+	}
+}
+</file>
+
+<file path="Scripts/Camera/CombatCameraController.cs.uid">
+uid://bi2jwmk7u7xt6
+</file>
+
+<file path="Scripts/Core/GlobalMetrics.cs">
+using Godot;
+
+namespace SpaceRoguelike.Core
+{
+	/// <summary>
+	/// 全局度量衡与基础物理换算类
+	/// 依据规范 01：1 逻辑网格 (GU) = 8x8 物理像素 (px) = 1.0 逻辑米 (m)
+	/// </summary>
+	public static class GlobalMetrics
+	{
+		// ==========================================
+		// 1. 基础度量衡常量定义
+		// ==========================================
+
+		/// <summary>
+		/// 每逻辑米对应的物理像素数 (Pixels Per Meter)
+		/// </summary>
+		public const float PixelsPerMeter = 8.0f;
+
+		/// <summary>
+		/// 单个网格单元的物理像素宽高 (Grid Unit Size in Pixels)
+		/// </summary>
+		public const int GridUnitPixels = 8;
+
+		/// <summary>
+		/// 单个网格单元对应的物理逻辑米长度 (1 GU = 1.0 m)
+		/// </summary>
+		public const float GridUnitMeters = 1.0f;
+
+		/// <summary>
+		/// 基准设计分辨率宽度 (1080p)
+		/// </summary>
+		public const int TargetScreenWidth = 1920;
+
+		/// <summary>
+		/// 基准设计分辨率高度 (1080p)
+		/// </summary>
+		public const int TargetScreenHeight = 1080;
+
+		/// <summary>
+		/// Zoom=1.0 时，屏幕可视宽度（物理米）：1920 / 8 = 240m
+		/// </summary>
+		public const float ViewportWidthMeters = TargetScreenWidth / PixelsPerMeter;
+
+		/// <summary>
+		/// Zoom=1.0 时，屏幕可视高度（物理米）：1080 / 8 = 135m
+		/// </summary>
+		public const float ViewportHeightMeters = TargetScreenHeight / PixelsPerMeter;
+
+		// ==========================================
+		// 2. 坐标与尺度换算工具函数
+		// ==========================================
+
+		/// <summary>
+		/// 物理米转换为像素长度 (Meters -> Pixels)
+		/// </summary>
+		public static float MetersToPixels(float meters) => meters * PixelsPerMeter;
+
+		/// <summary>
+		/// 物理米向量转换为像素向量
+		/// </summary>
+		public static Vector2 MetersToPixels(Vector2 metersVector) => metersVector * PixelsPerMeter;
+
+		/// <summary>
+		/// 像素长度转换为物理米 (Pixels -> Meters)
+		/// </summary>
+		public static float PixelsToMeters(float pixels) => pixels / PixelsPerMeter;
+
+		/// <summary>
+		/// 像素向量转换为物理米向量
+		/// </summary>
+		public static Vector2 PixelsToMeters(Vector2 pixelVector) => pixelVector / PixelsPerMeter;
+
+		/// <summary>
+		/// 世界坐标（像素）转换为离散蓝图网格坐标 (GU)
+		/// </summary>
+		/// <param name="worldPixelPos">世界像素坐标</param>
+		/// <returns>离散整数网格坐标</returns>
+		public static Vector2I WorldPixelsToGrid(Vector2 worldPixelPos)
+		{
+			return new Vector2I(
+				Mathf.FloorToInt(worldPixelPos.X / GridUnitPixels),
+				Mathf.FloorToInt(worldPixelPos.Y / GridUnitPixels)
+			);
+		}
+
+		/// <summary>
+		/// 离散蓝图网格坐标转换为世界像素中心点坐标
+		/// </summary>
+		/// <param name="gridCoord">网格坐标</param>
+		/// <returns>该网格中心的世界像素坐标</returns>
+		public static Vector2 GridToWorldCenterPixels(Vector2I gridCoord)
+		{
+			return new Vector2(
+				(gridCoord.X * GridUnitPixels) + (GridUnitPixels * 0.5f),
+				(gridCoord.Y * GridUnitPixels) + (GridUnitPixels * 0.5f)
+			);
+		}
+	}
+}
+</file>
+
+<file path="Scripts/Core/GlobalMetrics.cs.uid">
+uid://bqw2a8ypyordu
+</file>
+
+<file path="Scripts/Utils/MathUtils.cs">
+using Godot;
+
+namespace SpaceRoguelike.Utils
+{
+	/// <summary>
+	/// 通用平滑数学工具类
+	/// 提供无顿挫、帧率无关的平滑阻尼算法 (SmoothDamp)
+	/// </summary>
+	public static class MathUtils
+	{
+		/// <summary>
+		/// 标量浮点数平滑阻尼 (Float SmoothDamp)
+		/// 模拟临界阻尼弹簧震荡系统，平滑追踪目标值
+		/// </summary>
+		/// <param name="current">当前值</param>
+		/// <param name="target">目标值</param>
+		/// <param name="currentVelocity">当前变化速度（引用传递）</param>
+		/// <param name="smoothTime">达到目标的大致耗时（秒）</param>
+		/// <param name="deltaTime">帧间隔时间</param>
+		/// <param name="maxSpeed">最大变化速率上限</param>
+		/// <returns>计算后的新当前值</returns>
+		public static float SmoothDamp(float current, float target, ref float currentVelocity, float smoothTime, float deltaTime, float maxSpeed = Mathf.Inf)
+		{
+			// 避免除以零
+			smoothTime = Mathf.Max(0.0001f, smoothTime);
+			float omega = 2.0f / smoothTime;
+
+			float x = omega * deltaTime;
+			float exp = 1.0f / (1.0f + x + (0.48f * x * x) + (0.235f * x * x * x));
+			float change = current - target;
+			float originalTo = target;
+
+			// 限制最大移动速度
+			float maxChange = maxSpeed * smoothTime;
+			change = Mathf.Clamp(change, -maxChange, maxChange);
+			target = current - change;
+
+			float temp = (currentVelocity + (omega * change)) * deltaTime;
+			currentVelocity = (currentVelocity - (omega * temp)) * exp;
+			float output = target + ((change + temp) * exp);
+
+			// 防止过冲（Overshoot）
+			if (((originalTo - current > 0.0f) && (output > originalTo)) ||
+				((originalTo - current < 0.0f) && (output < originalTo)))
+			{
+				output = originalTo;
+				currentVelocity = (output - originalTo) / deltaTime;
+			}
+
+			return output;
+		}
+
+		/// <summary>
+		/// 2D 向量平滑阻尼 (Vector2 SmoothDamp)
+		/// 用于摄像机位置追踪
+		/// </summary>
+		public static Vector2 SmoothDampVec2(Vector2 current, Vector2 target, ref Vector2 currentVelocity, float smoothTime, float deltaTime, float maxSpeed = Mathf.Inf)
+		{
+			float vx = currentVelocity.X;
+			float vy = currentVelocity.Y;
+
+			float x = SmoothDamp(current.X, target.X, ref vx, smoothTime, deltaTime, maxSpeed);
+			float y = SmoothDamp(current.Y, target.Y, ref vy, smoothTime, deltaTime, maxSpeed);
+
+			currentVelocity = new Vector2(vx, vy);
+			return new Vector2(x, y);
+		}
+	}
+}
+</file>
+
+<file path="Scripts/Utils/MathUtils.cs.uid">
+uid://bsqt5bg3ekqr4
+</file>
+
+<file path=".editorconfig">
+root = true
+
+[*]
+charset = utf-8
+</file>
+
+<file path=".gitattributes">
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+</file>
+
+<file path=".gitignore">
+# Godot 4+ specific ignores
+.godot/
+/android/
+</file>
+
+<file path="breaker protocol 2.csproj">
+<Project Sdk="Godot.NET.Sdk/4.7.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>breakerprotocol2</RootNamespace>
+  </PropertyGroup>
+</Project>
+</file>
+
+<file path="breaker protocol 2.sln">
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "breaker protocol 2", "breaker protocol 2.csproj", "{D970C8B3-014D-42D8-AE31-A0F374AAA206}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D970C8B3-014D-42D8-AE31-A0F374AAA206}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
+</file>
+
+<file path="icon.svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><rect width="124" height="124" x="2" y="2" fill="#363d52" stroke="#212532" stroke-width="4" rx="14"/><g fill="#fff" transform="translate(12.322 12.322)scale(.101)"><path d="M105 673v33q407 354 814 0v-33z"/><path fill="#478cbf" d="m105 673 152 14q12 1 15 14l4 67 132 10 8-61q2-11 15-15h162q13 4 15 15l8 61 132-10 4-67q3-13 15-14l152-14V427q30-39 56-81-35-59-83-108-43 20-82 47-40-37-88-64 7-51 8-102-59-28-123-42-26 43-46 89-49-7-98 0-20-46-46-89-64 14-123 42 1 51 8 102-48 27-88 64-39-27-82-47-48 49-83 108 26 42 56 81zm0 33v39c0 276 813 276 814 0v-39l-134 12-5 69q-2 10-14 13l-162 11q-12 0-16-11l-10-65H446l-10 65q-4 11-16 11l-162-11q-12-3-14-13l-5-69z"/><path d="M483 600c0 34 58 34 58 0v-86c0-34-58-34-58 0z"/><circle cx="725" cy="526" r="90"/><circle cx="299" cy="526" r="90"/></g><g fill="#414042" transform="translate(12.322 12.322)scale(.101)"><circle cx="307" cy="532" r="60"/><circle cx="717" cy="532" r="60"/></g></svg>
+</file>
+
+<file path="icon.svg.import">
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bynaddxitxthm"
+path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://icon.svg"
+dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
+</file>
+
+<file path="project.godot">
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="breaker protocol 2"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="breaker protocol 2"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+</file>
+
+</files>

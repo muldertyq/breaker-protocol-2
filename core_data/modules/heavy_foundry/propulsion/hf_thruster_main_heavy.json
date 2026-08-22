@@ -1,0 +1,37 @@
+{
+  "id": "hf_thruster_main_heavy",
+  "name": "“台风”重型主推进器",
+  "faction": "HeavyFoundry",
+  "category": "Propulsion",
+  "width": 2,
+  "height": 3,
+  "mass": 28.0,
+  "baseHp": 600.0,
+  "armorResistance": 35.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/propulsion/hf_thruster_main_heavy_base.png",
+  "spriteOverlay": "",
+  "tags": ["Propulsion", "MainThruster", "Heavy"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"thrustForce": 3200.0,
+	"pulseCost": 15.0
+  }
+}

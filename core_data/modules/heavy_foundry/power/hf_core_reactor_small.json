@@ -1,0 +1,32 @@
+{
+  "id": "hf_core_reactor_small",
+  "name": "应急微型裂变堆",
+  "faction": "HeavyFoundry",
+  "category": "Power",
+  "width": 1,
+  "height": 1,
+  "mass": 4.0,
+  "baseHp": 200.0,
+  "armorResistance": 15.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/power/hf_core_reactor_small_base.png",
+  "spriteOverlay": "modules/heavy_foundry/power/hf_core_reactor_small_glow.png",
+  "tags": ["Power", "Reactor", "Fission"],
+  "pins": [
+	{
+	  "pinId": "power_out_0",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"powerOutput": 8.0,
+	"maxHeat": 50.0,
+	"explosionRadius": 40.0,
+	"explosionDamage": 200.0
+  }
+}

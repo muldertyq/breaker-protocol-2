@@ -1,0 +1,34 @@
+{
+  "id": "hf_wep_autocannon_s",
+  "name": "“撕裂者”轻型机关炮",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 1,
+  "height": 1,
+  "mass": 4.0,
+  "baseHp": 220.0,
+  "armorResistance": 18.0,
+  "mountType": "Turret",
+  "rotationArc": 180.0,
+  "turnRate": 90.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_turret.png",
+  "tags": ["Weapon", "Kinetic", "RapidFire", "Turret"],
+  "pins": [
+	{
+	  "pinId": "power_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 35.0,
+	"fireRate": 5.0,
+	"range": 70.0,
+	"speed": 200.0,
+	"pulseCost": 1.2,
+	"recoil": 300.0
+  }
+}

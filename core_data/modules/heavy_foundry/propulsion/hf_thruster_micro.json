@@ -1,0 +1,30 @@
+{
+  "id": "hf_thruster_micro",
+  "name": "姿态控制微型喷口",
+  "faction": "HeavyFoundry",
+  "category": "Propulsion",
+  "width": 1,
+  "height": 1,
+  "mass": 1.0,
+  "baseHp": 120.0,
+  "armorResistance": 10.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/propulsion/hf_thruster_micro_base.png",
+  "spriteOverlay": "",
+  "tags": ["Propulsion", "RCS", "Torque"],
+  "pins": [
+	{
+	  "pinId": "power_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"torquePower": 300.0,
+	"pulseCost": 0.5
+  }
+}

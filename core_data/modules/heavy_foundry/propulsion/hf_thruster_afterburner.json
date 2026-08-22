@@ -1,0 +1,31 @@
+{
+  "id": "hf_thruster_afterburner",
+  "name": "超频加力燃烧室",
+  "faction": "HeavyFoundry",
+  "category": "Propulsion",
+  "width": 1,
+  "height": 2,
+  "mass": 6.0,
+  "baseHp": 200.0,
+  "armorResistance": 15.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/propulsion/hf_thruster_afterburner_base.png",
+  "spriteOverlay": "",
+  "tags": ["Propulsion", "Afterburner", "Boost"],
+  "pins": [
+	{
+	  "pinId": "power_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"boostMultiplier": 2.5,
+	"heatPerSec": 20.0,
+	"pulseCost": 8.0
+  }
+}

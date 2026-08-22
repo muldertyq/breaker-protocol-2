@@ -1,0 +1,36 @@
+{
+  "id": "hf_core_battery_bank",
+  "name": "高能电容矩阵",
+  "faction": "HeavyFoundry",
+  "category": "Power",
+  "width": 1,
+  "height": 2,
+  "mass": 8.0,
+  "baseHp": 300.0,
+  "armorResistance": 20.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/power/hf_core_battery_bank_base.png",
+  "spriteOverlay": "",
+  "tags": ["Power", "Battery", "Capacitor"],
+  "pins": [
+	{
+	  "pinId": "cap_in",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "cap_out",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"pulseCapacity": 100.0
+  }
+}

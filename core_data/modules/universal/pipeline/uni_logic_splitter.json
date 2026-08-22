@@ -1,0 +1,44 @@
+{
+  "id": "uni_logic_splitter",
+  "name": "脉冲分流芯片",
+  "faction": "Universal",
+  "category": "Pipeline",
+  "width": 1,
+  "height": 1,
+  "mass": 0.3,
+  "baseHp": 50.0,
+  "armorResistance": 5.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/universal/pipeline/uni_logic_splitter_line.png",
+  "spriteOverlay": "",
+  "tags": ["Logic", "Splitter", "Pipeline"],
+  "pins": [
+	{
+	  "pinId": "in_port",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "out_port_1",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "out_port_2",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"ports": 3,
+	"splitRatio": [0.5, 0.5]
+  }
+}

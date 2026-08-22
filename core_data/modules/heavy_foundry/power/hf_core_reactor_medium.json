@@ -1,0 +1,53 @@
+{
+  "id": "hf_core_reactor_medium",
+  "name": "重压核聚变主反应堆",
+  "faction": "HeavyFoundry",
+  "category": "Power",
+  "width": 2,
+  "height": 2,
+  "mass": 35.0,
+  "baseHp": 800.0,
+  "armorResistance": 30.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/power/hf_core_reactor_medium_base.png",
+  "spriteOverlay": "modules/heavy_foundry/power/hf_core_reactor_medium_glow.png",
+  "tags": ["Power", "Reactor", "Fusion", "Heavy"],
+  "pins": [
+	{
+	  "pinId": "power_out_top_left",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_out_top_right",
+	  "type": "OUT",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_out_bottom_left",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_out_bottom_right",
+	  "type": "OUT",
+	  "localGridX": 1,
+	  "localGridY": 1,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"powerOutput": 45.0,
+	"maxHeat": 150.0,
+	"explosionRadius": 120.0,
+	"explosionDamage": 1200.0
+  }
+}

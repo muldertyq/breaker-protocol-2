@@ -1,0 +1,39 @@
+{
+  "id": "hf_hangar_bay_drone",
+  "name": "“蜂巢”舰载无人机弹射舱",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 2,
+  "height": 2,
+  "mass": 15.0,
+  "baseHp": 400.0,
+  "armorResistance": 25.0,
+  "mountType": "Hangar",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png",
+  "tags": ["Hangar", "Drone", "Carrier"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"maxDrones": 3,
+	"rebuildTime": 15.0,
+	"droneId": "hf_drone_assault",
+	"pulseCostPerLaunch": 10.0
+  }
+}

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://3r5gp2qfajc"]
+
+[ext_resource type="Script" uid="uid://dmr8xkvolpp14" path="res://Scripts/Test/Test_Hot_Reload.cs" id="1_8xvh1"]
+
+[node name="TestHotReload" type="Control" unique_id=1850425971]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8xvh1")

@@ -1,0 +1,40 @@
+{
+  "id": "hf_wep_pulse_laser_m",
+  "name": "中型高压脉冲激光",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 2,
+  "height": 2,
+  "mass": 12.0,
+  "baseHp": 450.0,
+  "armorResistance": 30.0,
+  "mountType": "Turret",
+  "rotationArc": 360.0,
+  "turnRate": 45.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_pulse_laser_m_turret.png",
+  "tags": ["Weapon", "Energy", "PulseLaser", "Turret"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 180.0,
+	"fireRate": 1.5,
+	"range": 110.0,
+	"pulseCost": 6.0,
+	"heatPerShot": 25.0
+  }
+}

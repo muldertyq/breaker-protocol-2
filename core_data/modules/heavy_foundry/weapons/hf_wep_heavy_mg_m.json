@@ -1,0 +1,41 @@
+{
+  "id": "hf_wep_heavy_mg_m",
+  "name": "双联重机枪",
+  "faction": "HeavyFoundry",
+  "category": "Weapons",
+  "width": 2,
+  "height": 1,
+  "mass": 7.0,
+  "baseHp": 300.0,
+  "armorResistance": 25.0,
+  "mountType": "Turret",
+  "rotationArc": 120.0,
+  "turnRate": 60.0,
+  "spriteBase": "modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_base.png",
+  "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_turret.png",
+  "tags": ["Weapon", "Kinetic", "Suppression", "Turret"],
+  "pins": [
+	{
+	  "pinId": "power_in_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "power_in_right",
+	  "type": "IN",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "category": "PulsePower"
+	}
+  ],
+  "properties": {
+	"damage": 85.0,
+	"fireRate": 3.0,
+	"range": 90.0,
+	"speed": 220.0,
+	"pulseCost": 3.0,
+	"recoil": 800.0
+  }
+}

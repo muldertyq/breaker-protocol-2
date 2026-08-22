@@ -1,0 +1,19 @@
+{
+  "id": "hf_truss_standard",
+  "name": "标准钛钢受力钢梁",
+  "faction": "HeavyFoundry",
+  "category": "Structural",
+  "width": 1,
+  "height": 1,
+  "mass": 0.5,
+  "baseHp": 150.0,
+  "armorResistance": 20.0,
+  "mountType": "Fixed",
+  "rotationArc": 0.0,
+  "turnRate": 0.0,
+  "spriteBase": "modules/heavy_foundry/structural/hf_truss_standard_base.png",
+  "spriteOverlay": "",
+  "tags": ["Structure", "Truss"],
+  "pins": [],
+  "properties": {}
+}
