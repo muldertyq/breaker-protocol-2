@@ -28,6 +28,7 @@ namespace BreakerProtocol.Tools.ModuleEditor
 		private Label _coordLabel = null!;
 		private PanelContainer _toastPanel = null!;
 		private Label _toastLabel = null!;
+		private ModuleEditorHelpDialog _helpDialog = null!;
 		private Tween? _toastTween;
 
 		private readonly List<string> _factionFilterValues = new();
@@ -133,6 +134,15 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			var centerBtn = new Button { Text = " 🎯 视口居中 ", CustomMinimumSize = new Vector2(0, 30) };
 			centerBtn.Pressed += () => _canvas.CenterView();
 			topHBox.AddChild(centerBtn);
+
+			var helpBtn = new Button
+			{
+				Text = " 使用说明 ",
+				TooltipText = "打开构件编辑器使用说明",
+				CustomMinimumSize = new Vector2(0, 30)
+			};
+			helpBtn.Pressed += () => _helpDialog.Open();
+			topHBox.AddChild(helpBtn);
 
 			topHBox.AddChild(new VSeparator());
 
@@ -325,6 +335,9 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			};
 			_toastPanel.AddChild(_toastLabel);
 			AddChild(_toastPanel);
+
+			_helpDialog = new ModuleEditorHelpDialog { Visible = false };
+			AddChild(_helpDialog);
 		}
 
 		private void PopulateModuleList(string preferredModuleId = "", bool reloadSelection = false)
