@@ -13,43 +13,51 @@
   "turnRate": 0,
   "pivotPixelX": 80,
   "pivotPixelY": 80,
+  "turretAnchorX": 40,
+  "turretAnchorY": 40,
   "spriteBase": "modules/heavy_foundry/armor/hf_shield_emitter_front_base.png",
   "spriteOverlay": "modules/heavy_foundry/armor/hf_shield_emitter_front_glow.png",
+  "spriteEmissive": "",
+  "emissiveAttachTo": "Overlay",
+  "emissiveOffsetX": 0,
+  "emissiveOffsetY": 0,
+  "emissiveAnchorX": 0,
+  "emissiveAnchorY": 0,
   "tags": [
-	"Defense",
-	"Shield",
+    "Defense",
+    "Shield",
     "Directional"
   ],
   "pins": [
-	{
-	  "pinId": "power_in_left",
-	  "type": "IN",
-	  "localGridX": 0,
-	  "localGridY": 1,
-	  "edge": "Bottom",
-	  "category": "PulsePower"
-	},
-	{
-	  "pinId": "power_in_right",
-	  "type": "IN",
-	  "localGridX": 1,
-	  "localGridY": 1,
-	  "edge": "Bottom",
-	  "category": "PulsePower"
-	}
+    {
+      "pinId": "power_in_left",
+      "type": "IN",
+      "localGridX": 0,
+      "localGridY": 1,
+      "edge": "Bottom",
+      "category": "PulsePower"
+    },
+    {
+      "pinId": "power_in_right",
+      "type": "IN",
+      "localGridX": 1,
+      "localGridY": 1,
+      "edge": "Bottom",
+      "category": "PulsePower"
+    }
   ],
   "firePoints": [],
   "exhaustPoints": [],
   "properties": {
-	"shieldType": "DirectionalArc",
-	"shieldArc": 180,
-	"shieldRadius": 300,
-	"shieldCapacity": 600,
-	"rechargeRate": 26,
-	"pulseCost": 8,
-	"pulseCostOnDamage": 0.5,
-	"heatPerAbsorb": 0.1,
-	"overloadCooldown": 6,
-	"deflectChance": 0
+    "shieldType": "DirectionalArc",
+    "shieldArc": 145,
+    "shieldRadius": 300,
+    "shieldCapacity": 600,
+    "rechargeRate": 26,
+    "pulseCost": 8,
+    "pulseCostOnDamage": 0.5,
+    "heatPerAbsorb": 0.1,
+    "overloadCooldown": 6,
+    "deflectChance": 0
   }
 }
