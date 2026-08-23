@@ -3,189 +3,223 @@ using BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos;
 
 namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 {
-    public partial class ModuleGridCanvas
-    {
-        public override void _GuiInput(InputEvent @event)
-        {
-            float rotRad = GetCurrentTurretRotationRad();
+	public partial class ModuleGridCanvas
+	{
+		public override void _GuiInput(InputEvent @event)
+		{
+			float rotRad = GetCurrentTurretRotationRad();
 
-            if (@event is InputEventMouseButton mb)
-            {
-                if (mb.ButtonIndex == MouseButton.Right)
-                {
-                    if (mb.Pressed)
-                    {
-                        Vector2 localPx = CanvasToWorldPixel(mb.Position);
+			if (@event is InputEventMouseButton mb)
+			{
+				if (mb.ButtonIndex == MouseButton.Right)
+				{
+					if (mb.Pressed)
+					{
+						Vector2 localPx = CanvasToWorldPixel(mb.Position);
 
-                        if (ActiveMode == EditGizmoMode.Pins && _pinHandler.TryDeletePinAt(CurrentModule, localPx, _canvasZoom, GridUnitPixels))
-                        {
-                            OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
-                            OnDataModified?.Invoke();
-                            QueueRedraw();
-                            return;
-                        }
+						if (ActiveMode == EditGizmoMode.Pins && _pinHandler.TryDeletePinAt(CurrentModule, localPx, _canvasZoom, GridUnitPixels))
+						{
+							OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                        if (ActiveMode == EditGizmoMode.MunitionSlots && _slotHandler.TryDeleteSlotAt(CurrentModule, localPx, _canvasZoom, rotRad))
-                        {
-                            ResetMunitionRack();
-                            OnSlotSelectedOnCanvas?.Invoke(_slotHandler.SelectedIndex);
-                            OnDataModified?.Invoke();
-                            QueueRedraw();
-                            return;
-                        }
+						if (ActiveMode == EditGizmoMode.Bays && _bayHandler.TryDeleteBayAt(CurrentModule, localPx, _canvasZoom, rotRad))
+						{
+							ResetMunitionRack();
+							OnBaySelectedOnCanvas?.Invoke(_bayHandler.SelectedIndex);
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                        if (ActiveMode == EditGizmoMode.FirePoints && _firePointHandler.TryDeleteFirePointAt(CurrentModule, localPx, _canvasZoom))
-                        {
-                            OnDataModified?.Invoke();
-                            QueueRedraw();
-                            return;
-                        }
+						if (ActiveMode == EditGizmoMode.MunitionSlots && _slotHandler.TryDeleteSlotAt(CurrentModule, localPx, _canvasZoom, rotRad))
+						{
+							ResetMunitionRack();
+							OnSlotSelectedOnCanvas?.Invoke(_slotHandler.SelectedIndex);
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                        if (ActiveMode == EditGizmoMode.Exhausts && _exhaustHandler.TryDeleteExhaustAt(CurrentModule, localPx, _canvasZoom))
-                        {
-                            OnExhaustSelectedOnCanvas?.Invoke(_exhaustHandler.SelectedIndex);
-                            OnDataModified?.Invoke();
-                            QueueRedraw();
-                            return;
-                        }
+						if (ActiveMode == EditGizmoMode.Runways && _runwayHandler.TryDeleteRunwayAt(CurrentModule, localPx, _canvasZoom))
+						{
+							ResetMunitionRack();
+							OnRunwaySelectedOnCanvas?.Invoke(_runwayHandler.SelectedIndex);
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                        _isPanning = true;
-                        _panStartMouse = mb.Position;
-                        _panStartPos = _canvasPan;
-                    }
-                    else _isPanning = false;
-                }
-                else if (mb.ButtonIndex == MouseButton.Middle)
-                {
-                    _isPanning = mb.Pressed;
-                    if (mb.Pressed) { _panStartMouse = mb.Position; _panStartPos = _canvasPan; }
-                }
-                else if (mb.ButtonIndex == MouseButton.WheelUp && mb.Pressed) ZoomAtPoint(mb.Position, 1.15f);
-                else if (mb.ButtonIndex == MouseButton.WheelDown && mb.Pressed) ZoomAtPoint(mb.Position, 0.85f);
-                else if (mb.ButtonIndex == MouseButton.Left)
-                {
-                    if (_turretHandler.IsTestFiringMode)
-                    {
-                        _isTestFireHolding = mb.Pressed;
-                        if (mb.Pressed) TrySpawnDemoPayload();
-                    }
-                    else
-                    {
-                        if (mb.Pressed) HandleLeftClickDown(mb.Position, rotRad);
-                        else
-                        {
-                            if (ActiveMode == EditGizmoMode.Pins && _pinHandler.IsDragging)
-                            {
-                                if (_pinHandler.OnLeftClickUp(CurrentModule))
-                                {
-                                    OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
-                                    OnDataModified?.Invoke();
-                                }
-                            }
+						if (ActiveMode == EditGizmoMode.FirePoints && _firePointHandler.TryDeleteFirePointAt(CurrentModule, localPx, _canvasZoom))
+						{
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                            _isDraggingGizmo = false;
-                            _shieldHandler.ReleaseHandle();
-                            _exhaustHandler.ReleaseHandle();
-                            _turretHandler.ReleaseHandle();
-                            _emissiveHandler.ReleaseHandle();
-                            _slotHandler.ReleaseHandle();
-                            QueueRedraw();
-                        }
-                    }
-                }
-            }
-            else if (@event is InputEventMouseMotion mm)
-            {
-                if (_isPanning)
-                {
-                    _canvasPan = _panStartPos + (mm.Position - _panStartMouse);
-                    QueueRedraw();
-                }
-                else if ((_isDraggingGizmo || _pinHandler.IsDragging || _exhaustHandler.ActiveHandle != ExhaustHandleType.None || _turretHandler.ActiveHandle != TurretHandleType.None || _emissiveHandler.IsDragging || _slotHandler.IsDragging) && CurrentModule != null)
-                {
-                    Vector2 localPx = CanvasToWorldPixel(mm.Position);
-                    if (ActiveMode == EditGizmoMode.Pins) _pinHandler.HandleDrag(CurrentModule, localPx, GridUnitPixels);
-                    else if (ActiveMode == EditGizmoMode.Shield) _shieldHandler.HandleDrag(CurrentModule, localPx);
-                    else if (ActiveMode == EditGizmoMode.FirePoints) _firePointHandler.HandleDrag(CurrentModule, localPx);
-                    else if (ActiveMode == EditGizmoMode.MunitionSlots) { _slotHandler.HandleDrag(CurrentModule, localPx, rotRad); ResetMunitionRack(); }
-                    else if (ActiveMode == EditGizmoMode.Exhausts) _exhaustHandler.HandleDrag(CurrentModule, localPx);
-                    else if (ActiveMode == EditGizmoMode.TurretArc) _turretHandler.HandleDrag(CurrentModule, localPx);
-                    else if (ActiveMode == EditGizmoMode.Emissive) _emissiveHandler.HandleDrag(CurrentModule, localPx, rotRad);
+						if (ActiveMode == EditGizmoMode.Exhausts && _exhaustHandler.TryDeleteExhaustAt(CurrentModule, localPx, _canvasZoom))
+						{
+							OnExhaustSelectedOnCanvas?.Invoke(_exhaustHandler.SelectedIndex);
+							OnDataModified?.Invoke();
+							QueueRedraw();
+							return;
+						}
 
-                    OnDataModified?.Invoke();
-                    QueueRedraw();
-                }
-                else
-                {
-                    Vector2 localPx = CanvasToWorldPixel(mm.Position);
-                    _pinHandler.UpdateHover(CurrentModule, localPx, _canvasZoom, GridUnitPixels);
-                    _shieldHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
-                    _firePointHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
-                    _slotHandler.UpdateHover(CurrentModule, localPx, _canvasZoom, rotRad);
-                    _exhaustHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
-                    _turretHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
-                    _emissiveHandler.UpdateHover(CurrentModule, EmissiveTexture, localPx, _canvasZoom, rotRad);
-                    QueueRedraw();
-                }
+						_isPanning = true;
+						_panStartMouse = mb.Position;
+						_panStartPos = _canvasPan;
+					}
+					else _isPanning = false;
+				}
+				else if (mb.ButtonIndex == MouseButton.Middle)
+				{
+					_isPanning = mb.Pressed;
+					if (mb.Pressed) { _panStartMouse = mb.Position; _panStartPos = _canvasPan; }
+				}
+				else if (mb.ButtonIndex == MouseButton.WheelUp && mb.Pressed) ZoomAtPoint(mb.Position, 1.15f);
+				else if (mb.ButtonIndex == MouseButton.WheelDown && mb.Pressed) ZoomAtPoint(mb.Position, 0.85f);
+				else if (mb.ButtonIndex == MouseButton.Left)
+				{
+					if (_turretHandler.IsTestFiringMode)
+					{
+						_isTestFireHolding = mb.Pressed;
+						if (mb.Pressed) TrySpawnDemoPayload();
+					}
+					else
+					{
+						if (mb.Pressed) HandleLeftClickDown(mb.Position, rotRad);
+						else
+						{
+							if (ActiveMode == EditGizmoMode.Pins && _pinHandler.IsDragging)
+							{
+								if (_pinHandler.OnLeftClickUp(CurrentModule))
+								{
+									OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
+									OnDataModified?.Invoke();
+								}
+							}
 
-                OnMouseMovedInCanvas?.Invoke(CanvasToWorldPixel(mm.Position));
-            }
-        }
+							_isDraggingGizmo = false;
+							_shieldHandler.ReleaseHandle();
+							_exhaustHandler.ReleaseHandle();
+							_turretHandler.ReleaseHandle();
+							_emissiveHandler.ReleaseHandle();
+							_bayHandler.ReleaseHandle();
+							_slotHandler.ReleaseHandle();
+							_runwayHandler.ReleaseHandle();
+							QueueRedraw();
+						}
+					}
+				}
+			}
+			else if (@event is InputEventMouseMotion mm)
+			{
+				if (_isPanning)
+				{
+					_canvasPan = _panStartPos + (mm.Position - _panStartMouse);
+					QueueRedraw();
+				}
+				else if ((_isDraggingGizmo || _pinHandler.IsDragging || _exhaustHandler.ActiveHandle != ExhaustHandleType.None || _turretHandler.ActiveHandle != TurretHandleType.None || _emissiveHandler.IsDragging || _bayHandler.IsDragging || _slotHandler.IsDragging || _runwayHandler.IsDragging) && CurrentModule != null)
+				{
+					Vector2 localPx = CanvasToWorldPixel(mm.Position);
+					if (ActiveMode == EditGizmoMode.Pins) _pinHandler.HandleDrag(CurrentModule, localPx, GridUnitPixels);
+					else if (ActiveMode == EditGizmoMode.Shield) _shieldHandler.HandleDrag(CurrentModule, localPx);
+					else if (ActiveMode == EditGizmoMode.FirePoints) _firePointHandler.HandleDrag(CurrentModule, localPx);
+					else if (ActiveMode == EditGizmoMode.Bays) { _bayHandler.HandleDrag(CurrentModule, localPx, rotRad); ResetMunitionRack(); }
+					else if (ActiveMode == EditGizmoMode.MunitionSlots) { _slotHandler.HandleDrag(CurrentModule, localPx, rotRad); ResetMunitionRack(); }
+					else if (ActiveMode == EditGizmoMode.Runways) { _runwayHandler.HandleDrag(CurrentModule, localPx); ResetMunitionRack(); }
+					else if (ActiveMode == EditGizmoMode.Exhausts) _exhaustHandler.HandleDrag(CurrentModule, localPx);
+					else if (ActiveMode == EditGizmoMode.TurretArc) _turretHandler.HandleDrag(CurrentModule, localPx);
+					else if (ActiveMode == EditGizmoMode.Emissive) _emissiveHandler.HandleDrag(CurrentModule, localPx, rotRad);
 
-        private void HandleLeftClickDown(Vector2 screenPos, float rotRad)
-        {
-            if (CurrentModule == null) return;
-            Vector2 localPx = CanvasToWorldPixel(screenPos);
-            bool insideExact = IsInsideExactBounds(localPx);
-            bool insideExtended = IsInsideExtendedBounds(localPx, 160.0f);
+					OnDataModified?.Invoke();
+					QueueRedraw();
+				}
+				else
+				{
+					Vector2 localPx = CanvasToWorldPixel(mm.Position);
+					_pinHandler.UpdateHover(CurrentModule, localPx, _canvasZoom, GridUnitPixels);
+					_shieldHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
+					_firePointHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
+					_bayHandler.UpdateHover(CurrentModule, localPx, _canvasZoom, rotRad);
+					_slotHandler.UpdateHover(CurrentModule, localPx, _canvasZoom, rotRad);
+					_runwayHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
+					_exhaustHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
+					_turretHandler.UpdateHover(CurrentModule, localPx, _canvasZoom);
+					_emissiveHandler.UpdateHover(CurrentModule, EmissiveTexture, localPx, _canvasZoom, rotRad);
+					QueueRedraw();
+				}
 
-            switch (ActiveMode)
-            {
-                case EditGizmoMode.Pins:
-                    if (insideExact && _pinHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, GridUnitPixels, out bool isPinCreated))
-                    {
-                        OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
-                        if (isPinCreated) OnDataModified?.Invoke();
-                    }
-                    break;
-                case EditGizmoMode.MunitionSlots:
-                    _isDraggingGizmo = _slotHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, rotRad, insideExtended, out bool isSlotCreated);
-                    OnSlotSelectedOnCanvas?.Invoke(_slotHandler.SelectedIndex);
-                    if (isSlotCreated || _isDraggingGizmo) { ResetMunitionRack(); OnDataModified?.Invoke(); }
-                    break;
-                case EditGizmoMode.Shield:
-                    _isDraggingGizmo = _shieldHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom);
-                    break;
-                case EditGizmoMode.FirePoints:
-                    _isDraggingGizmo = _firePointHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isFpCreated);
-                    if (isFpCreated || _isDraggingGizmo) OnDataModified?.Invoke();
-                    break;
-                case EditGizmoMode.Exhausts:
-                    _isDraggingGizmo = _exhaustHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isExhaustCreated);
-                    OnExhaustSelectedOnCanvas?.Invoke(_exhaustHandler.SelectedIndex);
-                    if (isExhaustCreated) OnDataModified?.Invoke();
-                    break;
-                case EditGizmoMode.TurretArc:
-                    _isDraggingGizmo = _turretHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom);
-                    break;
-                case EditGizmoMode.Emissive:
-                    _isDraggingGizmo = _emissiveHandler.OnLeftClickDown(CurrentModule, EmissiveTexture, localPx, _canvasZoom, rotRad);
-                    if (_isDraggingGizmo) OnDataModified?.Invoke();
-                    break;
-            }
-            QueueRedraw();
-        }
+				OnMouseMovedInCanvas?.Invoke(CanvasToWorldPixel(mm.Position));
+			}
+		}
 
-        private bool IsInsideExactBounds(Vector2 px) =>
-            CurrentModule != null &&
-            px.X >= 0 && px.X <= CurrentModule.Width * GridUnitPixels &&
-            px.Y >= 0 && px.Y <= CurrentModule.Height * GridUnitPixels;
+		private void HandleLeftClickDown(Vector2 screenPos, float rotRad)
+		{
+			if (CurrentModule == null) return;
+			Vector2 localPx = CanvasToWorldPixel(screenPos);
+			bool insideExact = IsInsideExactBounds(localPx);
+			bool insideExtended = IsInsideExtendedBounds(localPx, 160.0f);
 
-        private bool IsInsideExtendedBounds(Vector2 px, float margin) =>
-            CurrentModule != null &&
-            px.X >= -margin && px.X <= CurrentModule.Width * GridUnitPixels + margin &&
-            px.Y >= -margin && px.Y <= CurrentModule.Height * GridUnitPixels + margin;
+			switch (ActiveMode)
+			{
+				case EditGizmoMode.Pins:
+					if (insideExact && _pinHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, GridUnitPixels, out bool isPinCreated))
+					{
+						OnPinSelectedOnCanvas?.Invoke(_pinHandler.SelectedIndex);
+						if (isPinCreated) OnDataModified?.Invoke();
+					}
+					break;
+				case EditGizmoMode.Bays:
+					_isDraggingGizmo = _bayHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, rotRad, insideExtended, out bool isBayCreated);
+					OnBaySelectedOnCanvas?.Invoke(_bayHandler.SelectedIndex);
+					if (isBayCreated || _isDraggingGizmo) { ResetMunitionRack(); OnDataModified?.Invoke(); }
+					break;
+				case EditGizmoMode.MunitionSlots:
+					_isDraggingGizmo = _slotHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, rotRad, insideExtended, out bool isSlotCreated);
+					OnSlotSelectedOnCanvas?.Invoke(_slotHandler.SelectedIndex);
+					if (isSlotCreated || _isDraggingGizmo) { ResetMunitionRack(); OnDataModified?.Invoke(); }
+					break;
+				case EditGizmoMode.Runways:
+					_isDraggingGizmo = _runwayHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isRunwayCreated);
+					OnRunwaySelectedOnCanvas?.Invoke(_runwayHandler.SelectedIndex);
+					if (isRunwayCreated || _isDraggingGizmo) { ResetMunitionRack(); OnDataModified?.Invoke(); }
+					break;
+				case EditGizmoMode.Shield:
+					_isDraggingGizmo = _shieldHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom);
+					break;
+				case EditGizmoMode.FirePoints:
+					_isDraggingGizmo = _firePointHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isFpCreated);
+					if (isFpCreated || _isDraggingGizmo) OnDataModified?.Invoke();
+					break;
+				case EditGizmoMode.Exhausts:
+					_isDraggingGizmo = _exhaustHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isExhaustCreated);
+					OnExhaustSelectedOnCanvas?.Invoke(_exhaustHandler.SelectedIndex);
+					if (isExhaustCreated) OnDataModified?.Invoke();
+					break;
+				case EditGizmoMode.TurretArc:
+					_isDraggingGizmo = _turretHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom);
+					break;
+				case EditGizmoMode.Emissive:
+					_isDraggingGizmo = _emissiveHandler.OnLeftClickDown(CurrentModule, EmissiveTexture, localPx, _canvasZoom, rotRad);
+					if (_isDraggingGizmo) OnDataModified?.Invoke();
+					break;
+			}
+			QueueRedraw();
+		}
 
-        public Vector2 CanvasToWorldPixel(Vector2 canvasPos) => (canvasPos - _canvasPan) / _canvasZoom;
-    }
+		private bool IsInsideExactBounds(Vector2 px) =>
+			CurrentModule != null &&
+			px.X >= 0 && px.X <= CurrentModule.Width * GridUnitPixels &&
+			px.Y >= 0 && px.Y <= CurrentModule.Height * GridUnitPixels;
+
+		private bool IsInsideExtendedBounds(Vector2 px, float margin) =>
+			CurrentModule != null &&
+			px.X >= -margin && px.X <= CurrentModule.Width * GridUnitPixels + margin &&
+			px.Y >= -margin && px.Y <= CurrentModule.Height * GridUnitPixels + margin;
+
+		public Vector2 CanvasToWorldPixel(Vector2 canvasPos) => (canvasPos - _canvasPan) / _canvasZoom;
+	}
 }

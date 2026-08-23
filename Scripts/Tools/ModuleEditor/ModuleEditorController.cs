@@ -45,13 +45,21 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			};
 			_canvas.OnMouseMovedInCanvas += (px) => _coordLabel.Text = $"局部像素: ({px.X:F0}, {px.Y:F0}) px";
 
-			// 联动信号
+			// 引脚联动
 			_canvas.OnPinSelectedOnCanvas += (idx) => _inspector.SelectPinExternal(idx);
 			_inspector.OnPinSelected += (idx) => _canvas.SelectPinExternal(idx);
 			
-			// 弹位联动信号
+			// 仓盖联动
+			_canvas.OnBaySelectedOnCanvas += (idx) => _inspector.SelectBayExternal(idx);
+			_inspector.OnBaySelected += (idx) => _canvas.SelectBayExternal(idx);
+
+			// 弹位联动
 			_canvas.OnSlotSelectedOnCanvas += (idx) => _inspector.SelectSlotExternal(idx);
 			_inspector.OnSlotSelected += (idx) => _canvas.SelectSlotExternal(idx);
+
+			// 跑道联动
+			_canvas.OnRunwaySelectedOnCanvas += (idx) => _inspector.SelectRunwayExternal(idx);
+			_inspector.OnRunwaySelected += (idx) => _canvas.SelectRunwayExternal(idx);
 
 			_canvas.OnExhaustSelectedOnCanvas += (idx) => _inspector.SelectExhaustExternal(idx);
 			_inspector.OnExhaustSelected += (idx) => _canvas.SelectExhaustExternal(idx);
@@ -120,9 +128,11 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			_gizmoModeSelect = new OptionButton { CustomMinimumSize = new Vector2(170, 30) };
 			_gizmoModeSelect.AddItem("🚫 纯浏览模式 (None)", (int)EditGizmoMode.None);
 			_gizmoModeSelect.AddItem("⚡ 引脚编辑 (Pins)", (int)EditGizmoMode.Pins);
+			_gizmoModeSelect.AddItem("🚪 导弹仓盖 (Bays)", (int)EditGizmoMode.Bays);
 			_gizmoModeSelect.AddItem("🚀 鱼雷弹位 (Munition Slots)", (int)EditGizmoMode.MunitionSlots);
+			_gizmoModeSelect.AddItem("🛫 飞行跑道 (Runways)", (int)EditGizmoMode.Runways);
 			_gizmoModeSelect.AddItem("🎯 开火点位 (Muzzles)", (int)EditGizmoMode.FirePoints);
-			_gizmoModeSelect.AddItem("🚀 推进喷口 (Exhausts)", (int)EditGizmoMode.Exhausts);
+			_gizmoModeSelect.AddItem("🔥 推进喷口 (Exhausts)", (int)EditGizmoMode.Exhausts);
 			_gizmoModeSelect.AddItem("🔄 炮塔射界 (Turret Arc)", (int)EditGizmoMode.TurretArc);
 			_gizmoModeSelect.AddItem("🛡️ 护盾力场 (Shield)", (int)EditGizmoMode.Shield);
 			_gizmoModeSelect.AddItem("💡 发光通道 (Emissive)", (int)EditGizmoMode.Emissive);
@@ -142,7 +152,6 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			var mainArea = new HSplitContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill };
 			rootVBox.AddChild(mainArea);
 
-			// 左侧构件列表卡片面板
 			var leftMarginWrapper = new MarginContainer
 			{
 				CustomMinimumSize = new Vector2(280, 0),
@@ -223,7 +232,6 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			leftMarginWrapper.AddChild(leftPanelContainer);
 			mainArea.AddChild(leftMarginWrapper);
 
-			// 中央视口与右侧属性栏
 			var rightSplit = new HSplitContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
 			mainArea.AddChild(rightSplit);
 
@@ -364,7 +372,7 @@ namespace BreakerProtocol.Tools.ModuleEditor
 
 		private void OnInspectorValuesChanged()
 		{
-			_canvas.ClearDemoEntities(); // 修改属性/载荷模式时即时清理视口残留弹药
+			_canvas.ClearDemoEntities();
 			_canvas.QueueRedraw();
 		}
 

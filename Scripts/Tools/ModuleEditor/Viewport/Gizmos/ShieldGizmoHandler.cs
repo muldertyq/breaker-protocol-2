@@ -53,7 +53,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos
 
 			if (ActiveHandle == ShieldHandleType.Radius)
 			{
-				float newRadius = Mathf.Clamp(localPixel.DistanceTo(emitter), 40.0f, 400.0f);
+				float newRadius = Mathf.Clamp(localPixel.DistanceTo(emitter), 40.0f, 600.0f);
 				shield.ShieldRadius = Mathf.Round(newRadius);
 			}
 			else if (ActiveHandle is ShieldHandleType.ArcLeft or ShieldHandleType.ArcRight)
@@ -115,79 +115,109 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos
 			var shield = module.GetProperties<ShieldProperties>();
 			if (shield == null || shield.ShieldCapacity <= 0) return;
 
-			Vector2 emitter = new(module.PivotPixelX, module.PivotPixelY);
-			Vector2 emitterScreen = origin + emitter * canvasZoom;
+			Vector2 emitterScreen = origin + new Vector2(module.PivotPixelX, module.PivotPixelY) * canvasZoom;
 			float outerR = shield.ShieldRadius * canvasZoom;
-			float thickness = 24.0f * canvasZoom;
-			float innerR = Mathf.Max(outerR - thickness, 8.0f);
 			float halfArcRad = Mathf.DegToRad(shield.ShieldArc * 0.5f);
+			bool isOmni = shield.ShieldType == "OmniBubble" || shield.ShieldArc >= 360.0f;
 
-			// 科幻能量力场配色
-			Color plasmaCore = new(0.10f, 0.70f, 1.0f, 0.35f);
-			Color outerCrest = new(0.55f, 0.98f, 1.0f, 0.95f); // 迎弹面激波层
-			Color innerEdge = new(0.18f, 0.55f, 0.95f, 0.35f);
-			Color emitterBeam = new(0.35f, 0.80f, 1.0f, 0.25f); // 投射导光束
+			// ==========================================
+			// 1. 星舰力场配色体系 (深邃能量紫蓝 + 高亮冲击波外层)
+			// ==========================================
+			Color deepFieldOuter = new(0.20f, 0.40f, 0.95f, 0.38f); // 迎弹面饱满半透
+			Color deepFieldMid   = new(0.18f, 0.28f, 0.85f, 0.18f); // 中层柔和过渡
+			Color deepFieldInner = new(0.12f, 0.15f, 0.65f, 0.02f); // 根部渐隐收束
+			Color crestGlowOuter = new(0.35f, 0.75f, 1.0f, 0.45f);  // 外层柔光晕
+			Color crestCore      = new(0.70f, 0.92f, 1.0f, 0.95f);  // 能量激波主棱线
+			Color crestHighlight = new(0.95f, 0.98f, 1.0f, 0.90f);  // 白炽锋刃亮线
 
-			// 1. 等离子厚度填充多边形
-			if (shield.ShieldType == "OmniBubble" || shield.ShieldArc >= 360.0f)
+			int arcSegments = isOmni ? 64 : 48;
+			float startRad = -Mathf.Pi * 0.5f - halfArcRad;
+			float sweepRad = halfArcRad * 2.0f;
+
+			// ==========================================
+			// 2. 扇区多层径向渐变填充 (Gradient Shield Field)
+			// ==========================================
+			if (isOmni)
 			{
-				canvas.DrawCircle(emitterScreen, outerR, plasmaCore);
-				canvas.DrawArc(emitterScreen, outerR, 0, Mathf.Tau, 64, outerCrest, 3.0f);
-				canvas.DrawArc(emitterScreen, innerR, 0, Mathf.Tau, 48, innerEdge, 1.5f);
+				canvas.DrawCircle(emitterScreen, outerR, deepFieldOuter);
+				canvas.DrawCircle(emitterScreen, outerR * 0.65f, deepFieldMid);
+				canvas.DrawCircle(emitterScreen, outerR * 0.30f, deepFieldInner);
+
+				canvas.DrawArc(emitterScreen, outerR + 2.0f, 0, Mathf.Tau, arcSegments, crestGlowOuter, 5.0f * canvasZoom);
+				canvas.DrawArc(emitterScreen, outerR, 0, Mathf.Tau, arcSegments, crestCore, 2.5f * canvasZoom);
+				canvas.DrawArc(emitterScreen, outerR, 0, Mathf.Tau, arcSegments, crestHighlight, 1.0f * canvasZoom);
 			}
 			else
 			{
-				int segments = 40;
-				float startRad = -Mathf.Pi * 0.5f - halfArcRad;
-				float stepRad = (halfArcRad * 2.0f) / segments;
+				// 分 3 个同心渐变带进行平滑扇区填充
+				float[] radii = { outerR, outerR * 0.70f, outerR * 0.35f, outerR * 0.08f };
+				Color[] layerColors = { deepFieldOuter, deepFieldMid, deepFieldInner };
 
-				Vector2[] polyPoints = new Vector2[(segments + 1) * 2];
-				for (int i = 0; i <= segments; i++)
+				for (int layer = 0; layer < 3; layer++)
 				{
-					float curRad = startRad + i * stepRad;
-					Vector2 dir = new(Mathf.Cos(curRad), Mathf.Sin(curRad));
-					polyPoints[i] = emitterScreen + dir * outerR;
-					polyPoints[polyPoints.Length - 1 - i] = emitterScreen + dir * innerR;
+					float rOuter = radii[layer];
+					float rInner = radii[layer + 1];
+					Vector2[] ringMesh = new Vector2[(arcSegments + 1) * 2];
+
+					for (int i = 0; i <= arcSegments; i++)
+					{
+						float curRad = startRad + (sweepRad * i / arcSegments);
+						Vector2 dir = new(Mathf.Cos(curRad), Mathf.Sin(curRad));
+						ringMesh[i] = emitterScreen + dir * rOuter;
+						ringMesh[ringMesh.Length - 1 - i] = emitterScreen + dir * rInner;
+					}
+					canvas.DrawPolygon(ringMesh, new[] { layerColors[layer] });
 				}
 
-				canvas.DrawPolygon(polyPoints, new[] { plasmaCore });
-				canvas.DrawArc(emitterScreen, outerR, startRad, startRad + halfArcRad * 2.0f, segments, outerCrest, 3.0f);
-				canvas.DrawArc(emitterScreen, innerR, startRad, startRad + halfArcRad * 2.0f, segments, innerEdge, 1.5f);
+				// ==========================================
+				// 3. 迎弹面多层泛光激波外弧 (Layered Crest Glow)
+				// ==========================================
+				canvas.DrawArc(emitterScreen, outerR + 2.0f, startRad, startRad + sweepRad, arcSegments, crestGlowOuter, 6.0f * canvasZoom);
+				canvas.DrawArc(emitterScreen, outerR, startRad, startRad + sweepRad, arcSegments, crestCore, 2.8f * canvasZoom);
+				canvas.DrawArc(emitterScreen, outerR, startRad, startRad + sweepRad, arcSegments, crestHighlight, 1.2f * canvasZoom);
 
-				// 左右磁约束投射光束
+				// 侧翼磁约束微弱边缘线
 				Vector2 leftTip = emitterScreen + new Vector2(-Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
 				Vector2 rightTip = emitterScreen + new Vector2(Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
-				canvas.DrawLine(emitterScreen, leftTip, emitterBeam, 1.5f);
-				canvas.DrawLine(emitterScreen, rightTip, emitterBeam, 1.5f);
+				Color edgeFade = new(0.35f, 0.65f, 1.0f, 0.30f);
+				canvas.DrawLine(emitterScreen, leftTip, edgeFade, 1.5f * canvasZoom);
+				canvas.DrawLine(emitterScreen, rightTip, edgeFade, 1.5f * canvasZoom);
 			}
 
-			// 2. 交互手柄（仅在 Shield 模式显示）
+			// ==========================================
+			// 4. 发生源中心能量光核
+			// ==========================================
+			canvas.DrawCircle(emitterScreen, 7.0f * canvasZoom, new Color(0.3f, 0.7f, 1.0f, 0.6f));
+			canvas.DrawCircle(emitterScreen, 3.5f * canvasZoom, Colors.White);
+
+			// ==========================================
+			// 5. 编辑模式交互手柄 (Gizmos)
+			// ==========================================
 			if (isEditMode)
 			{
-				// 发射源中心
-				Color emitterColor = (HoveredHandle == ShieldHandleType.Emitter) ? Colors.White : Colors.Yellow;
+				Color emitterColor = (HoveredHandle == ShieldHandleType.Emitter || ActiveHandle == ShieldHandleType.Emitter) ? Colors.Yellow : Colors.White;
 				canvas.DrawCircle(emitterScreen, 6.0f * canvasZoom, emitterColor);
-				canvas.DrawString(ThemeDB.FallbackFont, emitterScreen + new Vector2(10, 14), $"Emitter: ({emitter.X:F0}, {emitter.Y:F0}) px", HorizontalAlignment.Left, -1, 12, Colors.Yellow);
+				canvas.DrawCircle(emitterScreen, 2.5f * canvasZoom, Colors.Black);
 
-				// 半径调节手柄
 				Vector2 apexScreen = emitterScreen + new Vector2(0, -outerR);
-				Color radiusColor = (HoveredHandle == ShieldHandleType.Radius) ? Colors.White : new Color(1.0f, 0.85f, 0.2f);
-				canvas.DrawCircle(apexScreen, 8.0f * canvasZoom, radiusColor);
-				canvas.DrawCircle(apexScreen, 4.0f * canvasZoom, Colors.Black);
-				canvas.DrawLine(emitterScreen, apexScreen, new Color(1, 1, 0, 0.35f), 1.0f);
+				Color radiusColor = (HoveredHandle == ShieldHandleType.Radius || ActiveHandle == ShieldHandleType.Radius) ? Colors.Yellow : new Color(0.35f, 1.0f, 0.65f);
+				canvas.DrawCircle(apexScreen, 6.0f * canvasZoom, radiusColor);
+				canvas.DrawCircle(apexScreen, 2.5f * canvasZoom, Colors.Black);
 
-				// 扇区左右手柄
-				Vector2 leftHandle = emitterScreen + new Vector2(-Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
-				Vector2 rightHandle = emitterScreen + new Vector2(Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
-				Color leftColor = (HoveredHandle == ShieldHandleType.ArcLeft) ? Colors.White : Colors.Cyan;
-				Color rightColor = (HoveredHandle == ShieldHandleType.ArcRight) ? Colors.White : Colors.Cyan;
+				if (!isOmni)
+				{
+					Vector2 leftHandle = emitterScreen + new Vector2(-Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
+					Vector2 rightHandle = emitterScreen + new Vector2(Mathf.Sin(halfArcRad), -Mathf.Cos(halfArcRad)) * outerR;
+					Color leftColor = (HoveredHandle == ShieldHandleType.ArcLeft || ActiveHandle == ShieldHandleType.ArcLeft) ? Colors.Yellow : Colors.Cyan;
+					Color rightColor = (HoveredHandle == ShieldHandleType.ArcRight || ActiveHandle == ShieldHandleType.ArcRight) ? Colors.Yellow : Colors.Cyan;
 
-				canvas.DrawCircle(leftHandle, 8.0f * canvasZoom, leftColor);
-				canvas.DrawCircle(leftHandle, 4.0f * canvasZoom, Colors.Black);
-				canvas.DrawCircle(rightHandle, 8.0f * canvasZoom, rightColor);
-				canvas.DrawCircle(rightHandle, 4.0f * canvasZoom, Colors.Black);
+					canvas.DrawCircle(leftHandle, 6.0f * canvasZoom, leftColor);
+					canvas.DrawCircle(leftHandle, 2.5f * canvasZoom, Colors.Black);
+					canvas.DrawCircle(rightHandle, 6.0f * canvasZoom, rightColor);
+					canvas.DrawCircle(rightHandle, 2.5f * canvasZoom, Colors.Black);
+				}
 
-				canvas.DrawString(ThemeDB.FallbackFont, apexScreen + new Vector2(14, -6), $"R:{shield.ShieldRadius:F0}px  弧度:{shield.ShieldArc:F0}°", HorizontalAlignment.Left, -1, 13, Colors.Yellow);
+				canvas.DrawString(ThemeDB.FallbackFont, apexScreen + new Vector2(12, -6), $"🛡️ 护盾半径: {shield.ShieldRadius:F0}px  偏导弧: {shield.ShieldArc:F0}°", HorizontalAlignment.Left, -1, (int)(11 * Mathf.Clamp(canvasZoom, 0.8f, 1.2f)), Colors.Yellow);
 			}
 		}
 	}

@@ -13,8 +13,16 @@
   "turnRate": 0,
   "pivotPixelX": 40,
   "pivotPixelY": 40,
+  "turretAnchorX": 40,
+  "turretAnchorY": 40,
   "spriteBase": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_base.png",
-  "spriteOverlay": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png",
+  "spriteOverlay": "",
+  "spriteEmissive": "",
+  "emissiveAttachTo": "Overlay",
+  "emissiveOffsetX": 0,
+  "emissiveOffsetY": 0,
+  "emissiveAnchorX": 0,
+  "emissiveAnchorY": 0,
   "tags": [
 	"Hangar",
 	"Drone",
@@ -22,28 +30,64 @@
   ],
   "pins": [
 	{
-	  "pinId": "power_in_left",
+	  "pinId": "pulsepower_in_0_3_bottom",
 	  "type": "IN",
 	  "localGridX": 0,
-	  "localGridY": 0,
-	  "edge": "Top",
+	  "localGridY": 3,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "power_in_right",
+	  "pinId": "pulsepower_in_1_3_bottom",
 	  "type": "IN",
 	  "localGridX": 1,
-	  "localGridY": 0,
-	  "edge": "Top",
+	  "localGridY": 3,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	}
   ],
   "firePoints": [],
   "exhaustPoints": [],
   "properties": {
-	"maxDrones": 3,
-	"rebuildTime": 15.0,
 	"droneId": "hf_drone_assault",
-	"pulseCostPerLaunch": 10.0
+	"droneSprite": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png",
+	"droneWidth": 28,
+	"droneLength": 36,
+	"maxDrones": 10,
+	"rebuildTime": 15,
+	"pulseCostPerLaunch": 10,
+	"launchInterval": 0.4,
+	"runways": [
+	  {
+		"runwayId": "runway_0",
+		"launchOrder": 0,
+		"startOffsetX": 39,
+		"startOffsetY": 279,
+		"exitOffsetX": 39,
+		"exitOffsetY": 49,
+		"catapultDuration": 0.5,
+		"exitSpeed": 320
+	  },
+	  {
+		"runwayId": "runway_1",
+		"launchOrder": 1,
+		"startOffsetX": 80,
+		"startOffsetY": 279,
+		"exitOffsetX": 80,
+		"exitOffsetY": 50,
+		"catapultDuration": 0.5,
+		"exitSpeed": 320
+	  },
+	  {
+		"runwayId": "runway_2",
+		"launchOrder": 2,
+		"startOffsetX": 120,
+		"startOffsetY": 280,
+		"exitOffsetX": 120,
+		"exitOffsetY": 49,
+		"catapultDuration": 0.5,
+		"exitSpeed": 320
+	  }
+	]
   }
 }

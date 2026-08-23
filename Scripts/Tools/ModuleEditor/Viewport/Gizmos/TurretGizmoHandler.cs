@@ -161,7 +161,8 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos
 
 		public void Draw(Control canvas, ModuleDataDefinition? module, Vector2 origin, float zoom, bool isActive)
 		{
-			if (module == null || module.Category != "Weapons") return;
+			// 如果是机库，直接退出，不绘制枪炮的垂直射程直线
+			if (module == null || module.Category != "Weapons" || module.MountType == "Hangar") return;
 
 			var wp = module.GetProperties<WeaponProperties>() ?? new WeaponProperties();
 			float rangePx = (wp.Range > 0 ? wp.Range * 8.0f : 240.0f);

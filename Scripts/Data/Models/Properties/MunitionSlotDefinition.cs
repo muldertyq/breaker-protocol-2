@@ -5,6 +5,7 @@ namespace BreakerProtocol.Data.Models.Properties
 	public class MunitionSlotDefinition
 	{
 		[JsonPropertyName("slotId")] public string SlotId { get; set; } = "slot_0";
+		[JsonPropertyName("bayId")] public string BayId { get; set; } = "bay_0";
 		[JsonPropertyName("fireOrder")] public int FireOrder { get; set; } = 0;
 
 		[JsonPropertyName("offsetX")] public float OffsetX { get; set; } = 0.0f;

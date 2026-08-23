@@ -13,7 +13,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private PanelContainer _turretCard = null!;
 		private VBoxContainer _turretContent = null!;
 
-		// 底座安装位与转轴
 		private SpinBox _pivotX = null!;
 		private SpinBox _pivotY = null!;
 		private Button _centerPivotBtn = null!;
@@ -25,7 +24,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private SpinBox _turretTurnRate = null!;
 		private CheckButton _testFireToggle = null!;
 
-		// 载荷与视觉着色
 		private OptionButton _deliverySelect = null!;
 		private HBoxContainer _colorHBox = null!;
 		private Label _coreColorLabel = null!;
@@ -33,13 +31,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private Label _glowColorLabel = null!;
 		private ColorPickerButton _glowColorPicker = null!;
 
-		// 激光与实弹尺寸
 		private SpinBox _projRadiusInput = null!;
 		private SpinBox _projLengthInput = null!;
 		private SpinBox _beamWidthInput = null!;
 		private SpinBox _beamDurationInput = null!;
 
-		// 鱼雷挂架与多弹位管理
+		// 🚀 鱼雷挂架与多弹位管理
 		private PanelContainer _missileCard = null!;
 		private LineEdit _missileSpriteInput = null!;
 		private Button _reloadTexBtn = null!;
@@ -49,6 +46,23 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private OptionButton _reloadModeSelect = null!;
 		private SpinBox _reloadDurationInput = null!;
 		private SpinBox _trackingInput = null!;
+
+		// 仓盖管理
+		private ItemList _bayList = null!;
+		private Button _addBayBtn = null!;
+		private Button _removeBayBtn = null!;
+
+		// 选中仓盖属性面板
+		private PanelContainer _bayDetailCard = null!;
+		private LineEdit _bayIdInput = null!;
+		private SpinBox _bayPosX = null!;
+		private SpinBox _bayPosY = null!;
+		private SpinBox _bayWidth = null!;
+		private SpinBox _bayHeight = null!;
+		private SpinBox _bayOpenDuration = null!;
+		private OptionButton _bayAnimSelect = null!;
+		private LineEdit _bayTexInput = null!;
+
 		private ItemList _slotList = null!;
 		private Button _addSlotBtn = null!;
 		private Button _removeSlotBtn = null!;
@@ -56,6 +70,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		// 选中弹位属性微调面板
 		private PanelContainer _slotDetailCard = null!;
 		private LineEdit _slotIdInput = null!;
+		private LineEdit _slotBayIdInput = null!;
 		private SpinBox _slotOrderInput = null!;
 		private SpinBox _slotPosX = null!;
 		private SpinBox _slotPosY = null!;
@@ -63,7 +78,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private SpinBox _slotLength = null!;
 		private SpinBox _slotAngle = null!;
 
-		// 弹道与物理参数
 		private SpinBox _damageInput = null!;
 		private SpinBox _fireRateInput = null!;
 		private SpinBox _rangeInput = null!;
@@ -75,10 +89,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 		public event Action? OnValuesChanged;
 		public event Action<bool>? OnTestFireModeToggled;
+		public event Action<int>? OnBaySelected;
 		public event Action<int>? OnSlotSelected;
 
 		private ModuleDataDefinition? _boundData;
 		private bool _isUpdating = false;
+		private int _selectedBayIndex = -1;
 		private int _selectedSlotIndex = -1;
 
 		private static readonly string[] DeliveryTypes = { "Ballistic", "PulseBeam", "ContinuousBeam", "Missile" };
@@ -89,6 +105,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			"🔴 持续光束 (Continuous Beam)", 
 			"🚀 鱼雷/导弹 (Guided Missile)" 
 		};
+
+		private static readonly string[] BayAnimTypes = { "InstantHide", "Split", "SlideOut", "Fade" };
+		private static readonly string[] BayAnimNames = { "👻 直接消失 (InstantHide)", "🚪 左右对开 (Split)", "↔️ 单侧滑开 (SlideOut)", "✨ 渐隐透明 (Fade)" };
 
 		public override void _Ready()
 		{
@@ -175,7 +194,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_beamWidthInput = CreateNumberRowToParent(payloadBox, "光束宽度 (px):", 1.0, 48.0, 0.5);
 			_beamDurationInput = CreateNumberRowToParent(payloadBox, "脉冲时长 (秒):", 0.05, 1.0, 0.02);
 
-			// 4. 🚀 鱼雷/导弹多弹位管理
+			// 4. 🚀 鱼雷挂架与多弹位系统
 			var (missileCard, missileBox) = CreateCard("🚀 鱼雷挂架与多弹位系统", new Color(0.3f, 0.85f, 1.0f));
 			_missileCard = missileCard;
 			AddChild(_missileCard);
@@ -206,6 +225,48 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_reloadDurationInput = CreateNumberRowToParent(missileBox, "装填周期 (秒):", 0.5, 30.0, 0.5);
 			_trackingInput = CreateNumberRowToParent(missileBox, "制导回转 (°/s):", 0.0, 360.0, 5.0);
 
+			// 🚪 仓盖管理列表
+			missileBox.AddChild(new Label { Text = "🚪 导弹仓盖列表 (Bays):" });
+			_bayList = new ItemList { CustomMinimumSize = new Vector2(0, 75), SizeFlagsHorizontal = SizeFlags.ExpandFill };
+			_bayList.ItemSelected += idx => SelectBay((int)idx);
+			missileBox.AddChild(_bayList);
+
+			var bayBtnHBox = new HBoxContainer();
+			_addBayBtn = new Button { Text = "➕ 添加仓盖", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+			_addBayBtn.Pressed += AddNewBay;
+			_removeBayBtn = new Button { Text = "🗑️ 删除仓盖", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+			_removeBayBtn.Pressed += RemoveSelectedBay;
+			bayBtnHBox.AddChild(_addBayBtn);
+			bayBtnHBox.AddChild(_removeBayBtn);
+			missileBox.AddChild(bayBtnHBox);
+
+			// 4.1 独立仓盖微调面板
+			var (bayDetailCard, bayDetailBox) = CreateCard("🚪 选中仓盖参数配置", new Color(1.0f, 0.55f, 0.25f));
+			_bayDetailCard = bayDetailCard;
+			_bayIdInput = CreateTextRowToParent(bayDetailBox, "仓盖标识 (ID):");
+			_bayIdInput.TextChanged += _ => UpdateCurrentBayFromFields();
+
+			CreateDualNumberRowToParent(bayDetailBox, "中心位置 (px):", -640, 640, 1, out _bayPosX, out _bayPosY);
+			_bayPosX.ValueChanged += _ => UpdateCurrentBayFromFields();
+			_bayPosY.ValueChanged += _ => UpdateCurrentBayFromFields();
+
+			CreateDualNumberRowToParent(bayDetailBox, "仓门尺寸 (px):", 8, 300, 1, out _bayWidth, out _bayHeight);
+			_bayWidth.ValueChanged += _ => UpdateCurrentBayFromFields();
+			_bayHeight.ValueChanged += _ => UpdateCurrentBayFromFields();
+
+			_bayOpenDuration = CreateNumberRowToParent(bayDetailBox, "开合耗时 (秒):", 0.02, 2.0, 0.02);
+			_bayOpenDuration.ValueChanged += _ => UpdateCurrentBayFromFields();
+
+			_bayAnimSelect = CreateOptionRowToParent(bayDetailBox, "开启方式:", BayAnimNames);
+			_bayAnimSelect.ItemSelected += _ => UpdateCurrentBayFromFields();
+
+			_bayTexInput = CreateTextRowToParent(bayDetailBox, "自定义贴图:");
+			_bayTexInput.TextChanged += _ => UpdateCurrentBayFromFields();
+
+			_bayDetailCard.Visible = false;
+			missileBox.AddChild(_bayDetailCard);
+
+			// 📦 弹位管理列表
 			missileBox.AddChild(new Label { Text = "📦 挂架弹位列表 (点击选择/视口拖拽):" });
 			_slotList = new ItemList { CustomMinimumSize = new Vector2(0, 90), SizeFlagsHorizontal = SizeFlags.ExpandFill };
 			_slotList.ItemSelected += idx => SelectSlot((int)idx);
@@ -220,11 +281,14 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			btnHBox.AddChild(_removeSlotBtn);
 			missileBox.AddChild(btnHBox);
 
-			// 4.1 独立弹位属性编辑器
+			// 4.2 独立弹位属性面板
 			var (slotDetailCard, slotDetailBox) = CreateCard("✏️ 选中弹位属性配置", new Color(0.95f, 0.85f, 0.35f));
 			_slotDetailCard = slotDetailCard;
 			_slotIdInput = CreateTextRowToParent(slotDetailBox, "槽位标识 (ID):");
 			_slotIdInput.TextChanged += _ => UpdateCurrentSlotFromFields();
+
+			_slotBayIdInput = CreateTextRowToParent(slotDetailBox, "所属仓盖 (BayID):");
+			_slotBayIdInput.TextChanged += _ => UpdateCurrentSlotFromFields();
 
 			_slotOrderInput = CreateNumberRowToParent(slotDetailBox, "发射序号 (0基):", 0, 32, 1);
 			_slotOrderInput.ValueChanged += _ => UpdateCurrentSlotFromFields();
@@ -257,7 +321,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_heatInput = CreateNumberRowToParent(combatBox, "射热量 (H):", 0.0, 100.0, 0.5);
 		}
 
-		public void BindData(ModuleDataDefinition data, int selectSlotIdx = -1)
+		public void BindData(ModuleDataDefinition data, int selectSlotIdx = -1, int selectBayIdx = -1)
 		{
 			_boundData = data;
 			_isUpdating = true;
@@ -295,6 +359,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_reloadDurationInput.Value = wp.ReloadDuration > 0 ? wp.ReloadDuration : 6.0f;
 			_trackingInput.Value = wp.TrackingStrength;
 
+			PopulateBayList(wp, selectBayIdx);
 			PopulateSlotList(wp, selectSlotIdx);
 
 			_damageInput.Value = wp.Damage;
@@ -310,7 +375,85 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_isUpdating = false;
 		}
 
-		private void PopulateSlotList(WeaponProperties wp, int selectIdx)
+		private void PopulateBayList(WeaponProperties wp, int selectIdx = -1)
+		{
+			_bayList.Clear();
+			if (wp.Bays == null || wp.Bays.Length == 0)
+			{
+				_bayDetailCard.Visible = false;
+				_selectedBayIndex = -1;
+				return;
+			}
+
+			for (int i = 0; i < wp.Bays.Length; i++)
+			{
+				var b = wp.Bays[i];
+				_bayList.AddItem($"🚪 {b.BayId} [{b.AnimationType}] ({b.OffsetX}, {b.OffsetY}) 尺寸:{b.Width}x{b.Height}");
+			}
+
+			int target = Mathf.Clamp(selectIdx >= 0 ? selectIdx : _selectedBayIndex, 0, wp.Bays.Length - 1);
+			_bayList.Select(target);
+			SelectBay(target);
+		}
+
+		public void SelectBay(int index)
+		{
+			_selectedBayIndex = index;
+			if (_boundData == null) return;
+			var wp = _boundData.GetProperties<WeaponProperties>();
+			if (wp?.Bays == null || index < 0 || index >= wp.Bays.Length)
+			{
+				_bayDetailCard.Visible = false;
+				return;
+			}
+
+			var bay = wp.Bays[index];
+			_bayDetailCard.Visible = true;
+
+			_isUpdating = true;
+			_bayIdInput.Text = bay.BayId;
+			_bayPosX.Value = bay.OffsetX;
+			_bayPosY.Value = bay.OffsetY;
+			_bayWidth.Value = bay.Width;
+			_bayHeight.Value = bay.Height;
+			_bayOpenDuration.Value = bay.OpenDuration;
+			_bayTexInput.Text = bay.CustomHatchSprite ?? string.Empty;
+
+			for (int i = 0; i < BayAnimTypes.Length; i++)
+			{
+				if (BayAnimTypes[i].Equals(bay.AnimationType, StringComparison.OrdinalIgnoreCase))
+				{
+					_bayAnimSelect.Select(i);
+					break;
+				}
+			}
+
+			_isUpdating = false;
+			OnBaySelected?.Invoke(index);
+		}
+
+		private void UpdateCurrentBayFromFields()
+		{
+			if (_isUpdating || _boundData == null || _selectedBayIndex < 0) return;
+			var wp = _boundData.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			if (wp.Bays == null || _selectedBayIndex >= wp.Bays.Length) return;
+
+			var bay = wp.Bays[_selectedBayIndex];
+			bay.BayId = _bayIdInput.Text.Trim();
+			bay.OffsetX = (float)_bayPosX.Value;
+			bay.OffsetY = (float)_bayPosY.Value;
+			bay.Width = (float)_bayWidth.Value;
+			bay.Height = (float)_bayHeight.Value;
+			bay.OpenDuration = (float)_bayOpenDuration.Value;
+			bay.AnimationType = BayAnimTypes[Mathf.Clamp(_bayAnimSelect.Selected, 0, BayAnimTypes.Length - 1)];
+			bay.CustomHatchSprite = _bayTexInput.Text.Trim();
+
+			_boundData.Properties = JsonSerializer.SerializeToElement(wp);
+			_bayList.SetItemText(_selectedBayIndex, $"🚪 {bay.BayId} [{bay.AnimationType}] ({bay.OffsetX}, {bay.OffsetY}) 尺寸:{bay.Width}x{bay.Height}");
+			EmitChange();
+		}
+
+		private void PopulateSlotList(WeaponProperties wp, int selectIdx = -1)
 		{
 			_slotList.Clear();
 			if (wp.MunitionSlots == null || wp.MunitionSlots.Length == 0)
@@ -323,7 +466,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			for (int i = 0; i < wp.MunitionSlots.Length; i++)
 			{
 				var slot = wp.MunitionSlots[i];
-				_slotList.AddItem($"[#{slot.FireOrder + 1}] {slot.SlotId} 偏移:({slot.OffsetX}, {slot.OffsetY}) 尺寸:{slot.Width}x{slot.Length}");
+				_slotList.AddItem($"[#{slot.FireOrder + 1}] {slot.SlotId} ({slot.BayId}) 偏移:({slot.OffsetX}, {slot.OffsetY}) 尺寸:{slot.Width}x{slot.Length}");
 			}
 
 			int target = Mathf.Clamp(selectIdx >= 0 ? selectIdx : _selectedSlotIndex, 0, wp.MunitionSlots.Length - 1);
@@ -347,6 +490,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			_isUpdating = true;
 			_slotIdInput.Text = slot.SlotId;
+			_slotBayIdInput.Text = slot.BayId;
 			_slotOrderInput.Value = slot.FireOrder;
 			_slotPosX.Value = slot.OffsetX;
 			_slotPosY.Value = slot.OffsetY;
@@ -366,6 +510,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			var slot = wp.MunitionSlots[_selectedSlotIndex];
 			slot.SlotId = _slotIdInput.Text.Trim();
+			slot.BayId = _slotBayIdInput.Text.Trim();
 			slot.FireOrder = (int)_slotOrderInput.Value;
 			slot.OffsetX = (float)_slotPosX.Value;
 			slot.OffsetY = (float)_slotPosY.Value;
@@ -374,8 +519,51 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			slot.AngleOffsetDeg = (float)_slotAngle.Value;
 
 			_boundData.Properties = JsonSerializer.SerializeToElement(wp);
-			_slotList.SetItemText(_selectedSlotIndex, $"[#{slot.FireOrder + 1}] {slot.SlotId} 偏移:({slot.OffsetX}, {slot.OffsetY}) 尺寸:{slot.Width}x{slot.Length}");
+			_slotList.SetItemText(_selectedSlotIndex, $"[#{slot.FireOrder + 1}] {slot.SlotId} ({slot.BayId}) 偏移:({slot.OffsetX}, {slot.OffsetY}) 尺寸:{slot.Width}x{slot.Length}");
 			EmitChange();
+		}
+
+		private void AddNewBay()
+		{
+			if (_boundData == null) return;
+			var wp = _boundData.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			var list = new List<MissileBayDefinition>(wp.Bays ?? Array.Empty<MissileBayDefinition>());
+
+			list.Add(new MissileBayDefinition
+			{
+				BayId = $"bay_{list.Count}",
+				OffsetX = 40,
+				OffsetY = 60,
+				Width = 32,
+				Height = 48,
+				OpenDuration = 0.25f,
+				AnimationType = "InstantHide"
+			});
+
+			wp.Bays = list.ToArray();
+			_boundData.Properties = JsonSerializer.SerializeToElement(wp);
+			BindData(_boundData, _selectedSlotIndex, list.Count - 1);
+			EmitChange();
+		}
+
+		private void RemoveSelectedBay()
+		{
+			if (_boundData == null) return;
+			var selected = _bayList.GetSelectedItems();
+			if (selected.Length == 0) return;
+
+			var wp = _boundData.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			var list = new List<MissileBayDefinition>(wp.Bays ?? Array.Empty<MissileBayDefinition>());
+			int removeIdx = selected[0];
+
+			if (removeIdx >= 0 && removeIdx < list.Count)
+			{
+				list.RemoveAt(removeIdx);
+				wp.Bays = list.ToArray();
+				_boundData.Properties = JsonSerializer.SerializeToElement(wp);
+				BindData(_boundData, _selectedSlotIndex, Mathf.Clamp(removeIdx - 1, 0, list.Count - 1));
+				EmitChange();
+			}
 		}
 
 		private void AddNewSlot()
@@ -387,6 +575,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			list.Add(new MunitionSlotDefinition
 			{
 				SlotId = $"slot_{list.Count}",
+				BayId = (wp.Bays != null && wp.Bays.Length > 0) ? wp.Bays[0].BayId : "bay_0",
 				FireOrder = list.Count,
 				OffsetX = 0,
 				OffsetY = -20,
@@ -396,7 +585,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			wp.MunitionSlots = list.ToArray();
 			_boundData.Properties = JsonSerializer.SerializeToElement(wp);
-			BindData(_boundData, list.Count - 1);
+			BindData(_boundData, list.Count - 1, _selectedBayIndex);
 			EmitChange();
 		}
 
@@ -416,8 +605,23 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 				for (int i = 0; i < list.Count; i++) list[i].FireOrder = i;
 				wp.MunitionSlots = list.ToArray();
 				_boundData.Properties = JsonSerializer.SerializeToElement(wp);
-				BindData(_boundData, Mathf.Clamp(removeIdx - 1, 0, list.Count - 1));
+				BindData(_boundData, Mathf.Clamp(removeIdx - 1, 0, list.Count - 1), _selectedBayIndex);
 				EmitChange();
+			}
+		}
+
+		public void SelectBayExternal(int index)
+		{
+			if (index >= 0 && index < _bayList.ItemCount)
+			{
+				_bayList.Select(index);
+				SelectBay(index);
+			}
+			else
+			{
+				_bayList.DeselectAll();
+				_bayDetailCard.Visible = false;
+				_selectedBayIndex = -1;
 			}
 		}
 
@@ -623,6 +827,8 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			hbox.AddChild(new Label { Text = labelText, CustomMinimumSize = new Vector2(110, 0) });
 			s1 = new SpinBox { MinValue = min, MaxValue = max, Step = step, SizeFlagsHorizontal = SizeFlags.ExpandFill, Prefix = "X:" };
 			s2 = new SpinBox { MinValue = min, MaxValue = max, Step = step, SizeFlagsHorizontal = SizeFlags.ExpandFill, Prefix = "Y:" };
+			s1.ValueChanged += _ => EmitChange();
+			s2.ValueChanged += _ => EmitChange();
 			hbox.AddChild(s1);
 			hbox.AddChild(s2);
 			parent.AddChild(hbox);

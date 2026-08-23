@@ -18,7 +18,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		private SpinBox _hpInput = null!;
 		private SpinBox _armorInput = null!;
 
-		// 贴图与发光层属性
 		private LineEdit _baseTexInput = null!;
 		private LineEdit _overlayTexInput = null!;
 		private LineEdit _emissiveTexInput = null!;
@@ -28,12 +27,11 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		private SpinBox _emissiveAnchorX = null!;
 		private SpinBox _emissiveAnchorY = null!;
 
-		// 斜面装甲跳弹卡片
 		private PanelContainer _armorCard = null!;
 		private SpinBox _deflectInput = null!;
 
-		// 子分类独立检视器
 		private WeaponInspector _weaponInspector = null!;
+		private HangarInspector _hangarInspector = null!;
 		private ShieldInspector _shieldInspector = null!;
 		private PowerInspector _powerInspector = null!;
 		private PropulsionInspector _propulsionInspector = null!;
@@ -42,7 +40,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 
 		public event Action? OnValuesChanged;
 		public event Action<int>? OnPinSelected;
+		public event Action<int>? OnBaySelected;
 		public event Action<int>? OnSlotSelected;
+		public event Action<int>? OnRunwaySelected;
 		public event Action<int>? OnExhaustSelected;
 		public event Action<bool>? OnTestFireModeToggled;
 
@@ -62,7 +62,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		{
 			AddThemeConstantOverride("separation", 10);
 
-			// 1. 基础几何与物理卡片
 			var (baseCard, baseBox) = CreateCard("📦 基础几何与物理属性", new Color(0.38f, 0.65f, 0.98f));
 			AddChild(baseCard);
 
@@ -76,7 +75,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_hpInput = CreateNumberRowToParent(baseBox, "结构耐久 (HP):", 10, 50000, 50);
 			_armorInput = CreateNumberRowToParent(baseBox, "装甲抗性:", 0, 100, 5);
 
-			// 2. 贴图与着色图层卡片
 			var (texCard, texBox) = CreateCard("🎨 贴图与发光图层", new Color(0.85f, 0.45f, 0.95f));
 			AddChild(texCard);
 
@@ -88,18 +86,23 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			CreateDualNumberRowToParent(texBox, "发光局部偏移 (px):", -640, 640, 1, out _emissiveOffsetX, out _emissiveOffsetY);
 			CreateDualNumberRowToParent(texBox, "发光自转轴心 (px):", 0, 640, 1, out _emissiveAnchorX, out _emissiveAnchorY);
 
-			// 3. 装甲跳弹卡片
 			var (armorCard, armorBox) = CreateCard("🛡️ 斜面装甲跳弹参数", new Color(0.95f, 0.65f, 0.25f));
 			_armorCard = armorCard;
 			_deflectInput = CreateNumberRowToParent(armorBox, "跳弹偏折几率:", 0.0, 1.0, 0.05);
 			AddChild(_armorCard);
 
-			// 4. 挂载子检视器
 			_weaponInspector = new WeaponInspector();
 			_weaponInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
 			_weaponInspector.OnTestFireModeToggled += (on) => OnTestFireModeToggled?.Invoke(on);
+			_weaponInspector.OnBaySelected += (idx) => OnBaySelected?.Invoke(idx);
 			_weaponInspector.OnSlotSelected += (idx) => OnSlotSelected?.Invoke(idx);
 			AddChild(_weaponInspector);
+
+			_hangarInspector = new HangarInspector();
+			_hangarInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
+			_hangarInspector.OnTestFireModeToggled += (on) => OnTestFireModeToggled?.Invoke(on); // 连接测试开火信号
+			_hangarInspector.OnRunwaySelected += (idx) => OnRunwaySelected?.Invoke(idx);
+			AddChild(_hangarInspector);
 
 			_shieldInspector = new ShieldInspector();
 			_shieldInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
@@ -118,14 +121,13 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_pipelineInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
 			AddChild(_pipelineInspector);
 
-			// 5. 引脚端口检视器
 			_pinInspector = new PinInspector();
 			_pinInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
 			_pinInspector.OnPinSelectedInInspector += (idx) => OnPinSelected?.Invoke(idx);
 			AddChild(_pinInspector);
 		}
 
-		public void BindData(ModuleDataDefinition data, int selectPinIndex = -1, int selectExhaustIndex = -1, int selectSlotIndex = -1)
+		public void BindData(ModuleDataDefinition data, int selectPinIndex = -1, int selectExhaustIndex = -1, int selectSlotIndex = -1, int selectBayIndex = -1, int selectRunwayIndex = -1)
 		{
 			_boundData = data;
 			_isUpdating = true;
@@ -151,10 +153,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_emissiveAnchorY.Value = data.EmissiveAnchorY;
 
 			bool isShield = data.Tags != null && data.Tags.Contains("Shield");
+			bool isHangar = data.MountType == "Hangar" || (data.Tags != null && data.Tags.Contains("Hangar"));
 			bool isArmor = data.Category == "Armor" && !isShield;
 
 			_armorCard.Visible = isArmor;
-			_weaponInspector.Visible = data.Category == "Weapons";
+			_weaponInspector.Visible = data.Category == "Weapons" && !isHangar;
+			_hangarInspector.Visible = isHangar;
 			_shieldInspector.Visible = isShield;
 			_powerInspector.Visible = data.Category == "Power";
 			_propulsionInspector.Visible = data.Category == "Propulsion";
@@ -170,7 +174,8 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 				}
 				catch { _deflectInput.Value = 0.0; }
 			}
-			else if (_weaponInspector.Visible) _weaponInspector.BindData(data, selectSlotIndex);
+			else if (_hangarInspector.Visible) _hangarInspector.BindData(data, selectRunwayIndex);
+			else if (_weaponInspector.Visible) _weaponInspector.BindData(data, selectSlotIndex, selectBayIndex);
 			else if (_shieldInspector.Visible) _shieldInspector.BindData(data);
 			else if (_powerInspector.Visible) _powerInspector.BindData(data);
 			else if (_propulsionInspector.Visible) _propulsionInspector.BindData(data, selectExhaustIndex);
@@ -185,7 +190,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		}
 
 		public void SelectPinExternal(int index) => _pinInspector.SelectPinExternal(index);
+		public void SelectBayExternal(int index) => _weaponInspector.SelectBayExternal(index);
 		public void SelectSlotExternal(int index) => _weaponInspector.SelectSlotExternal(index);
+		public void SelectRunwayExternal(int index) => _hangarInspector.SelectRunwayExternal(index);
 		public void SelectExhaustExternal(int index) => _propulsionInspector.SelectExhaustExternal(index);
 
 		private void EmitDataChanged()
