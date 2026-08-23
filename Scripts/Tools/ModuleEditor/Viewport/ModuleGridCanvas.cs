@@ -432,8 +432,8 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 		private float GetCurrentTurretRotationRad()
 		{
 			if (CurrentModule == null || CurrentModule.MountType != "Turret") return 0.0f;
-			return _turretHandler.IsTestFiringMode 
-				? _turretHandler.CurrentAimAngleRad + Mathf.Pi * 0.5f 
+			return _turretHandler.IsTestFiringMode
+				? _turretHandler.CurrentAimAngleRad + Mathf.Pi * 0.5f
 				: 0.0f;
 		}
 
