@@ -24,203 +24,203 @@
   "emissiveAnchorX": 0,
   "emissiveAnchorY": 0,
   "tags": [
-	"Weapon",
-	"Missile",
-	"Rocket",
-	"Salvo",
+    "Weapon",
+    "Missile",
+    "Rocket",
+    "Salvo",
     "Fixed"
   ],
   "pins": [
-	{
-	  "pinId": "pulsepower_in_0_1_bottom",
-	  "type": "IN",
-	  "localGridX": 0,
-	  "localGridY": 1,
-	  "edge": "Bottom",
-	  "category": "PulsePower"
-	}
+    {
+      "pinId": "pulsepower_in_0_1_bottom",
+      "type": "IN",
+      "localGridX": 0,
+      "localGridY": 1,
+      "edge": "Bottom",
+      "category": "PulsePower"
+    }
   ],
   "firePoints": [],
   "exhaustPoints": [],
   "properties": {
-	"deliveryType": "Missile",
-	"projectileDefId": "proj_torpedo_heavy",
-	"bulletColorHex": "#ffe066",
-	"bulletGlowHex": "#ff9900",
-	"projectileRadius": 3,
-	"projectileLength": 16,
-	"beamWidth": 4,
-	"beamDuration": 0.11,
-	"defaultMissileSprite": "modules/heavy_foundry/weapons/hf_wep_missile_launcher_missile.png",
-	"defaultMissileWidth": 14,
-	"defaultMissileLength": 42,
-	"showMissileOnRack": false,
-	"trackingStrength": 45,
-	"fireMode": "Sequential",
-	"burstInterval": 0.2,
-	"reloadMode": "Incremental",
-	"reloadDuration": 6,
-	"munitionSlots": [
-	  {
-		"slotId": "slot_0",
-		"fireOrder": 0,
-		"offsetX": 56,
-		"offsetY": 112,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_1",
-		"fireOrder": 1,
-		"offsetX": 40,
-		"offsetY": 112,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_2",
-		"fireOrder": 2,
-		"offsetX": 22,
-		"offsetY": 112,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_3",
-		"fireOrder": 3,
-		"offsetX": 56,
-		"offsetY": 94,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_4",
-		"fireOrder": 4,
-		"offsetX": 40,
-		"offsetY": 94,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_5",
-		"fireOrder": 5,
-		"offsetX": 22,
-		"offsetY": 94,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_6",
-		"fireOrder": 6,
-		"offsetX": 56,
-		"offsetY": 77,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_7",
-		"fireOrder": 7,
-		"offsetX": 40,
-		"offsetY": 77,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_8",
-		"fireOrder": 8,
-		"offsetX": 22,
-		"offsetY": 77,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_9",
-		"fireOrder": 9,
-		"offsetX": 56,
-		"offsetY": 59,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_10",
-		"fireOrder": 10,
-		"offsetX": 40,
-		"offsetY": 59,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_11",
-		"fireOrder": 11,
-		"offsetX": 22,
-		"offsetY": 59,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_12",
-		"fireOrder": 12,
-		"offsetX": 56,
-		"offsetY": 42,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_13",
-		"fireOrder": 13,
-		"offsetX": 40,
-		"offsetY": 42,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  },
-	  {
-		"slotId": "slot_14",
-		"fireOrder": 14,
-		"offsetX": 23,
-		"offsetY": 42,
-		"width": 10,
-		"length": 35,
-		"angleOffsetDeg": 0,
-		"customSprite": ""
-	  }
-	],
-	"damage": 41,
-	"fireRate": 8.1,
-	"range": 80,
-	"speed": 180,
-	"pierce": 0,
-	"spread": 0,
-	"recoil": 200,
-	"pulseCost": 1,
-	"heatPerShot": 20,
-	"ammoMax": 20
+    "deliveryType": "Missile",
+    "projectileDefId": "proj_torpedo_heavy",
+    "bulletColorHex": "#ffe066",
+    "bulletGlowHex": "#ff9900",
+    "projectileRadius": 3,
+    "projectileLength": 16,
+    "beamWidth": 4,
+    "beamDuration": 0.11,
+    "defaultMissileSprite": "modules/heavy_foundry/weapons/hf_wep_missile_launcher_missile.png",
+    "defaultMissileWidth": 14,
+    "defaultMissileLength": 42,
+    "showMissileOnRack": false,
+    "trackingStrength": 45,
+    "fireMode": "Sequential",
+    "burstInterval": 0.2,
+    "reloadMode": "Incremental",
+    "reloadDuration": 6,
+    "munitionSlots": [
+      {
+        "slotId": "slot_0",
+        "fireOrder": 0,
+        "offsetX": 56,
+        "offsetY": 78,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_1",
+        "fireOrder": 1,
+        "offsetX": 40,
+        "offsetY": 78,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_2",
+        "fireOrder": 2,
+        "offsetX": 22,
+        "offsetY": 78,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_3",
+        "fireOrder": 3,
+        "offsetX": 56,
+        "offsetY": 59,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_4",
+        "fireOrder": 4,
+        "offsetX": 40,
+        "offsetY": 59,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_5",
+        "fireOrder": 5,
+        "offsetX": 22,
+        "offsetY": 59,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_6",
+        "fireOrder": 6,
+        "offsetX": 56,
+        "offsetY": 42,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_7",
+        "fireOrder": 7,
+        "offsetX": 40,
+        "offsetY": 42,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_8",
+        "fireOrder": 8,
+        "offsetX": 22,
+        "offsetY": 42,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_9",
+        "fireOrder": 9,
+        "offsetX": 56,
+        "offsetY": 24,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_10",
+        "fireOrder": 10,
+        "offsetX": 40,
+        "offsetY": 24,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_11",
+        "fireOrder": 11,
+        "offsetX": 22,
+        "offsetY": 24,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_12",
+        "fireOrder": 12,
+        "offsetX": 56,
+        "offsetY": 7,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_13",
+        "fireOrder": 13,
+        "offsetX": 40,
+        "offsetY": 7,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      },
+      {
+        "slotId": "slot_14",
+        "fireOrder": 14,
+        "offsetX": 23,
+        "offsetY": 7,
+        "width": 10,
+        "length": 35,
+        "angleOffsetDeg": 0,
+        "customSprite": ""
+      }
+    ],
+    "damage": 41,
+    "fireRate": 8.1,
+    "range": 80,
+    "speed": 180,
+    "pierce": 0,
+    "spread": 0,
+    "recoil": 200,
+    "pulseCost": 1,
+    "heatPerShot": 20,
+    "ammoMax": 20
   }
 }
