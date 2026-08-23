@@ -1,0 +1,38 @@
+{
+  "id": "dec_scatter_module",
+  "name": "散射分束器",
+  "description": "单次发射分裂为 3 枚弹丸，左右弹道偏转 8°。工业化光学分束结构提供近距离覆盖。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.5,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_scatter_module.png",
+  "tags": ["Decorator", "WeaponModifier", "Scatter"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": ["Ballistic"],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "scatter_split",
+        "name": "散射分束",
+        "trigger": "OnFire",
+        "stackMode": "Highest",
+        "modifiers": [
+          { "attribute": "ProjectileCount", "operation": "Increase", "valueType": "Flat", "value": 2 },
+          { "attribute": "ScatterAngle", "operation": "Set", "valueType": "Flat", "value": 8 }
+        ]
+      }
+    ]
+  }
+}

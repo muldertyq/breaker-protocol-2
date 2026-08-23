@@ -1,0 +1,37 @@
+{
+  "id": "dec_ammo_bay",
+  "name": "子弹仓",
+  "description": "弹药类武器容量 +50%。机械弹链与液压供弹臂构成紧凑的辅助供弹系统。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.8,
+  "baseHp": 80,
+  "armorResistance": 8,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_ammo_bay.png",
+  "tags": ["Decorator", "WeaponModifier", "Ammo"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": ["Ballistic", "Missile"],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "ammo_capacity",
+        "name": "弹药扩容",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "AmmoCapacity", "operation": "Increase", "valueType": "Percent", "value": 50 }
+        ]
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using BreakerProtocol.Data.Models.Properties;
 
@@ -82,7 +83,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			}
 
 			// 4. 持续开火测试
-			if (_turretHandler.IsTestFiringMode && _isTestFireHolding && CurrentModule != null)
+			if (_turretHandler.IsTestFiringMode && _isTestFireHolding && CanTestFireCurrentModule())
 			{
 				if (wp?.DeliveryType == "ContinuousBeam")
 				{
@@ -206,9 +207,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 				: 0.0f;
 		}
 
-		private List<Vector2> GetCurrentWorldFirePoints()
+		private List<(Vector2 Position, float AngleOffsetDeg, int SequenceIndex)> GetCurrentWorldFirePoints()
 		{
-			var list = new List<Vector2>();
+			var list = new List<(Vector2, float, int)>();
 			if (CurrentModule == null) return list;
 
 			Vector2 mountPos = new(CurrentModule.PivotPixelX, CurrentModule.PivotPixelY);
@@ -216,25 +217,39 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 
 			if (CurrentModule.FirePoints != null && CurrentModule.FirePoints.Length > 0)
 			{
-				foreach (var fp in CurrentModule.FirePoints)
+				foreach (var fp in CurrentModule.FirePoints.OrderBy(point => point.SequenceIndex))
 				{
 					Vector2 localOffset = new(fp.PixelOffsetX - CurrentModule.PivotPixelX, fp.PixelOffsetY - CurrentModule.PivotPixelY);
 					float rotatedX = localOffset.X * Mathf.Cos(aimRad + Mathf.Pi * 0.5f) - localOffset.Y * Mathf.Sin(aimRad + Mathf.Pi * 0.5f);
 					float rotatedY = localOffset.X * Mathf.Sin(aimRad + Mathf.Pi * 0.5f) + localOffset.Y * Mathf.Cos(aimRad + Mathf.Pi * 0.5f);
-					list.Add(mountPos + new Vector2(rotatedX, rotatedY));
+					list.Add((mountPos + new Vector2(rotatedX, rotatedY), fp.AngleOffset, fp.SequenceIndex));
 				}
 			}
 			else
 			{
-				list.Add(mountPos);
+				list.Add((mountPos, 0.0f, 0));
 			}
 
 			return list;
 		}
 
+		private List<(Vector2 Position, float AngleOffsetDeg, int SequenceIndex)> GetNextWorldFirePointGroup()
+		{
+			var firePoints = GetCurrentWorldFirePoints();
+			if (firePoints.Count <= 1) return firePoints;
+
+			var groups = firePoints
+				.GroupBy(point => point.SequenceIndex)
+				.OrderBy(group => group.Key)
+				.ToList();
+			int groupIndex = _nextFirePointGroupIndex % groups.Count;
+			_nextFirePointGroupIndex = (groupIndex + 1) % groups.Count;
+			return groups[groupIndex].ToList();
+		}
+
 		private void TrySpawnDemoPayload()
 		{
-			if (CurrentModule == null || _isFullRackReloading) return;
+			if (!CanTestFireCurrentModule() || CurrentModule == null || _isFullRackReloading) return;
 
 			// 🛸 1. 机库无人机多跑道弹射起飞
 			if (CurrentModule.MountType == "Hangar" || (CurrentModule.Tags != null && Array.IndexOf(CurrentModule.Tags, "Hangar") >= 0))
@@ -339,7 +354,6 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			Color glowColor = Color.FromHtml(string.IsNullOrEmpty(wp.BulletGlowHex) ? "#ff9900" : wp.BulletGlowHex);
 			float rangePx = (wp.Range > 0 ? wp.Range * 8.0f : 240.0f);
 			float speedPx = (wp.Speed > 0 ? wp.Speed : 200.0f) * 3.0f;
-			Vector2 mountPos = new(CurrentModule.PivotPixelX, CurrentModule.PivotPixelY);
 
 			if (wp.DeliveryType == "ContinuousBeam") return;
 
@@ -400,37 +414,46 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			if (_fireCooldown > 0) return;
 			_fireCooldown = 1.0f / Mathf.Max(wp.FireRate, 0.2f);
 
+			var activeFirePoints = GetNextWorldFirePointGroup();
 			if (wp.DeliveryType is "PulseBeam" or "Beam")
 			{
 				float duration = Mathf.Max(wp.BeamDuration, 0.05f);
-				_demoBeams.Add(new DemoBeam
+				foreach (var firePoint in activeFirePoints)
 				{
-					Start = mountPos,
-					End = mountPos + aimDir * rangePx,
-					Life = duration,
-					MaxLife = duration,
-					Width = Mathf.Max(wp.BeamWidth, 2.0f),
-					CoreColor = coreColor,
-					GlowColor = glowColor
-				});
+					Vector2 fireDir = aimDir.Rotated(Mathf.DegToRad(firePoint.AngleOffsetDeg));
+					_demoBeams.Add(new DemoBeam
+					{
+						Start = firePoint.Position,
+						End = firePoint.Position + fireDir * rangePx,
+						Life = duration,
+						MaxLife = duration,
+						Width = Mathf.Max(wp.BeamWidth, 2.0f),
+						CoreColor = coreColor,
+						GlowColor = glowColor
+					});
+				}
 			}
 			else
 			{
 				float radius = wp.ProjectileRadius > 0 ? wp.ProjectileRadius : 3.0f;
 				float length = wp.ProjectileLength > 0 ? wp.ProjectileLength : 16.0f;
-				float spreadRad = Mathf.DegToRad((float)GD.RandRange(-wp.Spread * 0.5f, wp.Spread * 0.5f));
-				Vector2 bulletDir = aimDir.Rotated(spreadRad);
-
-				_demoBullets.Add(new DemoProjectile
+				foreach (var firePoint in activeFirePoints)
 				{
-					Pos = mountPos,
-					Vel = bulletDir * speedPx,
-					Life = 2.5f,
-					Radius = radius,
-					Length = length,
-					CoreColor = coreColor,
-					GlowColor = glowColor
-				});
+					float spreadRad = Mathf.DegToRad((float)GD.RandRange(-wp.Spread * 0.5f, wp.Spread * 0.5f));
+					float muzzleOffsetRad = Mathf.DegToRad(firePoint.AngleOffsetDeg);
+					Vector2 bulletDir = aimDir.Rotated(muzzleOffsetRad + spreadRad);
+
+					_demoBullets.Add(new DemoProjectile
+					{
+						Pos = firePoint.Position,
+						Vel = bulletDir * speedPx,
+						Life = 2.5f,
+						Radius = radius,
+						Length = length,
+						CoreColor = coreColor,
+						GlowColor = glowColor
+					});
+				}
 			}
 		}
 	}

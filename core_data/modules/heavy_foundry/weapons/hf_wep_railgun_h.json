@@ -51,6 +51,9 @@
   ],
   "exhaustPoints": [],
   "properties": {
+	"targetTypes": [],
+	"requiredTargetTags": [],
+	"excludedTargetTags": [],
 	"deliveryType": "Ballistic",
 	"projectileDefId": "proj_kinetic_standard",
 	"bulletColorHex": "#ffe066",

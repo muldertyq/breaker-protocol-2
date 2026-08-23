@@ -1,0 +1,38 @@
+{
+  "id": "dec_chain_reactor",
+  "name": "连锁反应触发器",
+  "description": "命中后有 20% 概率产生半径 3 GU 的小范围爆炸。微型连锁反应腔沿用重工反应堆结构。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.7,
+  "baseHp": 70,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_chain_reactor.png",
+  "tags": ["Decorator", "WeaponModifier", "Explosion", "Reactor"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "chain_explosion",
+        "name": "连锁爆炸",
+        "trigger": "OnHit",
+        "stackMode": "Independent",
+        "modifiers": [
+          { "attribute": "ExplosionChance", "operation": "Set", "valueType": "Percent", "value": 20 },
+          { "attribute": "ExplosionRadius", "operation": "Set", "valueType": "Flat", "value": 3 }
+        ]
+      }
+    ]
+  }
+}

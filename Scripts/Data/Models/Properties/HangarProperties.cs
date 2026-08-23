@@ -9,6 +9,12 @@ namespace BreakerProtocol.Data.Models.Properties
 		[JsonPropertyName("droneSprite")] public string DroneSprite { get; set; } = "modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png";
 		[JsonPropertyName("droneWidth")] public float DroneWidth { get; set; } = 28.0f;
 		[JsonPropertyName("droneLength")] public float DroneLength { get; set; } = 36.0f;
+		[JsonPropertyName("droneHp")] public float DroneHp { get; set; } = 100.0f;
+
+		// 无人机自身的攻击目标规则。
+		[JsonPropertyName("targetTypes")] public string[] TargetTypes { get; set; } = Array.Empty<string>();
+		[JsonPropertyName("requiredTargetTags")] public string[] RequiredTargetTags { get; set; } = Array.Empty<string>();
+		[JsonPropertyName("excludedTargetTags")] public string[] ExcludedTargetTags { get; set; } = Array.Empty<string>();
 
 		// 是否在跑道起点常驻显示待命机体 (开启: 露天停机坪; 关闭: 升降机内置/起飞瞬间出现)
 		[JsonPropertyName("showDroneOnRunway")] public bool ShowDroneOnRunway { get; set; } = false;

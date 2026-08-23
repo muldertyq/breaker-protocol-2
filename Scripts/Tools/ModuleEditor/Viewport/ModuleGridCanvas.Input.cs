@@ -54,6 +54,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 
 						if (ActiveMode == EditGizmoMode.FirePoints && _firePointHandler.TryDeleteFirePointAt(CurrentModule, localPx, _canvasZoom))
 						{
+							OnFirePointSelectedOnCanvas?.Invoke(_firePointHandler.SelectedIndex);
 							OnDataModified?.Invoke();
 							QueueRedraw();
 							return;
@@ -82,7 +83,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 				else if (mb.ButtonIndex == MouseButton.WheelDown && mb.Pressed) ZoomAtPoint(mb.Position, 0.85f);
 				else if (mb.ButtonIndex == MouseButton.Left)
 				{
-					if (_turretHandler.IsTestFiringMode)
+					if (_turretHandler.IsTestFiringMode && CanTestFireCurrentModule())
 					{
 						_isTestFireHolding = mb.Pressed;
 						if (mb.Pressed) TrySpawnDemoPayload();
@@ -192,6 +193,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 					break;
 				case EditGizmoMode.FirePoints:
 					_isDraggingGizmo = _firePointHandler.OnLeftClickDown(CurrentModule, localPx, _canvasZoom, insideExtended, out bool isFpCreated);
+					OnFirePointSelectedOnCanvas?.Invoke(_firePointHandler.SelectedIndex);
 					if (isFpCreated || _isDraggingGizmo) OnDataModified?.Invoke();
 					break;
 				case EditGizmoMode.Exhausts:

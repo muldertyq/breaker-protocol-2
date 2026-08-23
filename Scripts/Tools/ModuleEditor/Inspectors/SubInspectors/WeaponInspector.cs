@@ -25,6 +25,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private CheckButton _testFireToggle = null!;
 
 		private OptionButton _deliverySelect = null!;
+		private MultiSelectMenu _targetTypesField = null!;
+		private MultiSelectMenu _requiredTargetTagsField = null!;
+		private MultiSelectMenu _excludedTargetTagsField = null!;
 		private HBoxContainer _colorHBox = null!;
 		private Label _coreColorLabel = null!;
 		private ColorPickerButton _bulletColorPicker = null!;
@@ -46,6 +49,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 		private OptionButton _reloadModeSelect = null!;
 		private SpinBox _reloadDurationInput = null!;
 		private SpinBox _trackingInput = null!;
+		private SpinBox _munitionHpInput = null!;
 
 		// 仓盖管理
 		private ItemList _bayList = null!;
@@ -164,7 +168,26 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_testFireToggle.Toggled += (on) => OnTestFireModeToggled?.Invoke(on);
 			testBox.AddChild(_testFireToggle);
 
-			// 3. 载荷形态
+			// 3. 目标筛选
+			var (targetingCard, targetingBox) = CreateCard("目标筛选", new Color(0.95f, 0.55f, 0.35f));
+			AddChild(targetingCard);
+			_targetTypesField = new MultiSelectMenu(
+				targetingBox,
+				"可命中类型:",
+				"目标类型命中任意一项即可；不选择表示不限",
+				EmitChange);
+			_requiredTargetTagsField = new MultiSelectMenu(
+				targetingBox,
+				"必须标签:",
+				"目标必须同时具备全部所选标签；不选择表示不限",
+				EmitChange);
+			_excludedTargetTagsField = new MultiSelectMenu(
+				targetingBox,
+				"排除标签:",
+				"目标只要具备任意一个所选标签就不能被该武器选中",
+				EmitChange);
+
+			// 4. 载荷形态
 			var (payloadCard, payloadBox) = CreateCard("🔴 载荷形态与着色", new Color(0.45f, 0.80f, 1.0f));
 			AddChild(payloadCard);
 
@@ -194,7 +217,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_beamWidthInput = CreateNumberRowToParent(payloadBox, "光束宽度 (px):", 1.0, 48.0, 0.5);
 			_beamDurationInput = CreateNumberRowToParent(payloadBox, "脉冲时长 (秒):", 0.05, 1.0, 0.02);
 
-			// 4. 🚀 鱼雷挂架与多弹位系统
+			// 5. 🚀 鱼雷挂架与多弹位系统
 			var (missileCard, missileBox) = CreateCard("🚀 鱼雷挂架与多弹位系统", new Color(0.3f, 0.85f, 1.0f));
 			_missileCard = missileCard;
 			AddChild(_missileCard);
@@ -224,6 +247,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_reloadModeSelect = CreateOptionRowToParent(missileBox, "装填策略:", new[] { "FullRack (打空整架装填)", "Incremental (单发独立装填)" });
 			_reloadDurationInput = CreateNumberRowToParent(missileBox, "装填周期 (秒):", 0.5, 30.0, 0.5);
 			_trackingInput = CreateNumberRowToParent(missileBox, "制导回转 (°/s):", 0.0, 360.0, 5.0);
+			_munitionHpInput = CreateNumberRowToParent(missileBox, "弹体生命值 (HP):", 1.0, 10000.0, 10.0);
 
 			// 🚪 仓盖管理列表
 			missileBox.AddChild(new Label { Text = "🚪 导弹仓盖列表 (Bays):" });
@@ -339,6 +363,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_turretTurnRate.Value = data.TurnRate;
 
 			var wp = data.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			wp.TargetTypes ??= Array.Empty<string>();
+			wp.RequiredTargetTags ??= Array.Empty<string>();
+			wp.ExcludedTargetTags ??= Array.Empty<string>();
+			_targetTypesField.SetSelected(wp.TargetTypes);
+			_requiredTargetTagsField.SetSelected(wp.RequiredTargetTags);
+			_excludedTargetTagsField.SetSelected(wp.ExcludedTargetTags);
 			SelectDeliveryType(wp.DeliveryType);
 
 			_bulletColorPicker.Color = Color.FromHtml(string.IsNullOrEmpty(wp.BulletColorHex) ? "#ffe066" : wp.BulletColorHex);
@@ -358,6 +388,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_reloadModeSelect.Select((int)wp.ReloadMode);
 			_reloadDurationInput.Value = wp.ReloadDuration > 0 ? wp.ReloadDuration : 6.0f;
 			_trackingInput.Value = wp.TrackingStrength;
+			_munitionHpInput.Value = wp.MunitionHp > 0 ? wp.MunitionHp : 50.0f;
 
 			PopulateBayList(wp, selectBayIdx);
 			PopulateSlotList(wp, selectSlotIdx);
@@ -373,6 +404,19 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			UpdateDeliveryVisibility();
 			_isUpdating = false;
+		}
+
+		public void SetTargetingOptions(IEnumerable<string> targetTypes, IEnumerable<string> targetTags)
+		{
+			var wp = _boundData?.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			_targetTypesField.SetOptions(targetTypes, wp.TargetTypes ?? Array.Empty<string>());
+			_requiredTargetTagsField.SetOptions(targetTags, wp.RequiredTargetTags ?? Array.Empty<string>());
+			_excludedTargetTagsField.SetOptions(targetTags, wp.ExcludedTargetTags ?? Array.Empty<string>());
+		}
+
+		public void ResetTestFireMode()
+		{
+			_testFireToggle.SetPressedNoSignal(false);
 		}
 
 		private void PopulateBayList(WeaponProperties wp, int selectIdx = -1)
@@ -696,6 +740,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			}
 
 			var wp = data.GetProperties<WeaponProperties>() ?? new WeaponProperties();
+			wp.TargetTypes = _targetTypesField.GetSelected();
+			wp.RequiredTargetTags = _requiredTargetTagsField.GetSelected();
+			wp.ExcludedTargetTags = _excludedTargetTagsField.GetSelected();
 			wp.DeliveryType = DeliveryTypes[Mathf.Clamp(_deliverySelect.Selected, 0, DeliveryTypes.Length - 1)];
 			wp.BulletColorHex = $"#{_bulletColorPicker.Color.ToHtml(false)}";
 			wp.BulletGlowHex = $"#{_glowColorPicker.Color.ToHtml(false)}";
@@ -712,6 +759,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			wp.ReloadMode = (RackReloadMode)_reloadModeSelect.Selected;
 			wp.ReloadDuration = (float)_reloadDurationInput.Value;
 			wp.TrackingStrength = (float)_trackingInput.Value;
+			wp.MunitionHp = (float)_munitionHpInput.Value;
 
 			wp.Damage = (float)_damageInput.Value;
 			wp.FireRate = (float)_fireRateInput.Value;

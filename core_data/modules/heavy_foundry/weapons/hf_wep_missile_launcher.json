@@ -50,6 +50,9 @@
   "firePoints": [],
   "exhaustPoints": [],
   "properties": {
+	"targetTypes": [],
+	"requiredTargetTags": [],
+	"excludedTargetTags": [],
 	"deliveryType": "Missile",
 	"projectileDefId": "proj_torpedo_heavy",
 	"bulletColorHex": "#ffe066",
@@ -63,6 +66,7 @@
 	"defaultMissileLength": 42,
 	"showMissileOnRack": true,
 	"trackingStrength": 5,
+	"munitionHp": 40,
 	"bays": [
 	  {
 		"bayId": "bay_0",

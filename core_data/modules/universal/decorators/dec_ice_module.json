@@ -1,0 +1,38 @@
+{
+  "id": "dec_ice_module",
+  "name": "冷凝晶体腔",
+  "description": "命中后附加 20% 减速，持续 1 秒。低温冷凝腔通过工业冷却液循环稳定工作。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.5,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_ice_module.png",
+  "tags": ["Decorator", "WeaponModifier", "Slow", "Cryogenic"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "cryo_slow",
+        "name": "冷凝减速",
+        "trigger": "OnHit",
+        "stackMode": "Highest",
+        "modifiers": [
+          { "attribute": "MoveSpeed", "operation": "Decrease", "valueType": "Percent", "value": 20 },
+          { "attribute": "StatusDuration", "operation": "Set", "valueType": "Flat", "value": 1 }
+        ]
+      }
+    ]
+  }
+}

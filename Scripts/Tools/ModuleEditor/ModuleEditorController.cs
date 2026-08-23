@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Godot;
 using BreakerProtocol.Data;
 using BreakerProtocol.Data.Models;
+using BreakerProtocol.Data.Models.Properties;
 using BreakerProtocol.Graphics;
 using BreakerProtocol.Tools.ModuleEditor.Core;
 using BreakerProtocol.Tools.ModuleEditor.Inspectors;
@@ -19,12 +21,19 @@ namespace BreakerProtocol.Tools.ModuleEditor
 		private BasePropInspector _inspector = null!;
 		private ItemList _moduleList = null!;
 		private LineEdit _searchBox = null!;
+		private OptionButton _factionFilter = null!;
 		private OptionButton _categoryFilter = null!;
 		private OptionButton _gizmoModeSelect = null!;
 		private Label _statusLabel = null!;
 		private Label _coordLabel = null!;
+		private PanelContainer _toastPanel = null!;
+		private Label _toastLabel = null!;
+		private Tween? _toastTween;
 
+		private readonly List<string> _factionFilterValues = new();
+		private string _activeFactionFilter = "*";
 		private string _activeCategoryFilter = "全部";
+		private string _selectedModuleId = string.Empty;
 
 		public override void _Ready()
 		{
@@ -32,7 +41,9 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			FactionPaletteManager.Instance.LoadAllFactions(ProjectSettings.GlobalizePath("res://core_data/factions"));
 
 			BuildFullLayout();
+			RefreshFactionOptions();
 			PopulateModuleList();
+			_dataService.DataReloaded += OnDataReloaded;
 
 			_document.OnDocumentChanged += OnDocumentUpdated;
 			_inspector.OnValuesChanged += OnInspectorValuesChanged;
@@ -48,6 +59,10 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			// 引脚联动
 			_canvas.OnPinSelectedOnCanvas += (idx) => _inspector.SelectPinExternal(idx);
 			_inspector.OnPinSelected += (idx) => _canvas.SelectPinExternal(idx);
+
+			// 发射口联动
+			_canvas.OnFirePointSelectedOnCanvas += index => _inspector.SelectFirePointExternal(index);
+			_inspector.OnFirePointSelected += index => _canvas.SelectFirePointExternal(index);
 			
 			// 仓盖联动
 			_canvas.OnBaySelectedOnCanvas += (idx) => _inspector.SelectBayExternal(idx);
@@ -191,8 +206,19 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			leftVBox.AddChild(listHeader);
 			leftVBox.AddChild(new HSeparator());
 
+			_factionFilter = new OptionButton { CustomMinimumSize = new Vector2(0, 30) };
+			_factionFilter.ItemSelected += idx =>
+			{
+				int index = (int)idx;
+				_activeFactionFilter = index >= 0 && index < _factionFilterValues.Count
+					? _factionFilterValues[index]
+					: "*";
+				PopulateModuleList();
+			};
+			leftVBox.AddChild(_factionFilter);
+
 			_categoryFilter = new OptionButton { CustomMinimumSize = new Vector2(0, 30) };
-			string[] categories = new[] { "全部", "Structural", "Power", "Propulsion", "Weapons", "Armor", "Pipeline" };
+			string[] categories = new[] { "全部", "Structural", "Power", "Propulsion", "Weapons", "Armor", "Pipeline", "Decorators" };
 			for (int i = 0; i < categories.Length; i++) _categoryFilter.AddItem(categories[i], i);
 			_categoryFilter.ItemSelected += idx => { _activeCategoryFilter = _categoryFilter.GetItemText((int)idx); PopulateModuleList(); };
 			leftVBox.AddChild(_categoryFilter);
@@ -279,37 +305,178 @@ namespace BreakerProtocol.Tools.ModuleEditor
 			statusHBox.AddChild(_coordLabel);
 			statusBar.AddChild(statusHBox);
 			rootVBox.AddChild(statusBar);
+
+			_toastPanel = new PanelContainer
+			{
+				Visible = false,
+				MouseFilter = MouseFilterEnum.Ignore,
+				ZIndex = 100,
+				AnchorLeft = 1.0f,
+				AnchorRight = 1.0f,
+				OffsetLeft = -376,
+				OffsetRight = -16,
+				OffsetTop = 56,
+				OffsetBottom = 98
+			};
+			_toastLabel = new Label
+			{
+				HorizontalAlignment = HorizontalAlignment.Center,
+				VerticalAlignment = VerticalAlignment.Center
+			};
+			_toastPanel.AddChild(_toastLabel);
+			AddChild(_toastPanel);
 		}
 
-		private void PopulateModuleList()
+		private void PopulateModuleList(string preferredModuleId = "", bool reloadSelection = false)
 		{
+			string selectionId = string.IsNullOrWhiteSpace(preferredModuleId) ? _selectedModuleId : preferredModuleId;
 			_moduleList.Clear();
 			string filter = _searchBox.Text.Trim().ToLower();
 
 			var modules = _dataService.Modules.GetAll()
+				.Where(m => _activeFactionFilter == "*" || m.Faction.Equals(_activeFactionFilter, System.StringComparison.OrdinalIgnoreCase))
 				.Where(m => _activeCategoryFilter == "全部" || m.Category.Equals(_activeCategoryFilter, System.StringComparison.OrdinalIgnoreCase))
 				.Where(m => string.IsNullOrEmpty(filter) || m.Id.ToLower().Contains(filter) || m.Name.ToLower().Contains(filter))
 				.OrderBy(m => m.Category)
 				.ThenBy(m => m.Id)
 				.ToList();
 
+			int selectedIndex = -1;
 			for (int i = 0; i < modules.Count; i++)
 			{
 				var mod = modules[i];
 				_moduleList.AddItem($"[{mod.Category}] {mod.Name} ({mod.Id})");
 				_moduleList.SetItemMetadata(i, mod.Id);
+				if (mod.Id.Equals(selectionId, System.StringComparison.OrdinalIgnoreCase)) selectedIndex = i;
 			}
 
-			if (modules.Count > 0 && _moduleList.GetSelectedItems().Length == 0)
+			if (selectedIndex >= 0)
+			{
+				_moduleList.Select(selectedIndex);
+				_moduleList.EnsureCurrentIsVisible();
+				_selectedModuleId = modules[selectedIndex].Id;
+				if (reloadSelection || _canvas.CurrentModule == null) OnModuleSelected(selectedIndex);
+			}
+			else if (modules.Count > 0)
 			{
 				_moduleList.Select(0);
+				_selectedModuleId = modules[0].Id;
 				OnModuleSelected(0);
 			}
+			else
+			{
+				_selectedModuleId = string.Empty;
+			}
+		}
+
+		private void RefreshFactionOptions()
+		{
+			string previousSelection = _activeFactionFilter;
+			var displayNames = FactionPaletteManager.Instance.GetAllFactions()
+				.ToDictionary(faction => faction.Id, faction => faction.Name, System.StringComparer.OrdinalIgnoreCase);
+
+			foreach (var module in _dataService.Modules.GetAll())
+			{
+				if (!string.IsNullOrWhiteSpace(module.Faction) && !displayNames.ContainsKey(module.Faction))
+				{
+					displayNames[module.Faction] = module.Faction;
+				}
+			}
+
+			var options = displayNames
+				.Select(pair => (Id: pair.Key, Name: pair.Value))
+				.OrderBy(option => option.Id.Equals("Universal", System.StringComparison.OrdinalIgnoreCase) ? 0 : 1)
+				.ThenBy(option => option.Name)
+				.ToList();
+
+			_factionFilter.Clear();
+			_factionFilterValues.Clear();
+			_factionFilter.AddItem("全部种族");
+			_factionFilterValues.Add("*");
+			foreach (var option in options)
+			{
+				string displayText = option.Name.Equals(option.Id, System.StringComparison.OrdinalIgnoreCase)
+					? option.Id
+					: $"{option.Name} ({option.Id})";
+				_factionFilter.AddItem(displayText);
+				_factionFilterValues.Add(option.Id);
+			}
+
+			int selectedIndex = _factionFilterValues.FindIndex(value => value.Equals(previousSelection, System.StringComparison.OrdinalIgnoreCase));
+			_factionFilter.Select(selectedIndex >= 0 ? selectedIndex : 0);
+			_activeFactionFilter = selectedIndex >= 0 ? previousSelection : "*";
+			_inspector.SetFactionOptions(options);
+			RefreshDecoratorFilterOptions();
+		}
+
+		private void RefreshDecoratorFilterOptions()
+		{
+			var modules = _dataService.Modules.GetAll().ToList();
+			var weaponModules = modules
+				.Where(module => module.Category.Equals("Weapons", System.StringComparison.OrdinalIgnoreCase))
+				.ToList();
+			var hangarModules = weaponModules
+				.Where(module => module.MountType.Equals("Hangar", System.StringComparison.OrdinalIgnoreCase))
+				.ToList();
+
+			var weaponTags = weaponModules
+				.SelectMany(module => module.Tags ?? System.Array.Empty<string>())
+				.Distinct(System.StringComparer.OrdinalIgnoreCase)
+				.OrderBy(tag => tag)
+				.ToList();
+
+			var deliveryTypes = new[] { "Ballistic", "PulseBeam", "ContinuousBeam", "Missile" }
+				.Concat(weaponModules.Select(module => module.GetProperties<WeaponProperties>()?.DeliveryType ?? string.Empty))
+				.Where(value => !string.IsNullOrWhiteSpace(value))
+				.Distinct(System.StringComparer.OrdinalIgnoreCase)
+				.OrderBy(value => value)
+				.ToList();
+
+			var targetTags = modules
+				.SelectMany(module => module.Tags ?? System.Array.Empty<string>())
+				.Concat(modules
+					.Where(module => module.Category.Equals("Decorators", System.StringComparison.OrdinalIgnoreCase))
+					.SelectMany(module => module.GetProperties<DecoratorProperties>()?.RequiredTargetTags ?? System.Array.Empty<string>()))
+				.Concat(weaponModules.SelectMany(module =>
+				{
+					var properties = module.GetProperties<WeaponProperties>();
+					return (properties?.RequiredTargetTags ?? System.Array.Empty<string>())
+						.Concat(properties?.ExcludedTargetTags ?? System.Array.Empty<string>());
+				}))
+				.Concat(hangarModules.SelectMany(module =>
+				{
+					var properties = module.GetProperties<HangarProperties>();
+					return (properties?.RequiredTargetTags ?? System.Array.Empty<string>())
+						.Concat(properties?.ExcludedTargetTags ?? System.Array.Empty<string>());
+				}))
+				.Distinct(System.StringComparer.OrdinalIgnoreCase)
+				.OrderBy(tag => tag)
+				.ToList();
+
+			var targetTypes = new[] { "Ship", "Drone", "Missile", "Torpedo", "Structure" }
+				.Concat(weaponModules.SelectMany(module =>
+					module.GetProperties<WeaponProperties>()?.TargetTypes ?? System.Array.Empty<string>()))
+				.Concat(hangarModules.SelectMany(module =>
+					module.GetProperties<HangarProperties>()?.TargetTypes ?? System.Array.Empty<string>()))
+				.Distinct(System.StringComparer.OrdinalIgnoreCase)
+				.OrderBy(type => type)
+				.ToList();
+
+			_inspector.SetDecoratorFilterOptions(weaponTags, deliveryTypes, targetTags);
+			_inspector.SetWeaponTargetingOptions(targetTypes, targetTags);
+		}
+
+		private void OnDataReloaded()
+		{
+			string preferredModuleId = _document.CurrentData.Id;
+			RefreshFactionOptions();
+			PopulateModuleList(preferredModuleId, reloadSelection: true);
 		}
 
 		private void OnModuleSelected(long index)
 		{
 			string moduleId = (string)_moduleList.GetItemMetadata((int)index);
+			_selectedModuleId = moduleId;
 			if (!_dataService.Modules.TryGet(moduleId, out var mod) || mod == null) return;
 
 			string rootPath = OS.HasFeature("editor") ? ProjectSettings.GlobalizePath("res://") : OS.GetExecutablePath().GetBaseDir();
@@ -332,6 +499,13 @@ namespace BreakerProtocol.Tools.ModuleEditor
 
 		private void LoadModuleToEditor(ModuleDataDefinition mod)
 		{
+			bool moduleChanged = !string.Equals(_canvas.CurrentModule?.Id, mod.Id, System.StringComparison.OrdinalIgnoreCase);
+			if (moduleChanged)
+			{
+				_inspector.ResetTestFireMode();
+				_canvas.SetTestFiringMode(false);
+			}
+
 			Texture2D? baseTex = LoadTextureAuto(mod.SpriteBase);
 			Texture2D? overlayTex = LoadTextureAuto(mod.SpriteOverlay);
 			Texture2D? emissiveTex = LoadTextureAuto(mod.SpriteEmissive);
@@ -379,7 +553,50 @@ namespace BreakerProtocol.Tools.ModuleEditor
 		private void SaveCurrentModule()
 		{
 			bool ok = _document.Save();
-			_statusLabel.Text = ok ? "✅ 保存成功，已触发热更新！" : "❌ 保存失败，请检查控制台校验错误！";
+			if (ok) _selectedModuleId = _document.CurrentData.Id;
+			string message = ok ? $"已保存：{_document.CurrentData.Name}" : "保存失败，请检查数据校验错误";
+			_statusLabel.Text = ok ? "保存成功，已触发热更新" : "保存失败，请检查控制台校验错误";
+			ShowToast(message, ok);
+		}
+
+		private void ShowToast(string message, bool success)
+		{
+			_toastTween?.Kill();
+			_toastLabel.Text = message;
+			_toastLabel.AddThemeColorOverride("font_color", Colors.White);
+			_toastPanel.AddThemeStyleboxOverride("panel", new StyleBoxFlat
+			{
+				BgColor = success ? new Color(0.08f, 0.42f, 0.24f, 0.97f) : new Color(0.55f, 0.12f, 0.14f, 0.97f),
+				BorderColor = success ? new Color(0.20f, 0.82f, 0.48f) : new Color(1.0f, 0.34f, 0.34f),
+				BorderWidthBottom = 1,
+				BorderWidthLeft = 1,
+				BorderWidthRight = 1,
+				BorderWidthTop = 1,
+				CornerRadiusBottomLeft = 4,
+				CornerRadiusBottomRight = 4,
+				CornerRadiusTopLeft = 4,
+				CornerRadiusTopRight = 4,
+				ContentMarginLeft = 14,
+				ContentMarginRight = 14,
+				ContentMarginTop = 8,
+				ContentMarginBottom = 8
+			});
+			_toastPanel.Modulate = Colors.White;
+			_toastPanel.Visible = true;
+			_toastTween = CreateTween();
+			_toastTween.TweenInterval(1.8);
+			_toastTween.TweenProperty(_toastPanel, "modulate:a", 0.0f, 0.25f);
+			_toastTween.TweenCallback(Callable.From(() => _toastPanel.Visible = false));
+		}
+
+		public override void _UnhandledKeyInput(InputEvent @event)
+		{
+			if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo &&
+				keyEvent.CtrlPressed && keyEvent.Keycode == Key.S)
+			{
+				SaveCurrentModule();
+				GetViewport().SetInputAsHandled();
+			}
 		}
 	}
 }

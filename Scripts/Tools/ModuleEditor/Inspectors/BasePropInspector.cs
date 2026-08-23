@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using Godot;
@@ -11,6 +12,8 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 	{
 		private LineEdit _idInput = null!;
 		private LineEdit _nameInput = null!;
+		private OptionButton _factionSelect = null!;
+		private TextEdit _descriptionInput = null!;
 		private OptionButton _categorySelect = null!;
 		private SpinBox _widthInput = null!;
 		private SpinBox _heightInput = null!;
@@ -30,16 +33,19 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		private PanelContainer _armorCard = null!;
 		private SpinBox _deflectInput = null!;
 
+		private FirePointInspector _firePointInspector = null!;
 		private WeaponInspector _weaponInspector = null!;
 		private HangarInspector _hangarInspector = null!;
 		private ShieldInspector _shieldInspector = null!;
 		private PowerInspector _powerInspector = null!;
 		private PropulsionInspector _propulsionInspector = null!;
 		private PipelineInspector _pipelineInspector = null!;
+		private DecoratorInspector _decoratorInspector = null!;
 		private PinInspector _pinInspector = null!;
 
 		public event Action? OnValuesChanged;
 		public event Action<int>? OnPinSelected;
+		public event Action<int>? OnFirePointSelected;
 		public event Action<int>? OnBaySelected;
 		public event Action<int>? OnSlotSelected;
 		public event Action<int>? OnRunwaySelected;
@@ -48,6 +54,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 
 		private ModuleDataDefinition? _boundData;
 		private bool _isUpdating = false;
+		private readonly List<string> _factionValues = new();
 
 		private static readonly string[] EmissiveAttachOptions = { "Overlay (跟随炮身/顶盖)", "Base (固定在底座)" };
 		private static readonly string[] EmissiveAttachValues = { "Overlay", "Base" };
@@ -67,7 +74,26 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 
 			_idInput = CreateTextRowToParent(baseBox, "构件 ID:");
 			_nameInput = CreateTextRowToParent(baseBox, "显示名称:");
-			_categorySelect = CreateOptionRowToParent(baseBox, "构件分类:", new[] { "Structural", "Power", "Propulsion", "Weapons", "Armor", "Pipeline" });
+			_factionSelect = CreateOptionRowToParent(baseBox, "所属种族:", Array.Empty<string>());
+			_factionSelect.ItemSelected += _ =>
+			{
+				if (_isUpdating || _boundData == null) return;
+				int index = _factionSelect.Selected;
+				if (index >= 0 && index < _factionValues.Count)
+				{
+					_boundData.Faction = _factionValues[index];
+					EmitDataChanged();
+				}
+			};
+			_descriptionInput = CreateMultilineRowToParent(baseBox, "设计说明:");
+			_categorySelect = CreateOptionRowToParent(baseBox, "构件分类:", new[] { "Structural", "Power", "Propulsion", "Weapons", "Armor", "Pipeline", "Decorators" });
+			_categorySelect.ItemSelected += _ =>
+			{
+				if (_isUpdating || _boundData == null) return;
+				_boundData.Category = _categorySelect.GetItemText(_categorySelect.Selected);
+				BindData(_boundData);
+				EmitDataChanged();
+			};
 
 			_widthInput = CreateNumberRowToParent(baseBox, "宽度 (GU):", 1, 8, 1);
 			_heightInput = CreateNumberRowToParent(baseBox, "高度 (GU):", 1, 8, 1);
@@ -83,6 +109,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_emissiveTexInput = CreateTextRowToParent(texBox, "发光通道 (Emissive):");
 
 			_emissiveAttachSelect = CreateOptionRowToParent(texBox, "发光挂载层:", EmissiveAttachOptions);
+			_emissiveAttachSelect.ItemSelected += _ => EmitDataChanged();
 			CreateDualNumberRowToParent(texBox, "发光局部偏移 (px):", -640, 640, 1, out _emissiveOffsetX, out _emissiveOffsetY);
 			CreateDualNumberRowToParent(texBox, "发光自转轴心 (px):", 0, 640, 1, out _emissiveAnchorX, out _emissiveAnchorY);
 
@@ -90,6 +117,11 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_armorCard = armorCard;
 			_deflectInput = CreateNumberRowToParent(armorBox, "跳弹偏折几率:", 0.0, 1.0, 0.05);
 			AddChild(_armorCard);
+
+			_firePointInspector = new FirePointInspector();
+			_firePointInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
+			_firePointInspector.OnFirePointSelectedInInspector += index => OnFirePointSelected?.Invoke(index);
+			AddChild(_firePointInspector);
 
 			_weaponInspector = new WeaponInspector();
 			_weaponInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
@@ -121,19 +153,25 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			_pipelineInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
 			AddChild(_pipelineInspector);
 
+			_decoratorInspector = new DecoratorInspector();
+			_decoratorInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
+			AddChild(_decoratorInspector);
+
 			_pinInspector = new PinInspector();
 			_pinInspector.OnValuesChanged += () => OnValuesChanged?.Invoke();
 			_pinInspector.OnPinSelectedInInspector += (idx) => OnPinSelected?.Invoke(idx);
 			AddChild(_pinInspector);
 		}
 
-		public void BindData(ModuleDataDefinition data, int selectPinIndex = -1, int selectExhaustIndex = -1, int selectSlotIndex = -1, int selectBayIndex = -1, int selectRunwayIndex = -1)
+		public void BindData(ModuleDataDefinition data, int selectPinIndex = -1, int selectExhaustIndex = -1, int selectSlotIndex = -1, int selectBayIndex = -1, int selectRunwayIndex = -1, int selectFirePointIndex = -1)
 		{
 			_boundData = data;
 			_isUpdating = true;
 
 			_idInput.Text = data.Id;
 			_nameInput.Text = data.Name;
+			SelectFaction(data.Faction);
+			_descriptionInput.Text = data.Description ?? string.Empty;
 			SelectOptionByText(_categorySelect, data.Category);
 
 			_widthInput.Value = data.Width;
@@ -157,12 +195,14 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			bool isArmor = data.Category == "Armor" && !isShield;
 
 			_armorCard.Visible = isArmor;
+			_firePointInspector.Visible = data.Category == "Weapons" && !isHangar;
 			_weaponInspector.Visible = data.Category == "Weapons" && !isHangar;
 			_hangarInspector.Visible = isHangar;
 			_shieldInspector.Visible = isShield;
 			_powerInspector.Visible = data.Category == "Power";
 			_propulsionInspector.Visible = data.Category == "Propulsion";
 			_pipelineInspector.Visible = data.Category == "Pipeline";
+			_decoratorInspector.Visible = data.Category == "Decorators";
 			_pinInspector.Visible = data.Category is not ("Structural" or "Armor") || isShield;
 
 			if (isArmor)
@@ -180,6 +220,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			else if (_powerInspector.Visible) _powerInspector.BindData(data);
 			else if (_propulsionInspector.Visible) _propulsionInspector.BindData(data, selectExhaustIndex);
 			else if (_pipelineInspector.Visible) _pipelineInspector.BindData(data);
+			else if (_decoratorInspector.Visible) _decoratorInspector.BindData(data);
+
+			if (_firePointInspector.Visible)
+			{
+				_firePointInspector.BindData(data, selectFirePointIndex);
+			}
 
 			if (_pinInspector.Visible)
 			{
@@ -190,10 +236,55 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 		}
 
 		public void SelectPinExternal(int index) => _pinInspector.SelectPinExternal(index);
+		public void SelectFirePointExternal(int index) => _firePointInspector.SelectFirePointExternal(index);
 		public void SelectBayExternal(int index) => _weaponInspector.SelectBayExternal(index);
 		public void SelectSlotExternal(int index) => _weaponInspector.SelectSlotExternal(index);
 		public void SelectRunwayExternal(int index) => _hangarInspector.SelectRunwayExternal(index);
 		public void SelectExhaustExternal(int index) => _propulsionInspector.SelectExhaustExternal(index);
+
+		public void ResetTestFireMode()
+		{
+			_weaponInspector.ResetTestFireMode();
+			_hangarInspector.ResetTestFireMode();
+		}
+
+		public void SetFactionOptions(IEnumerable<(string Id, string Name)> options)
+		{
+			string currentFaction = _boundData?.Faction ?? string.Empty;
+			_factionSelect.Clear();
+			_factionValues.Clear();
+
+			foreach (var option in options)
+			{
+				if (string.IsNullOrWhiteSpace(option.Id) || _factionValues.Any(value => value.Equals(option.Id, StringComparison.OrdinalIgnoreCase)))
+					continue;
+
+				string displayText = string.IsNullOrWhiteSpace(option.Name) || option.Name.Equals(option.Id, StringComparison.OrdinalIgnoreCase)
+					? option.Id
+					: $"{option.Name} ({option.Id})";
+				_factionSelect.AddItem(displayText);
+				_factionValues.Add(option.Id);
+			}
+
+			if (!string.IsNullOrWhiteSpace(currentFaction) && !_factionValues.Any(value => value.Equals(currentFaction, StringComparison.OrdinalIgnoreCase)))
+			{
+				_factionSelect.AddItem(currentFaction);
+				_factionValues.Add(currentFaction);
+			}
+
+			SelectFaction(currentFaction);
+		}
+
+		public void SetDecoratorFilterOptions(IEnumerable<string> weaponTags, IEnumerable<string> deliveryTypes, IEnumerable<string> targetTags)
+		{
+			_decoratorInspector.SetFilterOptions(weaponTags, deliveryTypes, targetTags);
+		}
+
+		public void SetWeaponTargetingOptions(IEnumerable<string> targetTypes, IEnumerable<string> targetTags)
+		{
+			_weaponInspector.SetTargetingOptions(targetTypes, targetTags);
+			_hangarInspector.SetTargetingOptions(targetTypes, targetTags);
+		}
 
 		private void EmitDataChanged()
 		{
@@ -201,6 +292,11 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 
 			_boundData.Id = _idInput.Text.Trim();
 			_boundData.Name = _nameInput.Text.Trim();
+			if (_factionSelect.Selected >= 0 && _factionSelect.Selected < _factionValues.Count)
+			{
+				_boundData.Faction = _factionValues[_factionSelect.Selected];
+			}
+			_boundData.Description = string.IsNullOrWhiteSpace(_descriptionInput.Text) ? null : _descriptionInput.Text.Trim();
 			_boundData.Category = _categorySelect.GetItemText(_categorySelect.Selected);
 			_boundData.Width = (int)_widthInput.Value;
 			_boundData.Height = (int)_heightInput.Value;
@@ -273,21 +369,28 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 			return edit;
 		}
 
+		private TextEdit CreateMultilineRowToParent(Control parent, string labelText)
+		{
+			var vbox = new VBoxContainer();
+			vbox.AddChild(new Label { Text = labelText });
+			var edit = new TextEdit
+			{
+				CustomMinimumSize = new Vector2(0, 72),
+				SizeFlagsHorizontal = SizeFlags.ExpandFill,
+				WrapMode = TextEdit.LineWrappingMode.Boundary
+			};
+			edit.TextChanged += () => EmitDataChanged();
+			vbox.AddChild(edit);
+			parent.AddChild(vbox);
+			return edit;
+		}
+
 		private OptionButton CreateOptionRowToParent(Control parent, string labelText, string[] items)
 		{
 			var hbox = new HBoxContainer();
 			hbox.AddChild(new Label { Text = labelText, CustomMinimumSize = new Vector2(110, 0) });
 			var opt = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill };
 			for (int i = 0; i < items.Length; i++) opt.AddItem(items[i], i);
-			opt.ItemSelected += _ =>
-			{
-				if (_boundData != null)
-				{
-					_boundData.Category = opt.GetItemText(opt.Selected);
-					BindData(_boundData);
-				}
-				EmitDataChanged();
-			};
 			hbox.AddChild(opt);
 			parent.AddChild(hbox);
 			return opt;
@@ -327,6 +430,12 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors
 					return;
 				}
 			}
+		}
+
+		private void SelectFaction(string factionId)
+		{
+			int index = _factionValues.FindIndex(value => value.Equals(factionId, StringComparison.OrdinalIgnoreCase));
+			if (index >= 0) _factionSelect.Select(index);
 		}
 
 		private void SelectOptionByValue(OptionButton opt, string[] values, string target)

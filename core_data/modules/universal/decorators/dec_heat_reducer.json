@@ -1,0 +1,37 @@
+{
+  "id": "dec_heat_reducer",
+  "name": "冷却调节器",
+  "description": "武器热量 -15%。微型散热鳍片阵列与重工联合散热片共用工业设计语言。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.5,
+  "baseHp": 65,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_heat_reducer.png",
+  "tags": ["Decorator", "WeaponModifier", "Thermal"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "heat_reduction",
+        "name": "热量抑制",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "HeatPerShot", "operation": "Decrease", "valueType": "Percent", "value": 15 }
+        ]
+      }
+    ]
+  }
+}

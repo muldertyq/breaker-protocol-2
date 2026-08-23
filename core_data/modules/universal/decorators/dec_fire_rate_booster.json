@@ -1,0 +1,37 @@
+{
+  "id": "dec_fire_rate_booster",
+  "name": "涡轮速射器",
+  "description": "武器射速 +12%。微型液压助推机构提高机械击发频率。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.4,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_fire_rate_booster.png",
+  "tags": ["Decorator", "WeaponModifier", "FireRate"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "fire_rate_boost",
+        "name": "射速增幅",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "FireRate", "operation": "Increase", "valueType": "Percent", "value": 12 }
+        ]
+      }
+    ]
+  }
+}

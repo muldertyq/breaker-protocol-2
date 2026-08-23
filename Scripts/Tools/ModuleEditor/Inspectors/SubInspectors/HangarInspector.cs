@@ -21,6 +21,10 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 		private SpinBox _droneWidthInput = null!;
 		private SpinBox _droneLengthInput = null!;
+		private SpinBox _droneHpInput = null!;
+		private MultiSelectMenu _targetTypesField = null!;
+		private MultiSelectMenu _requiredTargetTagsField = null!;
+		private MultiSelectMenu _excludedTargetTagsField = null!;
 
 		private SpinBox _maxDronesInput = null!;
 		private SpinBox _rebuildTimeInput = null!;
@@ -104,12 +108,32 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_launchModeSelect = CreateOptionRowToParent(hangarBox, "弹射模式:", new[] { "Sequential (单机轮流出动)", "Burst (跑道依次快速弹射)", "Salvo (多跑道全机齐发)" });
 
 			CreateDualNumberRowToParent(hangarBox, "机体尺寸 (px):", 6, 200, 1, out _droneWidthInput, out _droneLengthInput);
+			_droneHpInput = CreateNumberRowToParent(hangarBox, "单机生命值 (HP):", 1, 10000, 10);
 			_maxDronesInput = CreateNumberRowToParent(hangarBox, "载机上限 (架):", 1, 32, 1);
 			_rebuildTimeInput = CreateNumberRowToParent(hangarBox, "整备重构 (秒):", 1.0, 60.0, 0.5);
 			_pulseCostInput = CreateNumberRowToParent(hangarBox, "起飞耗电 (P):", 0.0, 100.0, 0.5);
 			_launchIntervalInput = CreateNumberRowToParent(hangarBox, "跑道起飞间隔 (秒):", 0.05, 3.0, 0.05);
 
-			// 3. 🛫 多跑道弹射系统
+			// 3. 无人机目标筛选
+			var (targetingCard, targetingBox) = CreateCard("无人机目标筛选", new Color(0.95f, 0.55f, 0.35f));
+			AddChild(targetingCard);
+			_targetTypesField = new MultiSelectMenu(
+				targetingBox,
+				"可命中类型:",
+				"无人机可攻击的目标类型；命中任意一项即可，不选择表示不限",
+				EmitChange);
+			_requiredTargetTagsField = new MultiSelectMenu(
+				targetingBox,
+				"必须标签:",
+				"目标必须同时具备全部所选标签；不选择表示不限",
+				EmitChange);
+			_excludedTargetTagsField = new MultiSelectMenu(
+				targetingBox,
+				"排除标签:",
+				"目标具备任意一个所选标签时，无人机不会攻击它",
+				EmitChange);
+
+			// 4. 🛫 多跑道弹射系统
 			var (runwayCard, runwayBox) = CreateCard("🛫 弹射跑道与滑跑拓扑 (Runways)", new Color(0.2f, 0.85f, 1.0f));
 			AddChild(runwayCard);
 
@@ -160,6 +184,9 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			_isUpdating = true;
 
 			var hp = data.GetProperties<HangarProperties>() ?? new HangarProperties();
+			hp.TargetTypes ??= Array.Empty<string>();
+			hp.RequiredTargetTags ??= Array.Empty<string>();
+			hp.ExcludedTargetTags ??= Array.Empty<string>();
 			_operationRadiusInput.Value = hp.OperationRadius > 0 ? hp.OperationRadius : 150.0f;
 			_droneIdInput.Text = hp.DroneId ?? string.Empty;
 			_droneSpriteInput.Text = hp.DroneSprite ?? string.Empty;
@@ -168,6 +195,10 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			_droneWidthInput.Value = hp.DroneWidth > 0 ? hp.DroneWidth : 28.0f;
 			_droneLengthInput.Value = hp.DroneLength > 0 ? hp.DroneLength : 36.0f;
+			_droneHpInput.Value = hp.DroneHp > 0 ? hp.DroneHp : 100.0f;
+			_targetTypesField.SetSelected(hp.TargetTypes);
+			_requiredTargetTagsField.SetSelected(hp.RequiredTargetTags);
+			_excludedTargetTagsField.SetSelected(hp.ExcludedTargetTags);
 
 			_maxDronesInput.Value = hp.MaxDrones;
 			_rebuildTimeInput.Value = hp.RebuildTime;
@@ -176,6 +207,19 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 
 			PopulateRunwayList(hp, selectRunwayIdx);
 			_isUpdating = false;
+		}
+
+		public void SetTargetingOptions(IEnumerable<string> targetTypes, IEnumerable<string> targetTags)
+		{
+			var hp = _boundData?.GetProperties<HangarProperties>() ?? new HangarProperties();
+			_targetTypesField.SetOptions(targetTypes, hp.TargetTypes ?? Array.Empty<string>());
+			_requiredTargetTagsField.SetOptions(targetTags, hp.RequiredTargetTags ?? Array.Empty<string>());
+			_excludedTargetTagsField.SetOptions(targetTags, hp.ExcludedTargetTags ?? Array.Empty<string>());
+		}
+
+		public void ResetTestFireMode()
+		{
+			_testFireToggle.SetPressedNoSignal(false);
 		}
 
 		private void PopulateRunwayList(HangarProperties hp, int selectIdx = -1)
@@ -319,6 +363,10 @@ namespace BreakerProtocol.Tools.ModuleEditor.Inspectors.SubInspectors
 			hp.LaunchMode = (MissileFireMode)_launchModeSelect.Selected;
 			hp.DroneWidth = (float)_droneWidthInput.Value;
 			hp.DroneLength = (float)_droneLengthInput.Value;
+			hp.DroneHp = (float)_droneHpInput.Value;
+			hp.TargetTypes = _targetTypesField.GetSelected();
+			hp.RequiredTargetTags = _requiredTargetTagsField.GetSelected();
+			hp.ExcludedTargetTags = _excludedTargetTagsField.GetSelected();
 			hp.MaxDrones = (int)_maxDronesInput.Value;
 			hp.RebuildTime = (float)_rebuildTimeInput.Value;
 			hp.PulseCostPerLaunch = (float)_pulseCostInput.Value;

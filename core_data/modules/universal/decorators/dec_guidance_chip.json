@@ -1,0 +1,37 @@
+{
+  "id": "dec_guidance_chip",
+  "name": "导引微处理器",
+  "description": "导弹与鱼雷转向速度 +20%。工业级导航芯片强调可靠性与抗干扰能力。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.3,
+  "baseHp": 50,
+  "armorResistance": 3,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_guidance_chip.png",
+  "tags": ["Decorator", "WeaponModifier", "Guided", "Missile"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": ["Missile"],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "guidance_turn_rate",
+        "name": "导引增幅",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "GuidanceTurnRate", "operation": "Increase", "valueType": "Percent", "value": 20 }
+        ]
+      }
+    ]
+  }
+}

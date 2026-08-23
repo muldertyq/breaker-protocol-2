@@ -38,6 +38,11 @@ namespace BreakerProtocol.Data.Models.Properties
 		[JsonPropertyName("deliveryType")] public string DeliveryType { get; set; } = "Ballistic";
 		[JsonPropertyName("projectileDefId")] public string ProjectileDefId { get; set; } = "proj_torpedo_heavy";
 
+		// 目标类型任意匹配；必须标签全部匹配；排除标签任意匹配即拒绝目标。
+		[JsonPropertyName("targetTypes")] public string[] TargetTypes { get; set; } = Array.Empty<string>();
+		[JsonPropertyName("requiredTargetTags")] public string[] RequiredTargetTags { get; set; } = Array.Empty<string>();
+		[JsonPropertyName("excludedTargetTags")] public string[] ExcludedTargetTags { get; set; } = Array.Empty<string>();
+
 		// 2. 视觉与弹道尺寸/着色
 		[JsonPropertyName("bulletColorHex")] public string BulletColorHex { get; set; } = "#ffe066";
 		[JsonPropertyName("bulletGlowHex")] public string BulletGlowHex { get; set; } = "#ff9900";
@@ -52,6 +57,7 @@ namespace BreakerProtocol.Data.Models.Properties
 		[JsonPropertyName("defaultMissileLength")] public float DefaultMissileLength { get; set; } = 42.0f;
 		[JsonPropertyName("showMissileOnRack")] public bool ShowMissileOnRack { get; set; } = true;
 		[JsonPropertyName("trackingStrength")] public float TrackingStrength { get; set; } = 45.0f;
+		[JsonPropertyName("munitionHp")] public float MunitionHp { get; set; } = 50.0f;
 
 		// 导弹仓盖列表
 		[JsonPropertyName("bays")] public MissileBayDefinition[] Bays { get; set; } = Array.Empty<MissileBayDefinition>();

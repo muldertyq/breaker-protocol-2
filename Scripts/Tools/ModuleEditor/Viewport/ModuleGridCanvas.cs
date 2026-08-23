@@ -156,11 +156,13 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 
 		private int _nextFireSlotIndex = 0;
 		private int _nextRunwayIndex = 0;
+		private int _nextFirePointGroupIndex = 0;
 		private bool _isFullRackReloading = false;
 		private float _fullRackTimer = 0.0f;
 
 		public event Action? OnDataModified;
 		public event Action<int>? OnPinSelectedOnCanvas;
+		public event Action<int>? OnFirePointSelectedOnCanvas;
 		public event Action<int>? OnBaySelectedOnCanvas;
 		public event Action<int>? OnSlotSelectedOnCanvas;
 		public event Action<int>? OnRunwaySelectedOnCanvas;
@@ -196,6 +198,10 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			_slotHandler.SelectedIndex = -1;
 			_runwayHandler.SelectedIndex = -1;
 			_isTestFireHolding = false;
+			if (!CanTestFireCurrentModule())
+			{
+				_turretHandler.IsTestFiringMode = false;
+			}
 
 			ClearDemoEntities();
 			CenterView();
@@ -242,14 +248,16 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 
 			_nextFireSlotIndex = 0;
 			_nextRunwayIndex = 0;
+			_nextFirePointGroupIndex = 0;
 			_isFullRackReloading = false;
 			_fullRackTimer = 0.0f;
 		}
 
 		public void SetTestFiringMode(bool enabled)
 		{
-			_turretHandler.IsTestFiringMode = enabled;
-			if (!enabled)
+			bool canEnable = enabled && CanTestFireCurrentModule();
+			_turretHandler.IsTestFiringMode = canEnable;
+			if (!canEnable)
 			{
 				_isTestFireHolding = false;
 				ClearDemoEntities();
@@ -257,7 +265,14 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			QueueRedraw();
 		}
 
+		private bool CanTestFireCurrentModule()
+		{
+			return CurrentModule != null &&
+				CurrentModule.Category.Equals("Weapons", StringComparison.OrdinalIgnoreCase);
+		}
+
 		public void SelectPinExternal(int index) { _pinHandler.SelectedIndex = index; QueueRedraw(); }
+		public void SelectFirePointExternal(int index) { _firePointHandler.SelectedIndex = index; QueueRedraw(); }
 		public void SelectBayExternal(int index) { _bayHandler.SelectedIndex = index; QueueRedraw(); }
 		public void SelectSlotExternal(int index) { _slotHandler.SelectedIndex = index; QueueRedraw(); }
 		public void SelectRunwayExternal(int index) { _runwayHandler.SelectedIndex = index; QueueRedraw(); }

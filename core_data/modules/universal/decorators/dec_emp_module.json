@@ -1,0 +1,37 @@
+{
+  "id": "dec_emp_module",
+  "name": "电磁脉冲触发器",
+  "description": "命中机械目标后造成 0.5 秒瘫痪。高频脉冲线圈沿用高压能量走线结构。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.5,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_emp_module.png",
+  "tags": ["Decorator", "WeaponModifier", "EMP"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": ["Mechanical"],
+    "effects": [
+      {
+        "effectId": "emp_stun",
+        "name": "电磁瘫痪",
+        "trigger": "OnHit",
+        "stackMode": "Highest",
+        "modifiers": [
+          { "attribute": "StunDuration", "operation": "Set", "valueType": "Flat", "value": 0.5 }
+        ]
+      }
+    ]
+  }
+}

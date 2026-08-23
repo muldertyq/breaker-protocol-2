@@ -17,6 +17,12 @@
   "turretAnchorY": 56,
   "spriteBase": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_base.png",
   "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_turret.png",
+  "spriteEmissive": "",
+  "emissiveAttachTo": "Overlay",
+  "emissiveOffsetX": 0,
+  "emissiveOffsetY": 0,
+  "emissiveAnchorX": 0,
+  "emissiveAnchorY": 0,
   "tags": [
 	"Weapon",
 	"Kinetic",
@@ -44,6 +50,9 @@
   ],
   "exhaustPoints": [],
   "properties": {
+	"targetTypes": [],
+	"requiredTargetTags": [],
+	"excludedTargetTags": [],
 	"damage": 35.0,
 	"fireRate": 5.0,
 	"range": 70.0,

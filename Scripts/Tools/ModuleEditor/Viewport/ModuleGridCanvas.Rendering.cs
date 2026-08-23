@@ -268,10 +268,11 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 				Color glowColor = Color.FromHtml(string.IsNullOrEmpty(wp.BulletGlowHex) ? "#ff9900" : wp.BulletGlowHex);
 
 				var currentMuzzles = GetCurrentWorldFirePoints();
-				foreach (var sp in currentMuzzles)
+				foreach (var firePoint in currentMuzzles)
 				{
-					Vector2 p1 = origin + sp * _canvasZoom;
-					Vector2 p2 = origin + (sp + dir * rangePx) * _canvasZoom;
+					Vector2 fireDir = dir.Rotated(Mathf.DegToRad(firePoint.AngleOffsetDeg));
+					Vector2 p1 = origin + firePoint.Position * _canvasZoom;
+					Vector2 p2 = origin + (firePoint.Position + fireDir * rangePx) * _canvasZoom;
 					DrawLine(p1, p2, glowColor with { A = 0.5f }, width * 2.4f * _canvasZoom);
 					DrawLine(p1, p2, coreColor with { A = 0.95f }, width * 0.9f * _canvasZoom);
 					DrawCircle(p1, width * 1.5f * _canvasZoom, glowColor);
@@ -298,7 +299,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport
 			_bayHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.Bays, rotRad);
 			_slotHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.MunitionSlots, rotRad, MissileTexture);
 			_runwayHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.Runways);
-			_firePointHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.FirePoints);
+			_firePointHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.FirePoints, rotRad);
 			_exhaustHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.Exhausts);
 			_shieldHandler.Draw(this, CurrentModule, origin, _canvasZoom, ActiveMode == EditGizmoMode.Shield);
 			_emissiveHandler.Draw(this, CurrentModule, EmissiveTexture, origin, _canvasZoom, ActiveMode == EditGizmoMode.Emissive, rotRad);

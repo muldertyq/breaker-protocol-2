@@ -1,0 +1,37 @@
+{
+  "id": "dec_armor_piercer",
+  "name": "超导穿甲器",
+  "description": "弹丸穿透层数 +1。微型超导磁轨结构在发射瞬间提供二次加速。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.6,
+  "baseHp": 70,
+  "armorResistance": 8,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_armor_piercer.png",
+  "tags": ["Decorator", "WeaponModifier", "Kinetic", "Piercing"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": ["Ballistic"],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "armor_piercing",
+        "name": "超导穿甲",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "Pierce", "operation": "Increase", "valueType": "Flat", "value": 1 }
+        ]
+      }
+    ]
+  }
+}

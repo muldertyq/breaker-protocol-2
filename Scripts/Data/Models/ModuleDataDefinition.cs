@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,6 +13,9 @@ namespace BreakerProtocol.Data.Models
 	{
 		[JsonPropertyName("id")] public string Id { get; set; } = string.Empty;
 		[JsonPropertyName("name")] public string Name { get; set; } = string.Empty;
+		[JsonPropertyName("description")]
+		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+		public string? Description { get; set; }
 		[JsonPropertyName("faction")] public string Faction { get; set; } = "Universal";
 		[JsonPropertyName("category")] public string Category { get; set; } = "Weapons";
 

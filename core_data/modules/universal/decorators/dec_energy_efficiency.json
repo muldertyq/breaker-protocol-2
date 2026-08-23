@@ -1,0 +1,37 @@
+{
+  "id": "dec_energy_efficiency",
+  "name": "能量整流器",
+  "description": "武器能耗 -10%。陶瓷绝缘整流桥减少高压脉冲传输损耗。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.4,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_energy_efficiency.png",
+  "tags": ["Decorator", "WeaponModifier", "Energy"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "energy_efficiency",
+        "name": "能耗抑制",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "EnergyCost", "operation": "Decrease", "valueType": "Percent", "value": 10 }
+        ]
+      }
+    ]
+  }
+}

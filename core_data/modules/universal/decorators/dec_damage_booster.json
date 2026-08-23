@@ -1,0 +1,37 @@
+{
+  "id": "dec_damage_booster",
+  "name": "高压增能器",
+  "description": "武器伤害 +10%（可叠加）。高压脉冲放大器，以电容瞬时放电增强武器输出。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.4,
+  "baseHp": 60,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_damage_booster.png",
+  "tags": ["Decorator", "WeaponModifier", "Damage"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "damage_boost",
+        "name": "伤害增幅",
+        "trigger": "Passive",
+        "stackMode": "Additive",
+        "modifiers": [
+          { "attribute": "Damage", "operation": "Increase", "valueType": "Percent", "value": 10 }
+        ]
+      }
+    ]
+  }
+}

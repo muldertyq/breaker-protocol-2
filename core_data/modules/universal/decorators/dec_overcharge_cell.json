@@ -1,0 +1,38 @@
+{
+  "id": "dec_overcharge_cell",
+  "name": "过载能量单元",
+  "description": "每 5 秒触发一次过载射击，伤害 +40%。高压电容瞬时放电时产生明显闪光。",
+  "faction": "Universal",
+  "category": "Decorators",
+  "width": 1,
+  "height": 1,
+  "mass": 0.6,
+  "baseHp": 65,
+  "armorResistance": 5,
+  "mountType": "Fixed",
+  "spriteBase": "modules/universal/decorators/dec_overcharge_cell.png",
+  "tags": ["Decorator", "WeaponModifier", "Overcharge", "Energy"],
+  "pins": [
+    { "pinId": "universal_out_0_0_top", "type": "OUT", "localGridX": 0, "localGridY": 0, "edge": "Top", "category": "Universal" },
+    { "pinId": "universal_in_0_0_bottom", "type": "IN", "localGridX": 0, "localGridY": 0, "edge": "Bottom", "category": "Universal" }
+  ],
+  "firePoints": [],
+  "exhaustPoints": [],
+  "properties": {
+    "applicableWeaponTags": ["Weapon"],
+    "applicableDeliveryTypes": [],
+    "requiredTargetTags": [],
+    "effects": [
+      {
+        "effectId": "periodic_overcharge",
+        "name": "周期过载",
+        "trigger": "Interval",
+        "stackMode": "Highest",
+        "modifiers": [
+          { "attribute": "TriggerInterval", "operation": "Set", "valueType": "Flat", "value": 5 },
+          { "attribute": "Damage", "operation": "Increase", "valueType": "Percent", "value": 40 }
+        ]
+      }
+    ]
+  }
+}

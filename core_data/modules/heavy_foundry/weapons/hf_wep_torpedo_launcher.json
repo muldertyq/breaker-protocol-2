@@ -50,6 +50,9 @@
   "firePoints": [],
   "exhaustPoints": [],
   "properties": {
+	"targetTypes": [],
+	"requiredTargetTags": [],
+	"excludedTargetTags": [],
 	"deliveryType": "Missile",
 	"projectileDefId": "proj_torpedo_heavy",
 	"bulletColorHex": "#ffe066",
@@ -62,6 +65,7 @@
 	"defaultMissileWidth": 56,
 	"defaultMissileLength": 160,
 	"trackingStrength": 45,
+	"munitionHp": 120,
 	"fireMode": "Sequential",
 	"burstInterval": 0.2,
 	"reloadMode": "Incremental",

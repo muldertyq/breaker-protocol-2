@@ -58,6 +58,9 @@
   ],
   "exhaustPoints": [],
   "properties": {
+	"targetTypes": [],
+	"requiredTargetTags": [],
+	"excludedTargetTags": [],
 	"deliveryType": "ContinuousBeam",
 	"projectileDefId": "proj_kinetic_standard",
 	"bulletColorHex": "#ffe066",

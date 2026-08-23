@@ -106,16 +106,22 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos
 			HoveredIndex = -1;
 		}
 
-		public void Draw(CanvasItem canvas, ModuleDataDefinition module, Vector2 origin, float canvasZoom, bool isEditMode)
+		public void Draw(CanvasItem canvas, ModuleDataDefinition module, Vector2 origin, float canvasZoom, bool isEditMode, float turretRotationRad)
 		{
 			if (module.FirePoints == null || module.FirePoints.Length == 0) return;
 
 			float alpha = isEditMode ? 1.0f : 0.35f;
+			Vector2 pivot = new(module.PivotPixelX, module.PivotPixelY);
 
 			for (int i = 0; i < module.FirePoints.Length; i++)
 			{
 				var fp = module.FirePoints[i];
-				Vector2 screenPos = origin + new Vector2(fp.PixelOffsetX, fp.PixelOffsetY) * canvasZoom;
+				Vector2 localPos = new(fp.PixelOffsetX, fp.PixelOffsetY);
+				if (module.MountType == "Turret")
+				{
+					localPos = pivot + (localPos - pivot).Rotated(turretRotationRad);
+				}
+				Vector2 screenPos = origin + localPos * canvasZoom;
 
 				Color color = isEditMode && (i == SelectedIndex)
 					? Colors.Yellow
@@ -127,7 +133,7 @@ namespace BreakerProtocol.Tools.ModuleEditor.Viewport.Gizmos
 				canvas.DrawCircle(screenPos, 5.0f * canvasZoom, color);
 				canvas.DrawCircle(screenPos, 2.0f * canvasZoom, Colors.Black);
 
-				float dirRad = Mathf.DegToRad(fp.AngleOffset - 90.0f);
+				float dirRad = Mathf.DegToRad(fp.AngleOffset - 90.0f) + turretRotationRad;
 				Vector2 muzzleDir = new(Mathf.Cos(dirRad), Mathf.Sin(dirRad));
 				canvas.DrawLine(screenPos, screenPos + muzzleDir * 16.0f * canvasZoom, new Color(1.0f, 0.5f, 0.2f, 0.8f), 1.5f);
 
