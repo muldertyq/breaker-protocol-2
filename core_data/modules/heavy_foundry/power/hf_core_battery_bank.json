@@ -1,35 +1,77 @@
 {
   "id": "hf_core_battery_bank",
-  "name": "高能电容矩阵",
+  "name": "\u9AD8\u80FD\u7535\u5BB9\u77E9\u9635",
   "faction": "HeavyFoundry",
   "category": "Power",
   "width": 1,
   "height": 2,
-  "mass": 8.0,
-  "baseHp": 300.0,
-  "armorResistance": 20.0,
+  "mass": 8,
+  "baseHp": 300,
+  "armorResistance": 20,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/power/hf_core_battery_bank_base.png",
   "spriteOverlay": "",
-  "tags": ["Power", "Battery", "Capacitor"],
+  "tags": [
+	"Power",
+	"Battery",
+    "Capacitor"
+  ],
   "pins": [
 	{
-	  "pinId": "cap_in",
-	  "type": "IN",
+	  "pinId": "heavypulse_out_0_0_top",
+	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "pulsepower_out_0_0_left",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Left",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "cap_out",
+	  "pinId": "pulsepower_out_0_0_right",
 	  "type": "OUT",
 	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Right",
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "heavypulse_in_0_1_bottom",
+	  "type": "IN",
+	  "localGridX": 0,
 	  "localGridY": 1,
+	  "edge": "Bottom",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "pulsepower_in_0_1_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "edge": "Left",
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "pulsepower_in_0_1_right",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "edge": "Right",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"pulseCapacity": 100.0
   }

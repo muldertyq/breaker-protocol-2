@@ -1,39 +1,55 @@
 {
   "id": "hf_shield_emitter_front",
-  "name": "正面偏导护盾发生器",
+  "name": "\u6B63\u9762\u504F\u5BFC\u62A4\u76FE\u53D1\u751F\u5668",
   "faction": "HeavyFoundry",
   "category": "Armor",
   "width": 2,
   "height": 2,
-  "mass": 14.0,
-  "baseHp": 400.0,
-  "armorResistance": 20.0,
+  "mass": 14,
+  "baseHp": 400,
+  "armorResistance": 20,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 80,
+  "pivotPixelY": 80,
   "spriteBase": "modules/heavy_foundry/armor/hf_shield_emitter_front_base.png",
   "spriteOverlay": "modules/heavy_foundry/armor/hf_shield_emitter_front_glow.png",
-  "tags": ["Defense", "Shield", "Directional"],
+  "tags": [
+	"Defense",
+	"Shield",
+    "Directional"
+  ],
   "pins": [
 	{
 	  "pinId": "power_in_left",
 	  "type": "IN",
 	  "localGridX": 0,
-	  "localGridY": 0,
+	  "localGridY": 1,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	},
 	{
 	  "pinId": "power_in_right",
 	  "type": "IN",
 	  "localGridX": 1,
-	  "localGridY": 0,
+	  "localGridY": 1,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
-	"shieldCapacity": 600.0,
-	"rechargeRate": 25.0,
-	"pulseCost": 8.0,
-	"shieldArc": 180.0
+	"shieldType": "DirectionalArc",
+	"shieldArc": 180,
+	"shieldRadius": 300,
+	"shieldCapacity": 600,
+	"rechargeRate": 26,
+	"pulseCost": 8,
+	"pulseCostOnDamage": 0.5,
+	"heatPerAbsorb": 0.1,
+	"overloadCooldown": 6,
+	"deflectChance": 0
   }
 }

@@ -1,0 +1,19 @@
+{
+  "id": "HeavyFoundry",
+  "name": "重工联合",
+  "description": "粗犷、厚重装甲与高压脉冲工业联合体",
+  "palette": {
+	"armorBaseDark": "#1e212b",
+	"armorBaseMid": "#2d3242",
+	"armorHighlight": "#8892b0",
+	"stripePrimary": "#ff7700",
+	"stripeSecondary": "#ffd000",
+	"emissivePulse": "#ff9900",
+	"emissiveHot": "#ff3300",
+	"shieldColor": "#33bbff"
+  },
+  "uiTheme": {
+	"hudPrimary": "#ff9900",
+	"hudBackground": "#0f1118"
+  }
+}

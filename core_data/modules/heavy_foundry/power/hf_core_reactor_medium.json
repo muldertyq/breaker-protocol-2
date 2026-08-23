@@ -1,49 +1,94 @@
 {
   "id": "hf_core_reactor_medium",
-  "name": "重压核聚变主反应堆",
+  "name": "\u91CD\u538B\u6838\u805A\u53D8\u4E3B\u53CD\u5E94\u5806",
   "faction": "HeavyFoundry",
   "category": "Power",
   "width": 2,
   "height": 2,
-  "mass": 35.0,
-  "baseHp": 800.0,
-  "armorResistance": 30.0,
+  "mass": 35,
+  "baseHp": 800,
+  "armorResistance": 30,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/power/hf_core_reactor_medium_base.png",
   "spriteOverlay": "modules/heavy_foundry/power/hf_core_reactor_medium_glow.png",
-  "tags": ["Power", "Reactor", "Fusion", "Heavy"],
+  "tags": [
+	"Power",
+	"Reactor",
+	"Fusion",
+    "Heavy"
+  ],
   "pins": [
 	{
-	  "pinId": "power_out_top_left",
+	  "pinId": "pulsepower_out_0_0_top",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "power_out_top_right",
+	  "pinId": "heavypulse_out_1_0_top",
 	  "type": "OUT",
 	  "localGridX": 1,
 	  "localGridY": 0,
+	  "edge": "Top",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "heavypulse_out_0_0_left",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Left",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "pulsepower_out_1_0_right",
+	  "type": "OUT",
+	  "localGridX": 1,
+	  "localGridY": 0,
+	  "edge": "Right",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "power_out_bottom_left",
+	  "pinId": "heavypulse_out_0_1_bottom",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 1,
-	  "category": "PulsePower"
+	  "edge": "Bottom",
+	  "category": "HeavyPulse"
 	},
 	{
-	  "pinId": "power_out_bottom_right",
+	  "pinId": "pulsepower_out_1_1_bottom",
 	  "type": "OUT",
 	  "localGridX": 1,
 	  "localGridY": 1,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "pulsepower_out_0_1_left",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "edge": "Left",
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "heavypulse_out_1_1_right",
+	  "type": "OUT",
+	  "localGridX": 1,
+	  "localGridY": 1,
+	  "edge": "Right",
+	  "category": "HeavyPulse"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"powerOutput": 45.0,
 	"maxHeat": 150.0,

@@ -1,25 +1,32 @@
 {
   "id": "hf_hangar_bay_drone",
-  "name": "“蜂巢”舰载无人机弹射舱",
+  "name": "\u201C\u8702\u5DE2\u201D\u8230\u8F7D\u65E0\u4EBA\u673A\u5F39\u5C04\u8231",
   "faction": "HeavyFoundry",
   "category": "Weapons",
   "width": 2,
-  "height": 2,
-  "mass": 15.0,
-  "baseHp": 400.0,
-  "armorResistance": 25.0,
+  "height": 4,
+  "mass": 15.1,
+  "baseHp": 410,
+  "armorResistance": 25,
   "mountType": "Hangar",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_base.png",
   "spriteOverlay": "modules/heavy_foundry/weapons/hf_hangar_bay_drone_drone.png",
-  "tags": ["Hangar", "Drone", "Carrier"],
+  "tags": [
+	"Hangar",
+	"Drone",
+    "Carrier"
+  ],
   "pins": [
 	{
 	  "pinId": "power_in_left",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
 	},
 	{
@@ -27,9 +34,12 @@
 	  "type": "IN",
 	  "localGridX": 1,
 	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"maxDrones": 3,
 	"rebuildTime": 15.0,

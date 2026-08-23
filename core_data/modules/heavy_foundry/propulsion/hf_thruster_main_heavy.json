@@ -1,37 +1,61 @@
 {
   "id": "hf_thruster_main_heavy",
-  "name": "“台风”重型主推进器",
+  "name": "\u201C\u53F0\u98CE\u201D\u91CD\u578B\u4E3B\u63A8\u8FDB\u5668",
   "faction": "HeavyFoundry",
   "category": "Propulsion",
   "width": 2,
   "height": 3,
-  "mass": 28.0,
-  "baseHp": 600.0,
-  "armorResistance": 35.0,
+  "mass": 28,
+  "baseHp": 600,
+  "armorResistance": 35,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/propulsion/hf_thruster_main_heavy_base.png",
   "spriteOverlay": "",
-  "tags": ["Propulsion", "MainThruster", "Heavy"],
+  "tags": [
+	"Propulsion",
+	"MainThruster",
+    "Heavy"
+  ],
   "pins": [
 	{
-	  "pinId": "power_in_left",
+	  "pinId": "pulsepower_in_0_0_top",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "power_in_right",
+	  "pinId": "heavypulse_in_1_0_top",
 	  "type": "IN",
 	  "localGridX": 1,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Top",
+	  "category": "HeavyPulse"
+	}
+  ],
+  "firePoints": [],
+  "exhaustPoints": [
+	{
+	  "id": "exhaust_0",
+	  "pixelOffsetX": 80,
+	  "pixelOffsetY": 232,
+	  "dirX": -4.371139E-08,
+	  "dirY": 1,
+	  "flameLength": 185,
+	  "flameWidth": 90,
+	  "flameColorHex": "#38bdf8"
 	}
   ],
   "properties": {
-	"thrustForce": 3200.0,
-	"pulseCost": 15.0
+	"thrustForce": 3200,
+	"torquePower": 1500,
+	"boostMultiplier": 1.5,
+	"pulseCost": 15,
+	"heatPerSec": 5
   }
 }

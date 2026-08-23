@@ -1,42 +1,53 @@
 {
   "id": "uni_logic_merger",
-  "name": "脉冲合流芯片",
+  "name": "\u8109\u51B2\u5408\u6D41\u82AF\u7247",
   "faction": "Universal",
   "category": "Pipeline",
   "width": 1,
   "height": 1,
   "mass": 0.3,
-  "baseHp": 50.0,
-  "armorResistance": 5.0,
+  "baseHp": 50,
+  "armorResistance": 5,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/universal/pipeline/uni_logic_merger_line.png",
   "spriteOverlay": "",
-  "tags": ["Logic", "Merger", "Pipeline"],
+  "tags": [
+	"Logic",
+	"Merger",
+    "Pipeline"
+  ],
   "pins": [
 	{
-	  "pinId": "in_port_1",
+	  "pinId": "universal_in_0_0_right",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Right",
+	  "category": "Universal"
 	},
 	{
-	  "pinId": "in_port_2",
-	  "type": "IN",
-	  "localGridX": 0,
-	  "localGridY": 0,
-	  "category": "PulsePower"
-	},
-	{
-	  "pinId": "out_port",
+	  "pinId": "universal_out_0_0_top",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Top",
+	  "category": "Universal"
+	},
+	{
+	  "pinId": "universal_in_0_0_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Left",
+	  "category": "Universal"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"ports": 3
   }

@@ -1,32 +1,67 @@
 {
   "id": "hf_wep_pd_laser",
-  "name": "点防御激光塔",
+  "name": "\u70B9\u9632\u5FA1\u6FC0\u5149\u5854",
   "faction": "HeavyFoundry",
   "category": "Weapons",
   "width": 1,
   "height": 1,
-  "mass": 2.0,
-  "baseHp": 150.0,
-  "armorResistance": 10.0,
+  "mass": 2,
+  "baseHp": 150,
+  "armorResistance": 10,
   "mountType": "Turret",
-  "rotationArc": 360.0,
-  "turnRate": 180.0,
+  "rotationArc": 360,
+  "turnRate": 175,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
+  "turretAnchorX": 39,
+  "turretAnchorY": 43,
   "spriteBase": "modules/heavy_foundry/weapons/hf_wep_pd_laser_base.png",
   "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_pd_laser_turret.png",
-  "tags": ["Weapon", "Energy", "PointDefense", "Turret"],
+  "tags": [
+	"Weapon",
+	"Energy",
+	"PointDefense",
+    "Turret"
+  ],
   "pins": [
 	{
-	  "pinId": "power_in",
+	  "pinId": "pulsepower_in_0_0_bottom",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [
+	{
+	  "id": "muzzle_0",
+	  "pixelOffsetX": 30,
+	  "pixelOffsetY": 5,
+	  "angleOffset": 0,
+	  "sequenceIndex": 0
+	}
+  ],
+  "exhaustPoints": [],
   "properties": {
-	"damage": 15.0,
-	"fireRate": 10.0,
-	"range": 45.0,
-	"pulseCost": 0.5
+	"deliveryType": "Beam",
+	"projectileDefId": "proj_kinetic_standard",
+	"bulletColorHex": "#ffe066",
+	"bulletGlowHex": "#ff9900",
+	"beamWidth": 2,
+	"beamDuration": 0.11,
+	"damage": 16,
+	"fireRate": 10.1,
+	"range": 50,
+	"speed": 250,
+	"pierce": 0,
+	"spread": 0,
+	"recoil": 200,
+	"pulseCost": 0.5,
+	"heatPerShot": 3,
+	"spinUpTime": 0,
+	"ammoMax": 0,
+	"reloadTime": 0,
+	"trackingStrength": 0
   }
 }

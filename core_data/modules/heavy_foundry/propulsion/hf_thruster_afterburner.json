@@ -1,26 +1,46 @@
 {
   "id": "hf_thruster_afterburner",
-  "name": "超频加力燃烧室",
+  "name": "\u8D85\u9891\u52A0\u529B\u71C3\u70E7\u5BA4",
   "faction": "HeavyFoundry",
   "category": "Propulsion",
   "width": 1,
   "height": 2,
-  "mass": 6.0,
-  "baseHp": 200.0,
-  "armorResistance": 15.0,
+  "mass": 6,
+  "baseHp": 200,
+  "armorResistance": 15,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/propulsion/hf_thruster_afterburner_base.png",
   "spriteOverlay": "",
-  "tags": ["Propulsion", "Afterburner", "Boost"],
+  "tags": [
+	"Propulsion",
+	"Afterburner",
+    "Boost"
+  ],
   "pins": [
 	{
-	  "pinId": "power_in",
+	  "pinId": "pulsepower_in_0_0_top",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
+	}
+  ],
+  "firePoints": [],
+  "exhaustPoints": [
+	{
+	  "id": "exhaust_0",
+	  "pixelOffsetX": 40,
+	  "pixelOffsetY": 157,
+	  "dirX": 0.0012665819,
+	  "dirY": 0.9999993,
+	  "flameLength": 73,
+	  "flameWidth": 35,
+	  "flameColorHex": "#38bdf8"
 	}
   ],
   "properties": {

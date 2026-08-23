@@ -1,28 +1,48 @@
 {
   "id": "hf_wep_autocannon_s",
-  "name": "“撕裂者”轻型机关炮",
+  "name": "\u201C\u6495\u88C2\u8005\u201D\u8F7B\u578B\u673A\u5173\u70AE",
   "faction": "HeavyFoundry",
   "category": "Weapons",
   "width": 1,
   "height": 1,
-  "mass": 4.0,
-  "baseHp": 220.0,
-  "armorResistance": 18.0,
+  "mass": 4,
+  "baseHp": 220,
+  "armorResistance": 18,
   "mountType": "Turret",
-  "rotationArc": 180.0,
-  "turnRate": 90.0,
+  "rotationArc": 360,
+  "turnRate": 90,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
+  "turretAnchorX": 38,
+  "turretAnchorY": 56,
   "spriteBase": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_base.png",
   "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_autocannon_s_turret.png",
-  "tags": ["Weapon", "Kinetic", "RapidFire", "Turret"],
+  "tags": [
+	"Weapon",
+	"Kinetic",
+	"RapidFire",
+    "Turret"
+  ],
   "pins": [
 	{
-	  "pinId": "power_in",
+	  "pinId": "pulsepower_in_0_0_bottom",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [
+	{
+	  "id": "muzzle_0",
+	  "pixelOffsetX": 40,
+	  "pixelOffsetY": -12,
+	  "angleOffset": 0,
+	  "sequenceIndex": 0
+	}
+  ],
+  "exhaustPoints": [],
   "properties": {
 	"damage": 35.0,
 	"fireRate": 5.0,

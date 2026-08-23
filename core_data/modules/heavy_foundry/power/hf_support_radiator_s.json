@@ -1,28 +1,61 @@
 {
   "id": "hf_support_radiator_s",
-  "name": "外置矩阵散热片",
+  "name": "\u5916\u7F6E\u77E9\u9635\u6563\u70ED\u7247",
   "faction": "HeavyFoundry",
   "category": "Power",
   "width": 1,
   "height": 1,
   "mass": 1.5,
-  "baseHp": 100.0,
-  "armorResistance": 5.0,
+  "baseHp": 100,
+  "armorResistance": 5,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/power/hf_support_radiator_s_base.png",
   "spriteOverlay": "",
-  "tags": ["Cooling", "Radiator", "Support"],
+  "tags": [
+	"Cooling",
+	"Radiator",
+    "Support"
+  ],
   "pins": [
 	{
-	  "pinId": "heat_in",
+	  "pinId": "thermal_in_0_0_top",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Top",
+	  "category": "Thermal"
+	},
+	{
+	  "pinId": "thermal_in_0_0_left",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Left",
+	  "category": "Thermal"
+	},
+	{
+	  "pinId": "thermal_in_0_0_right",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Right",
+	  "category": "Thermal"
+	},
+	{
+	  "pinId": "thermal_in_0_0_bottom",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Bottom",
 	  "category": "Thermal"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"coolingRate": 12.0,
 	"requireExternal": true

@@ -1,28 +1,61 @@
 {
   "id": "hf_core_reactor_small",
-  "name": "应急微型裂变堆",
+  "name": "\u5E94\u6025\u5FAE\u578B\u88C2\u53D8\u5806",
   "faction": "HeavyFoundry",
   "category": "Power",
   "width": 1,
   "height": 1,
-  "mass": 4.0,
-  "baseHp": 200.0,
-  "armorResistance": 15.0,
+  "mass": 4,
+  "baseHp": 200,
+  "armorResistance": 15,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/heavy_foundry/power/hf_core_reactor_small_base.png",
   "spriteOverlay": "modules/heavy_foundry/power/hf_core_reactor_small_glow.png",
-  "tags": ["Power", "Reactor", "Fission"],
+  "tags": [
+	"Power",
+	"Reactor",
+    "Fission"
+  ],
   "pins": [
 	{
-	  "pinId": "power_out_0",
+	  "pinId": "heavypulse_out_0_0_left",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
+	  "edge": "Left",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "heavypulse_out_0_0_right",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Right",
+	  "category": "HeavyPulse"
+	},
+	{
+	  "pinId": "pulsepower_out_0_0_bottom",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Bottom",
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "pulsepower_out_0_0_top",
+	  "type": "OUT",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Top",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"powerOutput": 8.0,
 	"maxHeat": 50.0,

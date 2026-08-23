@@ -1,35 +1,71 @@
 {
   "id": "hf_wep_heavy_mg_m",
-  "name": "双联重机枪",
+  "name": "\u53CC\u8054\u91CD\u673A\u67AA",
   "faction": "HeavyFoundry",
   "category": "Weapons",
-  "width": 2,
-  "height": 1,
-  "mass": 7.0,
-  "baseHp": 300.0,
-  "armorResistance": 25.0,
+  "width": 1,
+  "height": 2,
+  "mass": 7.1,
+  "baseHp": 310,
+  "armorResistance": 25,
   "mountType": "Turret",
-  "rotationArc": 120.0,
-  "turnRate": 60.0,
+  "rotationArc": 120,
+  "turnRate": 60,
+  "pivotPixelX": 39,
+  "pivotPixelY": 122,
+  "turretAnchorX": 38,
+  "turretAnchorY": 121,
   "spriteBase": "modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_base.png",
   "spriteOverlay": "modules/heavy_foundry/weapons/hf_wep_heavy_mg_m_turret.png",
-  "tags": ["Weapon", "Kinetic", "Suppression", "Turret"],
+  "tags": [
+	"Weapon",
+	"Kinetic",
+	"Suppression",
+    "Turret"
+  ],
   "pins": [
 	{
-	  "pinId": "power_in_left",
+	  "pinId": "pulsepower_in_0_1_left",
 	  "type": "IN",
 	  "localGridX": 0,
-	  "localGridY": 0,
+	  "localGridY": 1,
+	  "edge": "Left",
 	  "category": "PulsePower"
 	},
 	{
-	  "pinId": "power_in_right",
+	  "pinId": "pulsepower_in_0_1_right",
 	  "type": "IN",
-	  "localGridX": 1,
-	  "localGridY": 0,
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "edge": "Right",
+	  "category": "PulsePower"
+	},
+	{
+	  "pinId": "pulsepower_in_0_1_bottom",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 1,
+	  "edge": "Bottom",
 	  "category": "PulsePower"
 	}
   ],
+  "firePoints": [
+	{
+	  "id": "muzzle_0",
+	  "pixelOffsetX": 30,
+	  "pixelOffsetY": 4,
+	  "angleOffset": 0,
+	  "sequenceIndex": 0
+	},
+	{
+	  "id": "muzzle_1",
+	  "pixelOffsetX": 49,
+	  "pixelOffsetY": 5,
+	  "angleOffset": 0,
+	  "sequenceIndex": 1
+	}
+  ],
+  "exhaustPoints": [],
   "properties": {
 	"damage": 85.0,
 	"fireRate": 3.0,

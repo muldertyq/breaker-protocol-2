@@ -1,49 +1,61 @@
 {
   "id": "uni_logic_crosser",
-  "name": "十字跨线芯片",
+  "name": "\u5341\u5B57\u8DE8\u7EBF\u82AF\u7247",
   "faction": "Universal",
   "category": "Pipeline",
   "width": 1,
   "height": 1,
   "mass": 0.3,
-  "baseHp": 50.0,
-  "armorResistance": 5.0,
+  "baseHp": 50,
+  "armorResistance": 5,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/universal/pipeline/uni_logic_crosser_line.png",
   "spriteOverlay": "",
-  "tags": ["Logic", "Crosser", "Pipeline"],
+  "tags": [
+	"Logic",
+	"Crosser",
+    "Pipeline"
+  ],
   "pins": [
 	{
-	  "pinId": "channel_a_in",
-	  "type": "IN",
-	  "localGridX": 0,
-	  "localGridY": 0,
-	  "category": "PulsePower"
-	},
-	{
-	  "pinId": "channel_a_out",
+	  "pinId": "universal_out_0_0_top",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Top",
+	  "category": "Universal"
 	},
 	{
-	  "pinId": "channel_b_in",
+	  "pinId": "universal_in_0_0_left",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Left",
+	  "category": "Universal"
 	},
 	{
-	  "pinId": "channel_b_out",
+	  "pinId": "universal_out_0_0_right",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Right",
+	  "category": "Universal"
+	},
+	{
+	  "pinId": "universal_in_0_0_bottom",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Bottom",
+	  "category": "Universal"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"isolated": true
   }

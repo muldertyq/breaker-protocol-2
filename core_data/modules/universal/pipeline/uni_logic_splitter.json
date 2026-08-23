@@ -1,44 +1,58 @@
 {
   "id": "uni_logic_splitter",
-  "name": "脉冲分流芯片",
+  "name": "\u8109\u51B2\u5206\u6D41\u82AF\u7247",
   "faction": "Universal",
   "category": "Pipeline",
   "width": 1,
   "height": 1,
   "mass": 0.3,
-  "baseHp": 50.0,
-  "armorResistance": 5.0,
+  "baseHp": 50,
+  "armorResistance": 5,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/universal/pipeline/uni_logic_splitter_line.png",
   "spriteOverlay": "",
-  "tags": ["Logic", "Splitter", "Pipeline"],
+  "tags": [
+	"Logic",
+	"Splitter",
+    "Pipeline"
+  ],
   "pins": [
 	{
-	  "pinId": "in_port",
+	  "pinId": "universal_in_0_0_bottom",
 	  "type": "IN",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Bottom",
+	  "category": "Universal"
 	},
 	{
-	  "pinId": "out_port_1",
+	  "pinId": "universal_out_0_0_left",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Left",
+	  "category": "Universal"
 	},
 	{
-	  "pinId": "out_port_2",
+	  "pinId": "universal_out_0_0_right",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Right",
+	  "category": "Universal"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"ports": 3,
-	"splitRatio": [0.5, 0.5]
+	"splitRatio": [
+	  0.5,
+	  0.5
+	]
   }
 }

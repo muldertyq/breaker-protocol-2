@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d2qri13s2217d"]
+
+[ext_resource type="Script" uid="uid://bdrqg0dlpufif" path="res://Scripts/Tools/ModuleEditor/ModuleEditorController.cs" id="1_sfaey"]
+
+[node name="ModuleEditor" type="Control" unique_id=771640688]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sfaey")

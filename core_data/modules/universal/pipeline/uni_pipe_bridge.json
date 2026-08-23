@@ -1,35 +1,44 @@
 {
   "id": "uni_pipe_bridge",
-  "name": "通用脉冲直桥",
+  "name": "\u901A\u7528\u8109\u51B2\u76F4\u6865",
   "faction": "Universal",
   "category": "Pipeline",
   "width": 1,
   "height": 1,
   "mass": 0.2,
-  "baseHp": 50.0,
-  "armorResistance": 5.0,
+  "baseHp": 50,
+  "armorResistance": 5,
   "mountType": "Fixed",
-  "rotationArc": 0.0,
-  "turnRate": 0.0,
+  "rotationArc": 0,
+  "turnRate": 0,
+  "pivotPixelX": 40,
+  "pivotPixelY": 40,
   "spriteBase": "modules/universal/pipeline/uni_pipe_bridge_line.png",
   "spriteOverlay": "",
-  "tags": ["Pipeline", "Conduit"],
+  "tags": [
+	"Pipeline",
+    "Conduit"
+  ],
   "pins": [
 	{
-	  "pinId": "in_port",
-	  "type": "IN",
-	  "localGridX": 0,
-	  "localGridY": 0,
-	  "category": "PulsePower"
-	},
-	{
-	  "pinId": "out_port",
+	  "pinId": "universal_out_0_0_top",
 	  "type": "OUT",
 	  "localGridX": 0,
 	  "localGridY": 0,
-	  "category": "PulsePower"
+	  "edge": "Top",
+	  "category": "Universal"
+	},
+	{
+	  "pinId": "universal_in_0_0_bottom",
+	  "type": "IN",
+	  "localGridX": 0,
+	  "localGridY": 0,
+	  "edge": "Bottom",
+	  "category": "Universal"
 	}
   ],
+  "firePoints": [],
+  "exhaustPoints": [],
   "properties": {
 	"lossRate": 0.0
   }
